@@ -1,5 +1,6 @@
 #include <iostream>
 #include "mur.h"
+#include "Terrain.h"
 Mur::Mur(Point a,Point b,Point c,Point d)
 {
         v=a;
@@ -13,7 +14,7 @@ Point Mur::GetX() const{ return x;}
 Point Mur::GetY() const{ return y;}
 void Mur::m_Gauche(Terrain t)
 {
-    if(t.posPersovalide(v.x-1,v.y)) 
+    if(t.posValide(v.x-1,v.y)) 
     {
         v.x--;
         w.x--;
@@ -24,7 +25,7 @@ void Mur::m_Gauche(Terrain t)
 }
 void Mur::m_Droite(Terrain t)
 {
-    if(t.posPersovalide(w.x+1,w.y)) 
+    if(t.posValide(w.x+1,w.y)) 
     {
         v.x++;
         w.x++;
@@ -35,7 +36,7 @@ void Mur::m_Droite(Terrain t)
 }
 void Mur::m_Haute(Terrain t)
 {
-    if(t.posPersovalide(w.x,w.y+1) && t.posPersovalide(v.x,v.y+1)) 
+    if(t.posValide(w.x,w.y+1) && t.posPersovalide(v.x,v.y+1)) 
     {
         v.x++;
         w.x++;
@@ -46,7 +47,7 @@ void Mur::m_Haute(Terrain t)
 }
 void Mur::m_Bas(Terrain t)
 {
-    if(t.posPersovalide(w.x,w.y-1) && t.posPersovalide(v.x,v.y-1)) 
+    if(t.posValide(w.x,w.y-1) && t.posPersovalide(v.x,v.y-1)) 
     {
         v.x--;
         w.x--;
