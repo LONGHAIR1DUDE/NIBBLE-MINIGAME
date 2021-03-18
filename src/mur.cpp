@@ -36,7 +36,7 @@ void Mur::m_Droite(Terrain t)
 }
 void Mur::m_Haute(Terrain t)
 {
-    if(t.posValide(w.x,w.y+1) && t.posPersovalide(v.x,v.y+1)) 
+    if(t.posValide(w.x,w.y+1) && t.posValide(v.x,v.y+1)) 
     {
         v.x++;
         w.x++;
@@ -47,7 +47,7 @@ void Mur::m_Haute(Terrain t)
 }
 void Mur::m_Bas(Terrain t)
 {
-    if(t.posValide(w.x,w.y-1) && t.posPersovalide(v.x,v.y-1)) 
+    if(t.posValide(w.x,w.y-1) && t.posValide(v.x,v.y-1)) 
     {
         v.x--;
         w.x--;
