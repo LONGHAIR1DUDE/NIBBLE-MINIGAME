@@ -17,8 +17,9 @@ Un mur dans l'application NIBBLE est les 4 points v,w,x,y.
 struct Point
 {
     int x,y;
-    
+    Point ();
 };
+
 class Mur
 { 
 private :
@@ -30,7 +31,7 @@ private :
     void m_Haute(Terrain t);
     void m_Bas(Terrain t);
 public : 
-    Mur ();
+    Mur (Point a,Point b,Point c,Point d);
     void m_Mouvement(float mouvement,Terrain t);
     Point GetV() const;
     Point GetW() const;
