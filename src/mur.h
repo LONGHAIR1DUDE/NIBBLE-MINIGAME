@@ -30,6 +30,7 @@ private :
     void m_Haute(Terrain t);
     void m_Bas(Terrain t);
 public : 
+    Mur ();
     void m_Mouvement(float mouvement,Terrain t);
     Point GetV() const;
     Point GetW() const;
@@ -38,3 +39,4 @@ public :
     
     
 };
+#endif
