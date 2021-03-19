@@ -8,7 +8,7 @@ using namespace std;
 
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
-        recupNiveau("./data/niveau1.txt");
+         recupNiveau("./data/niveau1.txt");
 }
 
 Terrain::~Terrain () {}
@@ -18,6 +18,7 @@ Terrain::~Terrain () {}
 void Terrain::recupNiveau (const string& nomFichier) {
     ifstream monFlux(nomFichier);
     if (monFlux) {
+        ter.clear();
         string ligne;
         getline(monFlux, ligne);
         dimx = ligne.size();
