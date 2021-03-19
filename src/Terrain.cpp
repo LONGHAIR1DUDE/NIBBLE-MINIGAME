@@ -82,15 +82,3 @@ int Terrain::getDimX () const { return dimx; }
 
 // Retourne la valeur de dimy
 int Terrain::getDimY () const { return dimy; }
-
-// Retourne le contenu du tableau dynamique ter 
-vector<char> Terrain::getTabTerrain () const { 
-    vector<char> copieTerrain;
-    for (int y = 0; y < dimy; y++) {
-        for (int x = 0; x < dimx; x++) {
-            copieTerrain[y*dimx+x] = ter[y*dimx+x];
-        }
-    }
-
-    return copieTerrain;
-}
