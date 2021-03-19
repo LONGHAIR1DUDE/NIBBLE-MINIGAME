@@ -1,7 +1,7 @@
 /**
 @brief Module gérant un mur dans l'application NIBBLE
 
-Un mur dans l'application NIBBLE est les 4 points v,w,x,y.
+Un mur dans l'application NIBBLE est définie par les 4 points v,w,x,y.
 
 @file MUR.h
 @date 2021/03-->05
