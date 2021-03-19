@@ -15,8 +15,6 @@ private:
     Point tabCle[3];
 
 public:
-    char tab2Dterrain[100][100];
-
     Terrain();
     ~Terrain();
 

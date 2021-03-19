@@ -31,11 +31,11 @@ const char niveau1[22][22] = {
 };
 
 // Constructeur de la classe Terrain
-Terrain::Terrain() : dimx(22), dimy(22) {
-    for (int x = 0; x < dimx; x++) 
-        for (int y = 0; y < dimy; y++) 
-            tab2Dterrain[x][y] = niveau1[dimy-1-y][x];
+Terrain::Terrain() : dimx(100), dimy(100) {
+        recupNiveau("./data/niveau1.txt");
 }
+
+Terrain::~Terrain () {}
 
 // Lis le fichier passé en paramètre et stocke les caractères dans 
 // le tableau dynamique ter
@@ -44,12 +44,14 @@ void Terrain::recupNiveau (const string& nomFichier) {
     if (monFlux) {
         string ligne;
         getline(monFlux, ligne);
-
         dimx = ligne.size();
-        
+
+        monFlux.seekg(0, std::ios::beg);
+        char a;
         do {
-            ter.push_back(monFlux.get());
-        } while (monFlux.get());
+            monFlux.get(a);
+            ter.push_back(a);
+        } while (monFlux.get(a)) ;
 
         dimy = ter.size()/dimx;
         tailleTab = ter.size();
