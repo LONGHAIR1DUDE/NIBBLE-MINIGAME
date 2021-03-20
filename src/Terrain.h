@@ -11,7 +11,7 @@ private:
     vector<char> ter;
     int dimx;
     int dimy;
-    int tailleTab;
+    int tailleTerrain;
     Point tabCle[3];
 
 public:
@@ -20,14 +20,14 @@ public:
 
     void recupNiveau(const string& nomFichier);
     void posAleaCle();
-    bool posValide(const int x, const int y) const;
+    bool posValide(int x, int y);
     char getXY(const int x, const int y) const;
     void mangeBonus(const int x, const int y);
-    bool mangePiece(const int x, const int y) const;
+    bool mangePiece(const int x, const int y);
     int getDimX() const;
     int getDimY() const;
-    int getTailleTab() const;
-    vector<char> getTabTerrain() const;
+    int getTailleTerrain() const;
+    // void testRegression();
 };
 
 
