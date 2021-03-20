@@ -10,16 +10,17 @@ class Serpent {
 private:
     vector<Point> corps;
 public:
-    Serpent(int posX, int posY);
+    Serpent(const int posX, const int posY);
 
-    void gauche(Terrain t);
-    void droite(Terrain t);
-    void haut(Terrain t);
-    void bas(Terrain t);
-    Point getCorps(int i);
-    Point getTete();
-    void setCorps(int i,int x, int y);
-    void setTete(int x, int y);
+    void gauche(const Terrain& t);
+    void droite(const Terrain& t);
+    void haut(const Terrain& t);
+    void bas(const Terrain& t);
+    Point getCorps(const int i) const;
+    Point getTete() const;
+    void setCorps(const int i, const int x, const int y);
+    void setTete(const int x, const int y);
+    void testRegression();
  };
 
 
