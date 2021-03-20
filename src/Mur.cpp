@@ -38,10 +38,10 @@ void Mur::m_Haute(Terrain t)
 {
     if(t.posValide(w.x,w.y+1) && t.posValide(v.x,v.y+1)) 
     {
-        v.x++;
-        w.x++;
-        x.x++;
-        y.x++;
+        v.y++;
+        w.y++;
+        x.y++;
+        y.y++;
     }
     
 }
@@ -49,10 +49,10 @@ void Mur::m_Bas(Terrain t)
 {
     if(t.posValide(w.x,w.y-1) && t.posValide(v.x,v.y-1)) 
     {
-        v.x--;
-        w.x--;
-        x.x--;
-        y.x--;
+        v.y--;
+        w.y--;
+        x.y--;
+        y.y--;
     }
     
 }
