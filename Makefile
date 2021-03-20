@@ -10,6 +10,9 @@ $(EXE1): Terrain.o mainAffiche.o
 Terrain.o: ./src/Terrain.h ./src/Terrain.cpp ./src/Point.h
 	$(CC) $(FLAGS) -c ./src/Terrain.cpp -o ./obj/Terrain.o
 
+Serpent.o: ./src/Serpent.h ./src/Serpent.cpp ./src/Terrain.h ./src/Point.h
+	$(CC) $(FLAGS) -c ./src/Serpent.cpp -o ./obj/Serpent.o
+
 mainAffiche.o: ./src/mainAffiche.cpp ./src/Terrain.cpp
 	$(CC) $(FLAGS) -c ./src/mainAffiche.cpp -o ./obj/mainAffiche.o
 
