@@ -12,12 +12,12 @@ private:
 public:
     Serpent(int posX, int posY);
 
-    void gauche(Terrain t);
-    void droite(Terrain t);
-    void haut(Terrain t);
-    void bas(Terrain t);
-    Point getCorps(int i);
-    Point getTete();
+    void gauche(const Terrain& t);
+    void droite(const Terrain& t);
+    void haut(const Terrain& t);
+    void bas(const Terrain& t);
+    Point getCorps(int i)const;
+    Point getTete()const;
     void setCorps(int i,int x, int y);
     void setTete(int x, int y);
  };

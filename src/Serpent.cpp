@@ -9,76 +9,67 @@ Serpent::Serpent(posX, posY){
 
 void Serpent::gauche(Terrain t){
     int i=1;
+    int t=corps.size();
     Point temp1,temp2;
-    temp1.x=corps[0].x;
-    temp1.y=corps[0].y;
+    temp1=corps[0];
     if(t.posValide(x-1, y)){
         corps[0].x--;
-        while(corps[i]!=corps.end())
+        while(i!=t)
         {
-            temp2.x=corps[i].x;
-            temp2.y=corps[i].y;
-            corps[i].x=temp1.x;
-            corps[i].y=temp1.y;
-            temp1.x=temp2.x;
-            temp1.y=temp2.y;
+            temp2=corps[i];
+            corps[i]=temp1;
+            temp1=temp2;
             i++;
         }
     }
 }
+
 void Serpent::droite(Terrain t){
     int i=1;
+    int t=corps.size();
     Point temp1,temp2;
-    temp1.x=corps[0].x;
-    temp1.y=corps[0].y;
+    temp1=corps[0];
     if(t.posValide(x+1, y)){
         corps[0].x++;
-        while(corps[i]!=corps.end())
+        while(i!=t)
         {
-            temp2.x=corps[i].x;
-            temp2.y=corps[i].y;
-            corps[i].x=temp1.x;
-            corps[i].y=temp1.y;
-            temp1.x=temp2.x;
-            temp1.y=temp2.y;
+            temp2=corps[i];
+            corps[i]=temp1;
+            temp1=temp2;
             i++;
         }
     }
 }
+
 void Serpent::haut(Terrain t){
     int i=1;
+    int t=corps.size();
     Point temp1,temp2;
-    temp1.x=corps[0].x;
-    temp1.y=corps[0].y;
+    temp1=corps[0];
     if(t.posValide(x, y+1)){
         corps[0].y++;
-        while(corps[i]!=corps.end())
+        while(i!=t)
         {
-            temp2.x=corps[i].x;
-            temp2.y=corps[i].y;
-            corps[i].x=temp1.x;
-            corps[i].y=temp1.y;
-            temp1.x=temp2.x;
-            temp1.y=temp2.y;
+            temp2=corps[i];
+            corps[i]=temp1;
+            temp1=temp2;
             i++;
         }
     }
 }
+
 void Serpent::bas(Terrain t){
     int i=1;
+    int t=corps.size();
     Point temp1,temp2;
-    temp1.x=corps[0].x;
-    temp1.y=corps[0].y;
+    temp1=corps[0];
     if(t.posValide(x, y-1)){
         corps[0].y--;
-        while(corps[i]!=corps.end())
+        while(i!=t)
         {
-            temp2.x=corps[i].x;
-            temp2.y=corps[i].y;
-            corps[i].x=temp1.x;
-            corps[i].y=temp1.y;
-            temp1.x=temp2.x;
-            temp1.y=temp2.y;
+            temp2=corps[i];
+            corps[i]=temp1;
+            temp1=temp2;
             i++;
         }
     }
