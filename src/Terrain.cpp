@@ -16,28 +16,28 @@ Terrain::~Terrain () {}
 // Lis le fichier passé en paramètre et stocke les caractères dans 
 // le tableau dynamique ter
 void Terrain::recupNiveau (const string& nomFichier) {
-    ifstream monFlux(nomFichier);
-    if (monFlux) {
+    ifstream monFichier(nomFichier);
+    if (monFichier) {
         ter.clear();
-        string ligne;
-        getline(monFlux, ligne);
-        dimx = ligne.size();
+        string nbCarLigne;
+        getline(monFichier, nbCarLigne);
+        dimx = nbCarLigne.size();
 
-        monFlux.seekg(0, std::ios::beg);
+        monFichier.seekg(0, std::ios::beg);
         char a;
         do {
-            monFlux.get(a);
+            monFichier.get(a);
             ter.push_back(a);
-        } while (monFlux.get(a)) ;
+        } while (monFichier.get(a));
 
-        dimy = ter.size()/dimx;
-        tailleTab = ter.size();
-
+        tailleTerrain = ter.size();
+        dimy = tailleTerrain/dimx;
+    
     } else 
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
 }
 
-// Fonction qui renvoi true si les coordonnées (x,y) passées en 
+// Fonction qui renvoie true si les coordonnées (x,y) passées en 
 // paramètres ce trouve dans le niveau false sinon
 bool Terrain::posValide(int x, int y) const {
     return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] != '#');
@@ -70,15 +70,42 @@ void Terrain::posAleaCle () {
         tabCle[c].y = rand()% dimy;
         if (posValide(tabCle[c].x, tabCle[c].y)) {
             ter[tabCle[c].y*dimx+tabCle[c].x] = 'c';
-        }
+        } 
     }
 }
 
 // Retourne la taille du tableau dynamique ter
-int Terrain::getTailleTab() const { return tailleTab; }
+int Terrain::getTailleTerrain() const { return tailleTerrain; }
 
 // Retourne la valeur de dimx
 int Terrain::getDimX () const { return dimx; }
 
 // Retourne la valeur de dimy
 int Terrain::getDimY () const { return dimy; }
+
+// void Terrain::testRegression () {
+//     int x = 20;
+//     int y = 14;
+
+//     recupNiveau("./data/niveauTestReg.txt");
+//     assert(posValide(x,y));
+//     char tampon1; 
+//     char tampon2; 
+
+//     for (int y = 0; y < dimy; y++) {
+//         for (int x = 0; x < dimx; x++) {
+//             tampon1 = ter[y*dimx+x];
+//             tampon2 = getXY(x,y);
+//             assert(tampon1 == tampon2);
+//         }
+//     }
+    
+//     mangeBonus(x,y);
+//     assert(getXY(x,y) == ' ');
+
+//     posAleaCle();
+//     assert(sizeof(tabCle == 3));
+//     assert(getTailleTerrain() == ter.size());
+
+//     cout<<"assert ended successfully ."<<endl;
+// }

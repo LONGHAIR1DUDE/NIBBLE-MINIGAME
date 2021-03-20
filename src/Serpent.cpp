@@ -2,8 +2,7 @@
 #include <cassert>
 using namespace std;
 
-Serpent::Serpent (const int posX, const int posY) {
-    Terrain t;
+Serpent::Serpent (const int posX, const int posY, const Terrain& t) {
     if (t.posValide(posX, posY)) {
         corps[0].x=posX;
         corps[0].y=posY;
@@ -100,7 +99,7 @@ void Serpent::setTete (const int x, const int y) {
 
 void Serpent::testRegression () {
     const Terrain t;
-    Serpent serp(20, 20);
+    Serpent serp(20, 20, t);
     serp.corps[1].x = serp.corps[0].x+1;
     serp.corps[1].y = serp.corps[0].y;
     int x = serp.corps[0].x;

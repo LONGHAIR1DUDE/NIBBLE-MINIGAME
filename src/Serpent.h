@@ -10,7 +10,7 @@ class Serpent {
 private:
     vector<Point> corps;
 public:
-    Serpent(const int posX, const int posY);
+    Serpent(const int posX, const int posY, const Terrain& t);
 
     void gauche(const Terrain& t);
     void droite(const Terrain& t);
