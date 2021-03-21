@@ -4,8 +4,10 @@ using namespace std;
 
 Serpent::Serpent (const int posX, const int posY, const Terrain& t) {
     if (t.posValide(posX, posY)) {
-        corps[0].x=posX;
-        corps[0].y=posY;
+        Point p;
+        p.x = posX;
+        p.y = posY;
+        corps.push_back(p);
     }
 }
 
@@ -25,6 +27,7 @@ void Serpent::gauche (const Terrain& t) {
             temp1.y=temp2.y;
         }
     }
+    else cout << "pose invalide!!!" << endl;
 }
 void Serpent::droite (const Terrain& t) {
     Point temp1,temp2;
@@ -99,46 +102,46 @@ void Serpent::setTete (const int x, const int y) {
 
 void Serpent::testRegression () {
     const Terrain t;
-    Serpent serp(20, 20, t);
-    serp.corps[1].x = serp.corps[0].x+1;
-    serp.corps[1].y = serp.corps[0].y;
-    int x = serp.corps[0].x;
-    int y = serp.corps[0].y;
-    
+    Point p1(10, 4);
+    corps.push_back(p1);
+    int x = corps[0].x;
+    int y = corps[0].y;
+
     gauche(t);
-    assert(serp.corps[0].x == x-1);
-    assert(serp.corps[0].y == y);
-    assert(serp.corps[1].x == x);
-    assert(serp.corps[1].y == y);
+    assert(corps[0].x == x-1);
+    assert(corps[0].y == y);
+    assert(corps[1].x == x);
+    assert(corps[1].y == y);
 
     haut(t);
-    assert(serp.corps[0].x == x-1);
-    assert(serp.corps[0].y == y+1);
-    assert(serp.corps[1].x == x-1);
-    assert(serp.corps[1].y == y);
+    assert(corps[0].x == x-1);
+    assert(corps[0].y == y+1);
+    assert(corps[1].x == x-1);
+    assert(corps[1].y == y);
 
-    serp.corps[1].x = serp.corps[0].x-1;
-    serp.corps[1].y = serp.corps[0].y;
+    Point p2(8, 4);
+    corps.pop_back();
+    corps.push_back(p2);
     
     droite(t);
-    assert(serp.corps[0].x == x);
-    assert(serp.corps[0].y == y+1);
-    assert(serp.corps[1].x == x-1);
-    assert(serp.corps[1].y == y+1);
+    assert(corps[0].x == x);
+    assert(corps[0].y == y+1);
+    assert(corps[1].x == x-1);
+    assert(corps[1].y == y+1);
 
     bas(t);
-    assert(serp.corps[0].x == x);
-    assert(serp.corps[0].y == y);
-    assert(serp.corps[1].x == x);
-    assert(serp.corps[1].y == y+1);
+    assert(corps[0].x == x);
+    assert(corps[0].y == y);
+    assert(corps[1].x == x);
+    assert(corps[1].y == y+1);
 
     Point val = getCorps(0);
-    assert(val.x == serp.corps[0].x);
-    assert(val.y == serp.corps[0].y);
+    assert(val.x == corps[0].x);
+    assert(val.y == corps[0].y);
 
     val = getTete();
-    assert(val.x == serp.corps[0].x);
-    assert(val.y == serp.corps[0].y);
+    assert(val.x == corps[0].x);
+    assert(val.y == corps[0].y);
 
     setCorps(1, 21, 20);
     assert(getCorps(1).x == 21);
@@ -150,3 +153,5 @@ void Serpent::testRegression () {
     cout<<"assert ended successfully ."<<endl;
 }
 
+
+    
