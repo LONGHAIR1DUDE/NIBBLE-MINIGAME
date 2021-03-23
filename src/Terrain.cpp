@@ -4,11 +4,16 @@
 #include <cstdlib>
 #include <cstring>
 #include <string>
+#include <time.h>
 using namespace std;
 
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
          recupNiveau("./data/niveau1.txt");
+}
+
+Terrain::Terrain(const string& namefile) {
+    recupNiveau(namefile);
 }
 
 Terrain::~Terrain () {}
@@ -28,6 +33,14 @@ void Terrain::recupNiveau (const string& nomFichier) {
         do {
             monFichier.get(a);
             ter.push_back(a);
+            int i = 0;
+            cout << endl;
+            cout << "size(): " << ter.size() << endl;
+            for (auto &element : ter) {
+                cout << "ter[" << i << "]: " << element << "  ";
+                i++; 
+            }
+            cout << endl;
         } while (monFichier.get(a));
 
         tailleTerrain = ter.size();

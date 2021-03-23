@@ -16,6 +16,7 @@ private:
 
 public:
     Terrain();
+    Terrain(const string& namefile);
     ~Terrain();
 
     void recupNiveau(const string& nomFichier);
