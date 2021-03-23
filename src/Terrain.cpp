@@ -79,7 +79,8 @@ void Terrain::posAleaCle () {
             tabCle[c].x = rand()% dimx;
             tabCle[c].y = rand()% dimy;
         } while (!posValide(tabCle[c].x, tabCle[c].y) || 
-            ((tabCle[c].x == tabCle[c-1].x) && (tabCle[c].y == tabCle[c-1].y)));
+             ((tabCle[c].x == tabCle[c-1].x) && (tabCle[c].y == tabCle[c-1].y)) || 
+             ((tabCle[2].x == tabCle[0].x) && (tabCle[2].y == tabCle[0].y)));
         ter[tabCle[c].y*dimx+tabCle[c].x] = 'c';
     }
 }
