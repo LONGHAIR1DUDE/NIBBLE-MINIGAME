@@ -26,25 +26,18 @@ void Terrain::recupNiveau (const string& nomFichier) {
         ter.clear();
         string nbCarLigne;
         getline(monFichier, nbCarLigne);
-        dimx = nbCarLigne.size();
+        dimx = nbCarLigne.size() + 1;
 
         monFichier.seekg(0, std::ios::beg);
         char a;
-        do {
-            monFichier.get(a);
+        
+        while (monFichier.get(a)) {
             ter.push_back(a);
-            int i = 0;
-            cout << endl;
-            cout << "size(): " << ter.size() << endl;
-            for (auto &element : ter) {
-                cout << "ter[" << i << "]: " << element << "  ";
-                i++; 
-            }
-            cout << endl;
-        } while (monFichier.get(a));
+            if (a == ' ') ter.pop_back();
+        } 
 
         tailleTerrain = ter.size();
-        dimy = tailleTerrain/dimx;
+        dimy = (tailleTerrain/dimx) + 1;
     
     } else 
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;

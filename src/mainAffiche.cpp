@@ -3,12 +3,11 @@
 using namespace std;
 
 int main () {
-    Terrain terrain("./data/niveauTest.txt");
-    // terrain.posAleaCle();
+    Terrain terrain("./data/niveau2.txt");
+    terrain.posAleaCle();
     int tailleX = terrain.getDimX();
     int tailleY = terrain.getDimY();
     int tailleTerrain = terrain.getTailleTerrain();
-    cout << endl;
     cout << "size(): " << tailleTerrain << " " << "dimx: " << tailleX << " " << "dimy: " << tailleY << endl;
     for (int y = 0; y < tailleY; y++) {
         for (int x = 0; x < tailleX; x++) {
