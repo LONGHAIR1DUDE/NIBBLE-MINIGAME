@@ -18,7 +18,7 @@ Terrain::Terrain(const string& namefile) {
 
 Terrain::~Terrain () {}
 
-// Lis le fichier passé en paramètre et stocke les caractères dans 
+// Lis le fichier passé en paramètre et stocke les caractères dans
 // le tableau dynamique ter
 void Terrain::recupNiveau (const string& nomFichier) {
     ifstream monFichier(nomFichier);
@@ -36,17 +36,17 @@ void Terrain::recupNiveau (const string& nomFichier) {
                 ter.push_back(a);
             }
             cpt++;
-        } 
+        }
 
         tailleTerrain = ter.size();
         dimy = (tailleTerrain/dimx);
-    
+
     } else {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
     }
 }
 
-// Fonction qui renvoie true si les coordonnées (x,y) passées en 
+// Fonction qui renvoie true si les coordonnées (x,y) passées en
 // paramètres ce trouve dans le niveau false sinon
 bool Terrain::posValide(int x, int y) const {
     return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] != '#');
@@ -62,7 +62,7 @@ char Terrain::getXY(int x, int y) const {
 }
 
 // Procédure qui mais le caractère ' ' aux coordonnées (x,y)
-// passées en paramètre 
+// passées en paramètre
 void Terrain::mangeBonus(int x, int y) {
     assert(x>=0);
     assert(x<dimx);
@@ -78,7 +78,7 @@ void Terrain::posAleaCle () {
         do {
             tabCle[c].x = rand()% dimx;
             tabCle[c].y = rand()% dimy;
-        } while (!posValide(tabCle[c].x, tabCle[c].y) || 
+        } while (!posValide(tabCle[c].x, tabCle[c].y) ||
             ((tabCle[c].x == tabCle[c-1].x) && (tabCle[c].y == tabCle[c-1].y)));
         ter[tabCle[c].y*dimx+tabCle[c].x] = 'c';
     }
@@ -92,4 +92,44 @@ int Terrain::getDimX () const { return dimx; }
 
 // Retourne la valeur de dimy
 int Terrain::getDimY () const { return dimy; }
+
+void testRegression(){
+    int pos;
+    int compteur=0;
+    for(int i=0;i<21;i++){
+        assert(ter[i]=='#');
+    }
+    for(int i=1;i<17;i++){
+        for(int j=1;j<20;j++){
+            assert(ter[i*dimx+j]=='.');
+        }
+    }
+    for(int i=18*dimx;i<18*dimx+21;i++){
+        assert(ter[i]=='#');
+    }
+    for(int i=0;i<21;i++){
+        pos=posValide(i,0));
+        assert(pos=false);
+    }
+    for(int i=1;i<17;i++){
+        for(int j=1;j<20;j++){
+            pos=posValide(j,i));
+            assert(pos=true);
+        }
+    }
+    posAleaCle();
+    for(int i=0;i<3;i++){
+    if(assert(ter[tabCle[i].y*dimx+tabCle[i].x]='c'))
+        compteur++;
+    }
+    assert(compteur==3);
+    for(int i=1;i<17;i++){
+        for(int j=1;j<20;j++){
+            if(t(i*dimx+j)==c){
+                mangeBonus(j,i);
+                assert(ter[i*dimx+j]==' ');
+            }
+        }
+    }
+}
 
