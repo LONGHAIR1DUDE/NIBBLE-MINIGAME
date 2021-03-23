@@ -14,13 +14,21 @@ private:
     Terrain terrain;
     Serpent serpent;
     vector<Mur> murs;
-    
+    vecotr<Portail> Portail;
+    vector<Bonus> bonus;
 
 public:
-    Terrain& getTerrain();
-    Mur getMur(int i);
-    int getNbMurs();
-    
+    Terrain& getTerrain() const;
+    Serpent& getSerpent() const;
+    Mur getMur(int i) const; 
+    int getNbMurs() const;
+    Portail getPortail(int i) const;
+    int getNbPortails() const;
+    Bonus getBonus(int i) const;
+    int getNbBonus() const;
+    bool actionClavier();
+    void placementAleatoire();
+
 };
 
 #endif
