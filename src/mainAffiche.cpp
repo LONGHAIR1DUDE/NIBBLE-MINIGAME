@@ -3,7 +3,7 @@
 using namespace std;
 
 int main () {
-    Terrain terrain("./data/niveauTest.txt");
+    Terrain terrain("./data/niveau1.txt");
     // terrain.posAleaCle();
     int tailleX = terrain.getDimX();
     int tailleY = terrain.getDimY();
@@ -14,5 +14,6 @@ int main () {
             cout << terrain.getXY(x,y);
         }
     }
+    cout << endl;
     return 0;
 }
