@@ -93,29 +93,3 @@ int Terrain::getDimX () const { return dimx; }
 // Retourne la valeur de dimy
 int Terrain::getDimY () const { return dimy; }
 
-// void Terrain::testRegression () {
-//     int x = 20;
-//     int y = 14;
-
-//     recupNiveau("./data/niveauTestReg.txt");
-//     assert(posValide(x,y));
-//     char tampon1; 
-//     char tampon2; 
-
-//     for (int y = 0; y < dimy; y++) {
-//         for (int x = 0; x < dimx; x++) {
-//             tampon1 = ter[y*dimx+x];
-//             tampon2 = getXY(x,y);
-//             assert(tampon1 == tampon2);
-//         }
-//     }
-    
-//     mangeBonus(x,y);
-//     assert(getXY(x,y) == ' ');
-
-//     posAleaCle();
-//     assert(sizeof(tabCle == 3));
-//     assert(getTailleTerrain() == ter.size());
-
-//     cout<<"assert ended successfully ."<<endl;
-// }
