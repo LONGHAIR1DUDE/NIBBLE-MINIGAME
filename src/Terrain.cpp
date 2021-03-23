@@ -41,8 +41,9 @@ void Terrain::recupNiveau (const string& nomFichier) {
         tailleTerrain = ter.size();
         dimy = (tailleTerrain/dimx);
     
-    } else 
+    } else {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
+    }
 }
 
 // Fonction qui renvoie true si les coordonnées (x,y) passées en 
@@ -74,11 +75,12 @@ void Terrain::mangeBonus(int x, int y) {
 void Terrain::posAleaCle () {
     srand(time(NULL));
     for (int c = 0; c < 3; c++) {
-        tabCle[c].x = rand()% dimx;
-        tabCle[c].y = rand()% dimy;
-        if (posValide(tabCle[c].x, tabCle[c].y)) {
-            ter[tabCle[c].y*dimx+tabCle[c].x] = 'c';
-        } 
+        do {
+            tabCle[c].x = rand()% dimx;
+            tabCle[c].y = rand()% dimy;
+        } while (!posValide(tabCle[c].x, tabCle[c].y) || 
+            ((tabCle[c].x == tabCle[c-1].x) && (tabCle[c].y == tabCle[c-1].y)));
+        ter[tabCle[c].y*dimx+tabCle[c].x] = 'c';
     }
 }
 
