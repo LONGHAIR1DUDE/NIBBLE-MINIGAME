@@ -2,14 +2,18 @@ FLAGS =-Wall -g
 CC = g++ 
 EXE1 = ./bin/afficheTerrain
 EXE2 = ./bin/test
+EXE3 = ./bin/terrainRegression
 
-all: $(EXE1) $(EXE2)
+all: $(EXE1) $(EXE2) $(EXE3)
 
 $(EXE1): ./obj/Terrain.o ./obj/mainAffiche.o ./obj/Point.o
 	$(CC) -g ./obj/mainAffiche.o ./obj/Point.o ./obj/Terrain.o -o $(EXE1)
 
 $(EXE2): ./obj/Serpent.o ./obj/mainTestRegression.o ./obj/Point.o ./obj/Terrain.o
 	$(CC) -g ./obj/Terrain.o ./obj/mainTestRegression.o ./obj/Point.o ./obj/Serpent.o -o $(EXE2)
+	
+$(EXE3): ./obj/Terrain.o ./obj/mainTerrainRegression.o ./obj/Point.o
+	$(CC) -g ./obj/mainTerrainRegression.o ./obj/Point.o ./obj/Terrain.o -o $(EXE3)
 
 ./obj/Serpent.o: ./src/Serpent.h ./src/Serpent.cpp ./src/Terrain.h ./src/Point.h
 	$(CC) $(FLAGS) -c ./src/Serpent.cpp -o ./obj/Serpent.o
@@ -28,6 +32,9 @@ $(EXE2): ./obj/Serpent.o ./obj/mainTestRegression.o ./obj/Point.o ./obj/Terrain.
 
 ./obj/mainAffiche.o: ./src/mainAffiche.cpp ./src/Terrain.h
 	$(CC) $(FLAGS) -c ./src/mainAffiche.cpp -o ./obj/mainAffiche.o
+	
+./obj/mainTerrainRegression.o: ./src/mainTerrainRegression.cpp ./src/Terrain.h
+	$(CC) $(FLAGS) -c ./src/mainTerrainRegression.cpp -o ./obj/mainTerrainRegression.o
 
 clean: 
 	rm -rf ./obj/* ./bin/*

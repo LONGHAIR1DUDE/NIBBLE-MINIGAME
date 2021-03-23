@@ -95,41 +95,51 @@ int Terrain::getDimX () const { return dimx; }
 int Terrain::getDimY () const { return dimy; }
 
 void Terrain::testRegression(){
+	
     int pos;
     int compteur=0;
-    for(int i=0;i<21;i++){
+    
+    for(int i=0;i<dimx;i++){
         assert(ter[i]=='#');
     }
     for(int i=1;i<17;i++){
-        for(int j=1;j<20;j++){
+        for(int j=1;j<dimx-1;j++){
             assert(ter[i*dimx+j]=='.');
         }
     }
-    for(int i=18*dimx;i<18*dimx+21;i++){
+    for(int i=(dimy-1)*dimx;i<(dimy-1)*dimx+dimx;i++){
         assert(ter[i]=='#');
     }
-    for(int i=0;i<21;i++){
+    
+    cout<<"Terrain est correctement enregistré"<<endl;
+    
+    for(int i=0;i<dimx;i++){
         pos=posValide(i,0);
-        assert(pos=false);
+        assert(pos==false);
     }
-    for(int i=1;i<17;i++){
-        for(int j=1;j<20;j++){
+    for(int i=1;i<dimy-1;i++){
+        for(int j=1;j<dimx-1;j++){
             pos=posValide(j,i);
-            assert(pos=true);
+            assert(pos==true);
         }
     }
+    cout<<"posValide fonctionne correctement"<<endl;
+    
     posAleaCle();
     for(int i=0;i<3;i++){
-    if(ter[tabCle[i].y*dimx+tabCle[i].x]=='c')
-        compteur++;
+		if(ter[tabCle[i].y*dimx+tabCle[i].x]=='c')
+			compteur++;
     }
     assert(compteur==3);
-    for(int i=1;i<17;i++){
-        for(int j=1;j<20;j++){
+    cout<<"Les positions des clés correspondent à celles de tabCle"<<endl;
+    
+    for(int i=1;i<dimy-1;i++){
+        for(int j=1;j<dimx-1;j++){
             mangeBonus(j,i);
             assert(ter[i*dimx+j]==' ');
         }
     }
+    cout<<"Toutes les assertions sont justes"<<endl;
 }
 
 
