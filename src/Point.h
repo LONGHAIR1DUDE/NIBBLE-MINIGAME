@@ -7,6 +7,9 @@ class Point {
 public:
     int x;
     int y;
+
+    Point();
+    Point(int valX, int valY);
     Point& operator =(const Point & operandeDroite);
 };
 
