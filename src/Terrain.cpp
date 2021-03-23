@@ -125,7 +125,7 @@ void testRegression(){
     assert(compteur==3);
     for(int i=1;i<17;i++){
         for(int j=1;j<20;j++){
-            if(t(i*dimx+j)==c){
+            if(ter(i*dimx+j)==c){
                 mangeBonus(j,i);
                 assert(ter[i*dimx+j]==' ');
             }
