@@ -13,7 +13,7 @@ int main () {
         for (int x = 0; x < tailleX; x++) {
             cout << terrain.getXY(x,y);
         }
+        cout << endl;
     }
-    cout << endl;
     return 0;
 }

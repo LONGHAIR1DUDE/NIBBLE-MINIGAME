@@ -18,7 +18,7 @@ Terrain::Terrain(const string& namefile) {
 
 Terrain::~Terrain () {}
 
-// Lis le fichier passé en paramètre et stocke les caractères dans 
+// Lis le fichier passé en paramètre et stocke les caractères dans
 // le tableau dynamique ter
 void Terrain::recupNiveau (const string& nomFichier) {
     ifstream monFichier(nomFichier);
@@ -26,24 +26,27 @@ void Terrain::recupNiveau (const string& nomFichier) {
         ter.clear();
         string nbCarLigne;
         getline(monFichier, nbCarLigne);
-        dimx = nbCarLigne.size() + 1;
+        dimx = nbCarLigne.size();
 
         monFichier.seekg(0, std::ios::beg);
         char a;
-        
+        int cpt = 1;
         while (monFichier.get(a)) {
-            ter.push_back(a);
-            if (a == ' ') ter.pop_back();
-        } 
+            if (cpt % (dimx+1) != 0) {
+                ter.push_back(a);
+            }
+            cpt++;
+        }
 
         tailleTerrain = ter.size();
-        dimy = (tailleTerrain/dimx) + 1;
-    
-    } else 
+        dimy = (tailleTerrain/dimx);
+
+    } else {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
+    }
 }
 
-// Fonction qui renvoie true si les coordonnées (x,y) passées en 
+// Fonction qui renvoie true si les coordonnées (x,y) passées en
 // paramètres ce trouve dans le niveau false sinon
 bool Terrain::posValide(int x, int y) const {
     return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] != '#');
@@ -59,7 +62,7 @@ char Terrain::getXY(int x, int y) const {
 }
 
 // Procédure qui mais le caractère ' ' aux coordonnées (x,y)
-// passées en paramètre 
+// passées en paramètre
 void Terrain::mangeBonus(int x, int y) {
     assert(x>=0);
     assert(x<dimx);
@@ -72,11 +75,13 @@ void Terrain::mangeBonus(int x, int y) {
 void Terrain::posAleaCle () {
     srand(time(NULL));
     for (int c = 0; c < 3; c++) {
-        tabCle[c].x = rand()% dimx;
-        tabCle[c].y = rand()% dimy;
-        if (posValide(tabCle[c].x, tabCle[c].y)) {
-            ter[tabCle[c].y*dimx+tabCle[c].x] = 'c';
-        } 
+        do {
+            tabCle[c].x = rand()% dimx;
+            tabCle[c].y = rand()% dimy;
+        } while (!posValide(tabCle[c].x, tabCle[c].y) || 
+             ((tabCle[c].x == tabCle[c-1].x) && (tabCle[c].y == tabCle[c-1].y)) || 
+             ((tabCle[2].x == tabCle[0].x) && (tabCle[2].y == tabCle[0].y)));
+        ter[tabCle[c].y*dimx+tabCle[c].x] = 'c';
     }
 }
 
@@ -89,29 +94,42 @@ int Terrain::getDimX () const { return dimx; }
 // Retourne la valeur de dimy
 int Terrain::getDimY () const { return dimy; }
 
-// void Terrain::testRegression () {
-//     int x = 20;
-//     int y = 14;
+void testRegression(){
+    int pos;
+    int compteur=0;
+    for(int i=0;i<21;i++){
+        assert(ter[i]=='#');
+    }
+    for(int i=1;i<17;i++){
+        for(int j=1;j<20;j++){
+            assert(ter[i*dimx+j]=='.');
+        }
+    }
+    for(int i=18*dimx;i<18*dimx+21;i++){
+        assert(ter[i]=='#');
+    }
+    for(int i=0;i<21;i++){
+        pos=posValide(i,0));
+        assert(pos=false);
+    }
+    for(int i=1;i<17;i++){
+        for(int j=1;j<20;j++){
+            pos=posValide(j,i));
+            assert(pos=true);
+        }
+    }
+    posAleaCle();
+    for(int i=0;i<3;i++){
+    if(assert(ter[tabCle[i].y*dimx+tabCle[i].x]='c'))
+        compteur++;
+    }
+    assert(compteur==3);
+    for(int i=1;i<17;i++){
+        for(int j=1;j<20;j++){
+            mangeBonus(j,i);
+            assert(ter[i*dimx+j]==' ');
+        }
+    }
+}
 
-//     recupNiveau("./data/niveauTestReg.txt");
-//     assert(posValide(x,y));
-//     char tampon1; 
-//     char tampon2; 
 
-//     for (int y = 0; y < dimy; y++) {
-//         for (int x = 0; x < dimx; x++) {
-//             tampon1 = ter[y*dimx+x];
-//             tampon2 = getXY(x,y);
-//             assert(tampon1 == tampon2);
-//         }
-//     }
-    
-//     mangeBonus(x,y);
-//     assert(getXY(x,y) == ' ');
-
-//     posAleaCle();
-//     assert(sizeof(tabCle == 3));
-//     assert(getTailleTerrain() == ter.size());
-
-//     cout<<"assert ended successfully ."<<endl;
-// }

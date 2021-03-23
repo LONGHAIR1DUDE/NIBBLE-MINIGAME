@@ -28,8 +28,7 @@ public:
     int getDimX() const;
     int getDimY() const;
     int getTailleTerrain() const;
-    // void testRegression();
+    testRegression();
 };
-
 
 #endif
