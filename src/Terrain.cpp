@@ -94,41 +94,45 @@ int Terrain::getDimX () const { return dimx; }
 // Retourne la valeur de dimy
 int Terrain::getDimY () const { return dimy; }
 
-void Terrain::testRegression(){
+void Terrain::testRegression() {
     int pos;
-    int compteur=0;
-    for(int i=0;i<21;i++){
-        assert(ter[i]=='#');
+    int compteur = 0;
+
+    for(int i = 0; i < 21; i++) {
+        assert(ter[i] == '#');
     }
 
-    for(int i=1;i<17;i++){
-        for(int j=1;j<20;j++){
-            assert(ter[i*dimx+j]=='.');
+    for(int i = 1; i < 17; i++) {
+        for(int j = 1; j < 20; j++) {
+            assert(ter[i*dimx+j] == '.');
         }
     }
-    for(int i=18*dimx;i<18*dimx+21;i++){
-        assert(ter[i]=='#');
+
+    for(int i = 18*dimx; i < 18*dimx+21; i++) {
+        assert(ter[i] == '#');
     }
-    for(int i=0;i<21;i++){
-        pos=posValide(i,0);
-        assert(pos=false);
+    for(int i = 0; i < 21; i++) {
+        pos = posValide(i, 0);
+        assert(pos = false);
     }
-    for(int i=1;i<17;i++){
-        for(int j=1;j<20;j++){
-            pos=posValide(j,i);
-            assert(pos=true);
+
+    for(int i = 1; i < 17; i++) {
+        for(int j = 1; j < 20; j++) {
+            pos = posValide(j, i);
+            assert(pos = true);
         }
     }
+
     posAleaCle();
-    for(int i=0;i<3;i++){
-    if(ter[tabCle[i].y*dimx+tabCle[i].x]='c')
+    for(int i = 0; i < 3; i++) { 
+    if(ter[tabCle[i].y*dimx+tabCle[i].x] = 'c')
         compteur++;
     }
-    assert(compteur==3);
-    for(int i=1;i<17;i++){
-        for(int j=1;j<20;j++){
-            mangeBonus(j,i);
-            assert(ter[i*dimx+j]==' ');
+    assert(compteur == 3);
+    for(int i = 1; i < 17; i++) {
+        for(int j = 1; j < 20; j++) {
+            mangeBonus(j, i);
+            assert(ter[i*dimx+j] == ' ');
         }
     }
 }
