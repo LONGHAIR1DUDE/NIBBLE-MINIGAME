@@ -6,6 +6,9 @@
 #include <string>
 using namespace std;
 
+struct Interrupteur{
+    Point positionDepart, positionArrive, interrupteur;
+}
 class Terrain {
 private:
     vector<char> ter;
@@ -13,6 +16,7 @@ private:
     int dimy;
     int tailleTerrain;
     Point tabCle[3];
+    Interrupteur tabInter[];
 
 public:
     Terrain();
@@ -25,6 +29,7 @@ public:
     char getXY(const int x, const int y) const;
     void mangeBonus(const int x, const int y);
     bool mangePiece(const int x, const int y);
+    void appuyerInterrupteur(int x, int y);
     int getDimX() const;
     int getDimY() const;
     int getTailleTerrain() const;

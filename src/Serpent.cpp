@@ -2,12 +2,13 @@
 #include <cassert>
 using namespace std;
 
-Serpent::Serpent (const int posX, const int posY, const Terrain& t) {
+Serpent::Serpent (const int posX, const int posY, const Terrain& t, bool mouvement=false) {
     if (t.posValide(posX, posY)) {
         Point p;
         p.x = posX;
         p.y = posY;
         corps.push_back(p);
+        mouvementInverse=mouvement;
     }
 }
 
@@ -27,7 +28,6 @@ void Serpent::gauche (const Terrain& t) {
             temp1.y=temp2.y;
         }
     }
-    else cout << "pose invalide!!!" << endl;
 }
 void Serpent::droite (const Terrain& t) {
     Point temp1,temp2;
@@ -82,12 +82,24 @@ void Serpent::bas (const Terrain& t) {
     }
 }
 
+void Serpent::allongeSerpent(const Terrain& t){//Fonction à terminer, ajouter détection de position libre
+    int tailleSerp=corps.size();
+}
+
+void Serpent::retrecirCorps(){
+    corps.pop_back();
+}
+
 Point Serpent::getCorps (const int i) const {
     return corps[i];
 }
 
 Point Serpent::getTete () const {
     return corps[0];
+}
+
+bool Serpent::getMouv(){
+    return mouvementInverse;
 }
 
 void Serpent::setCorps (const int i, const int x, const int y) {
@@ -98,6 +110,10 @@ void Serpent::setCorps (const int i, const int x, const int y) {
 void Serpent::setTete (const int x, const int y) {
     corps[0].x=x;
     corps[0].y=y;
+}
+
+void Serpent::setMouv(bool mouv){
+    mouvementInverse=mouv;
 }
 
 void Serpent::testRegression () {
@@ -122,7 +138,7 @@ void Serpent::testRegression () {
     Point p2(8, 4);
     corps.pop_back();
     corps.push_back(p2);
-    
+
     droite(t);
     assert(corps[0].x == x);
     assert(corps[0].y == y+1);
@@ -154,4 +170,3 @@ void Serpent::testRegression () {
 }
 
 
-    
