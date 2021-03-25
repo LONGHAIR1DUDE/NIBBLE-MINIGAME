@@ -8,7 +8,8 @@ using namespace std;
 
 struct Interrupteur{
     Point positionDepart, positionArrive, interrupteur;
-}
+};
+
 class Terrain {
 private:
     vector<char> ter;

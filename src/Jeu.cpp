@@ -14,36 +14,36 @@ Jeu::Jeu () : Terrain() {
 Jeu::~Jeu () {}
 
 Terrain& Jeu::getTerrain () { return Terrain; }
+
 Serpent& Jeu::getSerpent () {return Serpent;}
-Mur& Jeu::getMur(int i) 
-{
+
+Mur& Jeu::getMur(int i) {
     
     return Murs[i];
 }
-int& Jeu::getNbMurs()
-{
+
+int& Jeu::getNbMurs() {
     return Murs.size();
 }  
-Portail& Jeu::getPortail(int i)
-{
+
+Portail& Jeu::getPortail(int i) {
     return Portail[i];
 }  
-int& Jeu::getNbPortails()
-{
+
+int& Jeu::getNbPortails() {
     return Portail.size();
 } 
-Bonus& Jeu::getBonus(int i)
-{
+
+Bonus& Jeu::getBonus(int i) {
     return Bonus[i];
 }
-int& Jeu::getNbBonus()
-{
+
+int& Jeu::getNbBonus() {
     return Bonus.size();
 } 
-bool Jeu::actionClavier(const char touche)
-{
-    switch(touche)
-    {
+
+bool Jeu::actionClavier(const char touche) {
+    switch(touche) {
         case 'q': Serpent.gauche(Terrain);break;
         case 'd': Serpent.droite(Terrain);break;
         case 'z': Serpent.haut(Terrain);break;
@@ -55,28 +55,25 @@ bool Jeu::actionClavier(const char touche)
 	}
 	return false;
 }
-void Jeu::placementAleatoire()
-{   
+
+void Jeu::placementAleatoire() {   
     int dimx=Terrain.getDimX();
     do{
-    
-    do{
-    srand(time(NULL));
-    int x = rand() % Terrain.getTailleTerrain();
-    
-    int y = rand() % Terrain.getTailleTerrain();
-    
-    int i = rand() % Bonus.size();
+        do{
+            srand(time(NULL));
+            int x = rand() % Terrain.getTailleTerrain();
+            
+            int y = rand() % Terrain.getTailleTerrain();
+            
+            int i = rand() % Bonus.size();
+        }while(!Terrain.posValide(x,y))
 
-    }while(!Terrain.posValide(x,y))
-    //a modifier faut ajouter un void Terrain::setXYBonus(int x,int y,Bonus b);
-    Terrain.ter[y*dimx+x] = Bonus[i];
-    std::this_thread::sleep_for(2s);
-    
-    if(Terrain.getXY(x,y) == Bonus[i])
-    {
-       Terrain.ter[y*dimx+x] = '.'; 
-    }
+        //a modifier faut ajouter un void Terrain::setXYBonus(int x,int y,Bonus b);
+        Terrain.ter[y*dimx+x] = Bonus[i];
+        std::this_thread::sleep_for(2s);
+        
+        if(Terrain.getXY(x,y) == Bonus[i])
+            Terrain.ter[y*dimx+x] = '.'; 
 
     }while(Terrain.getXY(x,y) == '.');
 }

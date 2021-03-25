@@ -111,8 +111,6 @@ void Terrain::testRegression(){
         assert(ter[i]=='#');
     }
     
-    cout<<"Terrain est correctement enregistré"<<endl;
-    
     for(int i=0;i<dimx;i++){
         pos=posValide(i,0);
         assert(pos==false);
@@ -123,7 +121,6 @@ void Terrain::testRegression(){
             assert(pos==true);
         }
     }
-    cout<<"posValide fonctionne correctement"<<endl;
     
     posAleaCle();
     for(int i=0;i<3;i++){
@@ -131,7 +128,6 @@ void Terrain::testRegression(){
 			compteur++;
     }
     assert(compteur==3);
-    cout<<"Les positions des clés correspondent à celles de tabCle"<<endl;
     
     for(int i=1;i<dimy-1;i++){
         for(int j=1;j<dimx-1;j++){
@@ -139,7 +135,7 @@ void Terrain::testRegression(){
             assert(ter[i*dimx+j]==' ');
         }
     }
-    cout<<"Toutes les assertions sont justes"<<endl;
+    cout<<"Class Terrain: assert ended successfully."<<endl;
 }
 
 

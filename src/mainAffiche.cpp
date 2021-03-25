@@ -3,8 +3,8 @@
 using namespace std;
 
 int main () {
-    Terrain terrain("./data/niveau1.txt");
-    // terrain.posAleaCle();
+    Terrain terrain("./data/niveau3.txt");
+    terrain.posAleaCle();
     int tailleX = terrain.getDimX();
     int tailleY = terrain.getDimY();
     int tailleTerrain = terrain.getTailleTerrain();

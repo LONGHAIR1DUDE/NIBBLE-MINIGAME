@@ -2,13 +2,13 @@
 #include <cassert>
 using namespace std;
 
-Serpent::Serpent (const int posX, const int posY, const Terrain& t, bool mouvement=false) {
+Serpent::Serpent (const int posX, const int posY, const Terrain& t, bool mouvement = false) {
     if (t.posValide(posX, posY)) {
         Point p;
         p.x = posX;
         p.y = posY;
         corps.push_back(p);
-        mouvementInverse=mouvement;
+        mouvementInverse = mouvement;
     }
 }
 
@@ -82,7 +82,8 @@ void Serpent::bas (const Terrain& t) {
     }
 }
 
-void Serpent::allongeSerpent(const Terrain& t){//Fonction à terminer, ajouter détection de position libre
+//Fonction à terminer, ajouter détection de position libre
+void Serpent::allongeSerpent(const Terrain& t){
     int tailleSerp=corps.size();
 }
 
@@ -166,7 +167,7 @@ void Serpent::testRegression () {
     setTete(19, 23);
     assert(getTete().x == 19);
     assert(getTete().y == 23);
-    cout<<"assert ended successfully."<<endl;
+    cout<<"Class Serpent: assert ended successfully."<<endl;
 }
 
 
