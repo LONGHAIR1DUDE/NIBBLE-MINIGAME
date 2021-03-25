@@ -150,7 +150,7 @@ void Serpent::testRegression () {
     setTete(19, 23);
     assert(getTete().x == 19);
     assert(getTete().y == 23);
-    cout<<"assert ended successfully ."<<endl;
+    cout<<"assert ended successfully."<<endl;
 }
 
 
