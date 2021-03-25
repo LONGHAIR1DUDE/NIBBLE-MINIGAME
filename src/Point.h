@@ -10,7 +10,7 @@ public:
     Point();
     Point(int valX, int valY);
     Point& operator =(const Point & operandeDroite);
-
+    bool operator !=(const Point& operandedroite);
 };
 
 #endif

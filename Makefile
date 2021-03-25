@@ -15,6 +15,9 @@ $(EXE2): ./obj/Serpent.o ./obj/mainTestRegression.o ./obj/Point.o ./obj/Terrain.
 $(EXE3): ./obj/Terrain.o ./obj/mainTerrainRegression.o ./obj/Point.o
 	$(CC) -g ./obj/mainTerrainRegression.o ./obj/Point.o ./obj/Terrain.o -o $(EXE3)
 
+./obj/Bonus.o: ./src/Bonus.h ./src/Bonus.cpp ./src/Serpent.h ./src/Point.h
+	$(CC) $(FLAGS) -c ./src/Bonus.cpp -o ./obj/Bonus.o
+
 ./obj/Serpent.o: ./src/Serpent.h ./src/Serpent.cpp ./src/Terrain.h ./src/Point.h
 	$(CC) $(FLAGS) -c ./src/Serpent.cpp -o ./obj/Serpent.o
 
