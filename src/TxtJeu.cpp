@@ -10,7 +10,7 @@
 #include "TxtFenetre.h"
 using namespace std;
 
-void AffichageTxt(TxtFenetre& fenetre, const Jeu& jeu) {
+void affichageTxt(TxtFenetre& fenetre, const Jeu& jeu) {
     const Terrain& ter = jeu.getTerrain();
     const Serpent& serp = jeu.getSerpent();
     // const Mur& mur = jeu.getMur();
@@ -31,10 +31,10 @@ void txtJeu (Jeu& j) {
     TxtFenetre fenetre(j.getTerrain().getDimX(), j.getTerrain().getDimY());
 
     bool ok = true;
-    int c;
+    int car;
 
     do {
-        txtAff(fenetre, j);
+        affichageTxt(fenetre, j);
 
         #ifdef _WIN32
         Sleep(100);
@@ -62,7 +62,7 @@ void txtJeu (Jeu& j) {
                 j.actionClavier('d');
                 break;
 
-            case 'q':
+            case 'x':
             ok = false;
                 break;
         }

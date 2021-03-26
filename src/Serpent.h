@@ -19,7 +19,7 @@ public:
     void droite(const Terrain& t);
     void haut(const Terrain& t);
     void bas(const Terrain& t);
-    void allongeSerpent(const Terrain& t);//A terminer
+    void allongeCorps (const Terrain& t);//A terminer
     void retrecirCorps();
     Point getCorps(const int i) const;
     Point getTete() const;

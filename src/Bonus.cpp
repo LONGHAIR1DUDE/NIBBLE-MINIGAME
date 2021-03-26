@@ -10,9 +10,10 @@ Bonus::Bonus(int i, int x, int y) {
 }
 
 void Bonus::changeTailleSerpent(Serpent & serp) {
+    Terrain ter;
     if(action>0){
         for(int i=0;i<action;i++){
-            serp.allongeCorps();
+            serp.allongeCorps(ter);
         }
     }
     else{
@@ -26,12 +27,12 @@ void Bonus::inverseMouvement(Serpent & serp) {
     serp.setMouv(true); 
 }
 
-void Bonus::actionBonus() {
+void Bonus::actionBonus(Serpent& serp) {
     if(action != 0){
-        changeTailleSerpent();
+        changeTailleSerpent(serp);
     }
     else{
-        inverseMouvement();
+        inverseMouvement(serp);
     }
 }
 

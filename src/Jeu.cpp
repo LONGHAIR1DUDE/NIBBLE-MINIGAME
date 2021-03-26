@@ -67,8 +67,7 @@ bool Jeu::actionClavier(const char touche) {
 }
 
 void Jeu::placementAleatoire() {   
-    int dimx=terrain.getDimX();
-    int x, y, i;
+    int x, y;
     do{
         do{
             srand(time(NULL));
@@ -76,20 +75,19 @@ void Jeu::placementAleatoire() {
             
             y = rand() % terrain.getDimY();
             
-            i = rand() % bonus.size();
+            // i = rand() % bonus.size();
         } while(!terrain.posValide(x,y));
 
         //a modifier faut ajouter un void Terrain::setXYBonus(int x,int y,Bonus b);
-        terrain.ter[y*dimx+x] = bonus[i];
+        terrain.setXY(y, x, 'b');
         this_thread::sleep_for(2s);
         
-        if(terrain.getXY(x,y) == bonus[i])
-            terrain.ter[y*dimx+x] = '.'; 
+        if(terrain.getXY(x,y) == 'b')
+            terrain.setXY(y,x, '.'); 
 
     }while(terrain.getXY(x,y) == ' ');
 }
 
 void Jeu::SerpentBouge() {
-    serpent.getTete().x += serpent.getDirection().x;
-    serpent.getTete().y += serpent.getDirection().y
+    serpent.setTete(serpent.getDirection().x, serpent.getDirection().y);
 }

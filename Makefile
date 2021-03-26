@@ -1,6 +1,6 @@
 FLAGS =-Wall -g
 CC = g++ 
-OBJS = ./obj/Terrain.o ./obj/Serpent.o ./obj/Mur.o ./obj/Point.o ./obj/Bonus.o ./obj/Jeu.o ./obj/TxtFenetre.o ./obj/TxtJeu.o
+OBJS = ./obj/Terrain.o ./obj/Serpent.o  ./obj/Point.o ./obj/Jeu.o ./obj/TxtFenetre.o ./obj/TxtJeu.o #./obj/Bonus.o ./obj/Mur.o
 EXE1 = ./bin/afficheTerrain
 EXE2 = ./bin/test
 EXE3 = ./bin/jeuTxt
@@ -47,7 +47,7 @@ $(EXE3): $(OBJS)
 	$(CC) $(FLAGS) -c ./src/TxtFenetre.cpp -o ./obj/TxtFenetre.o
 
 ./obj/TxtJeu.o: ./src/TxtJeu.h ./src/TxtJeu.cpp ./src/TxtFenetre.h ./src/Jeu.h
-	$(CC) $(FLAGS) -c ./src/TxtJeu.cpp -o ./src/TxtJeu.o
+	$(CC) $(FLAGS) -c ./src/TxtJeu.cpp -o ./obj/TxtJeu.o
 
 clean: 
 	rm -rf ./obj/* ./bin/*

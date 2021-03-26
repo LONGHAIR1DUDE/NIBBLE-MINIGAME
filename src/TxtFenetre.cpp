@@ -57,7 +57,7 @@ void termInit() // configure la saisie : ne pas afficher les caracteres tapes
 
     if (state) {
         //turn off canonical mode
-        ttystate.c_lflag &= ~ICANON;
+        ttystate.c_lflag &= ICANON;
         //minimum of number input read.
         ttystate.c_cc[VMIN] = 1;
     }
@@ -93,9 +93,9 @@ void TxtFenetre::ecrire (int x, int y, char c) {
 
 void TxtFenetre::ecrire (int x, int y, char* c) {
     int i = 0;
-    while (c[i] != '\0') {
-        printf(x+i, y, c[i];
-        i++;
+    while (c[i]!='\0') {
+        ecrire(x+i,y,c[i]);
+        ++i;
     }
 }
 
@@ -131,7 +131,7 @@ void TxtFenetre::pause () {
 #endif
 }
 
-void TxtFenetre::getCh () { // lire un carctere si une touche a ete presee
+char TxtFenetre::getCh () { // lire un carctere si une touche a ete presee
     char touche = 0;
 #ifdef _WIN32
     if (kbhit())
