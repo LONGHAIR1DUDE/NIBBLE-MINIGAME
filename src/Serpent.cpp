@@ -19,6 +19,8 @@ void Serpent::gauche (const Terrain& t) {
     temp1.y=corps[0].y;
     if(t.posValide(temp1.x-1, temp1.y)){
         corps[0].x--;
+        directionSerpent.x = -1;
+        directionSerpent.y = 0;
         for (int i = 1; i < tailleSerp; i++) {
             temp2.x=corps[i].x;
             temp2.y=corps[i].y;
@@ -26,6 +28,10 @@ void Serpent::gauche (const Terrain& t) {
             corps[i].y=temp1.y;
             temp1.x=temp2.x;
             temp1.y=temp2.y;
+            if (i == tailleSerp-1) {
+                boutSerpent.x = temp1.x;
+                boutSerpent.y = temp2.y;
+            }
         }
     }
 }
@@ -36,6 +42,8 @@ void Serpent::droite (const Terrain& t) {
     temp1.y=corps[0].y;
     if(t.posValide(temp1.x+1, temp1.y)){
         corps[0].x++;
+        directionSerpent.x = 1;
+        directionSerpent.y = 0;
         for (int i = 1; i < tailleSerp; i++) {
             temp2.x=corps[i].x;
             temp2.y=corps[i].y;
@@ -43,6 +51,10 @@ void Serpent::droite (const Terrain& t) {
             corps[i].y=temp1.y;
             temp1.x=temp2.x;
             temp1.y=temp2.y;
+            if (i == tailleSerp-1) {
+                boutSerpent.x = temp1.x;
+                boutSerpent.y = temp2.y;
+            }
         }
     }
 }
@@ -54,6 +66,8 @@ void Serpent::haut (const Terrain& t) {
     temp1.y=corps[0].y;
     if(t.posValide(temp1.x, temp1.y+1)){
         corps[0].y++;
+        directionSerpent.x = 0;
+        directionSerpent.y = 1;
         for (int i = 1; i < tailleSerp; i++) {
             temp2.x=corps[i].x;
             temp2.y=corps[i].y;
@@ -61,6 +75,10 @@ void Serpent::haut (const Terrain& t) {
             corps[i].y=temp1.y;
             temp1.x=temp2.x;
             temp1.y=temp2.y;
+            if (i == tailleSerp-1) {
+                boutSerpent.x = temp1.x;
+                boutSerpent.y = temp2.y;
+            }
         }
     }
 }
@@ -71,6 +89,8 @@ void Serpent::bas (const Terrain& t) {
     temp1.y=corps[0].y;
     if(t.posValide(temp1.x, temp1.y-1)){
         corps[0].y--;
+        directionSerpent.x = 0;
+        directionSerpent.y = -1;
         for (int i = 1; i < tailleSerp; i++) {
             temp2.x=corps[i].x;
             temp2.y=corps[i].y;
@@ -78,6 +98,10 @@ void Serpent::bas (const Terrain& t) {
             corps[i].y=temp1.y;
             temp1.x=temp2.x;
             temp1.y=temp2.y;
+            if (i == tailleSerp-1) {
+                boutSerpent.x = temp1.x;
+                boutSerpent.y = temp2.y;
+            }
         }
     }
 }
@@ -85,6 +109,7 @@ void Serpent::bas (const Terrain& t) {
 //Fonction à terminer, ajouter détection de position libre
 void Serpent::allongeSerpent(const Terrain& t){
     int tailleSerp=corps.size();
+    corps.push_back(boutSerpent);
 }
 
 void Serpent::retrecirCorps(){
@@ -101,6 +126,10 @@ Point Serpent::getTete () const {
 
 bool Serpent::getMouv(){
     return mouvementInverse;
+}
+
+Point Serpent::getDirection() const {
+    return directionSerpent;
 }
 
 void Serpent::setCorps (const int i, const int x, const int y) {

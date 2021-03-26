@@ -10,6 +10,8 @@ class Serpent {
 private:
     vector<Point> corps;
     bool mouvementInverse;
+    Point directionSerpent;
+    Point boutSerpent;
 public:
     Serpent(const int posX, const int posY, const Terrain& t, bool mouvement);
 
@@ -22,6 +24,7 @@ public:
     Point getCorps(const int i) const;
     Point getTete() const;
     bool getMouv();
+    Point getDirection() const;
     void setCorps(const int i, const int x, const int y);
     void setTete(const int x, const int y);
     void setMouv(bool mouv);

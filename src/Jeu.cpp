@@ -7,8 +7,8 @@
 #include <thread>
 using namespace std;
 
-Jeu::Jeu () : Terrain() {
-    terrain.mangeBonus()
+Jeu::Jeu () : Terrain(), Serpent(12, 10, Terrain, true) {
+    terrain.mangeBonus(Serpent.getTete().x, Serpent.getTete().y);
 }
 
 Jeu::~Jeu () {}
@@ -44,10 +44,21 @@ int& Jeu::getNbBonus() {
 
 bool Jeu::actionClavier(const char touche) {
     switch(touche) {
-        case 'q': Serpent.gauche(Terrain);break;
-        case 'd': Serpent.droite(Terrain);break;
-        case 'z': Serpent.haut(Terrain);break;
-        case 's': Serpent.bas(Terrain);break;
+        case 'q': 
+            Serpent.gauche(Terrain);
+            break;
+        
+        case 'd': 
+            Serpent.droite(Terrain);
+            break;
+        
+        case 'z': 
+            Serpent.haut(Terrain);
+            break;
+        
+        case 's': 
+            Serpent.bas(Terrain);
+            break;
     }
     	if (Terrain.getXY(Serpent.getTete)=='.') {
 	    Terrain.mangeBonus(Serpent.getTete());
@@ -61,19 +72,24 @@ void Jeu::placementAleatoire() {
     do{
         do{
             srand(time(NULL));
-            int x = rand() % Terrain.getTailleTerrain();
+            int x = rand() % Terrain.getDimX();
             
-            int y = rand() % Terrain.getTailleTerrain();
+            int y = rand() % Terrain.getDimY();
             
             int i = rand() % Bonus.size();
-        }while(!Terrain.posValide(x,y))
+        } while(!Terrain.posValide(x,y))
 
         //a modifier faut ajouter un void Terrain::setXYBonus(int x,int y,Bonus b);
         Terrain.ter[y*dimx+x] = Bonus[i];
-        std::this_thread::sleep_for(2s);
+        this_thread::sleep_for(2s);
         
         if(Terrain.getXY(x,y) == Bonus[i])
             Terrain.ter[y*dimx+x] = '.'; 
 
-    }while(Terrain.getXY(x,y) == '.');
+    }while(Terrain.getXY(x,y) == ' ');
+}
+
+void Jeu::SerpentBouge() {
+    Serpent.getTete().x += Serpent.getDirection().x;
+    Serpent.getTete().y += Serpent.getDirection().y
 }
