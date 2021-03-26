@@ -9,28 +9,27 @@ Un mur dans l'application NIBBLE est définie par les 4 points v w x y
 /**
 @brief La classe MUR contient ses dimensions et un entier indiquant la nature du mouvement
 */
-#include "Terrain.h"
+
 #include "Point.h"
 
-class Mur
-{ 
-private :
+struct Rect {
+  int x, y, w, h; // x et y les coordonnées du première élément du mur et w(width), h(height) pour sa largeur et hauteur.
+};
 
-    Point v,w,x,y;
-    float mouvementAuto;
-    void m_Gauche(Terrain t);
-    void m_Droite(Terrain t);
-    void m_Haute(Terrain t);
-    void m_Bas(Terrain t);
-public : 
-    Mur (Point a,Point b,Point c,Point d);
-    void m_Mouvement(float mouvementAuto,Terrain t);
-    Point GetV() const;
-    Point GetW() const;
-    Point GetX() const;
-    Point GetY() const;
-    float GetMouvementAuto() const;
-    float SetMouvementAuto(float a);
-    
+class Mur {
+private:
+  Rect mur;
+  Point posMur[2]; // tableau contenant les 2 positions du mur (celle par défaut et la deuxième)
+  bool etatMur; // true si le mur est en position initiale et false si il est dans sa deuxième position 
+
+public:
+  Mur(const int x, const int y, const int w, const int h, const Point& direction);
+  ~Mur();
+  
+  Rect getMur() const; // retourne les paramètres du mur
+  bool getEtatMur() const; // retourne l'etat du mur
+  void setEtatMur(const bool e); // modifie l'etat du mur en fonction des paramètres 
+  Point getPos(const int indice) const; // retourne le tableau contenant les positions du mur
+  void setPos(const int x, const int y); // permet de modifier la position du mur 
 };
 #endif
