@@ -28,8 +28,7 @@ public:
     void posAleaCle();
     bool posValide(int x, int y) const;
     char getXY(const int x, const int y) const;
-    void mangeBonus(const int x, const int y);
-    bool mangePiece(const int x, const int y);
+    void mangeElement(const int x, const int y);
     void appuyerInterrupteur(int x, int y);
     int getDimX() const;
     int getDimY() const;

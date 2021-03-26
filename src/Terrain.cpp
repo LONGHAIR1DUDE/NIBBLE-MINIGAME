@@ -63,7 +63,7 @@ char Terrain::getXY(int x, int y) const {
 
 // Procédure qui mais le caractère ' ' aux coordonnées (x,y)
 // passées en paramètre
-void Terrain::mangeBonus(int x, int y) {
+void Terrain::mangeElement(int x, int y) {
     assert(x>=0);
     assert(x<dimx);
     assert(y>=0);
@@ -84,6 +84,8 @@ void Terrain::posAleaCle () {
         ter[tabCle[c].y*dimx+tabCle[c].x] = 'c';
     }
 }
+
+void appuyerInterrupteur(int x, int y) {}
 
 // Retourne la taille du tableau dynamique ter
 int Terrain::getTailleTerrain() const { return tailleTerrain; }
@@ -110,6 +112,7 @@ void Terrain::testRegression(){
     for(int i=(dimy-1)*dimx;i<(dimy-1)*dimx+dimx;i++){
         assert(ter[i]=='#');
     }
+
     
     for(int i=0;i<dimx;i++){
         pos=posValide(i,0);

@@ -11,7 +11,7 @@ public:
     void effacer();
     void ecrire(int x, int y, char c);
     void ecrire(int x, int y, char* c);
-    void dessiner(int x, int y);
+    void dessiner(int x = 0, int y = 0);
     void pause();
     char getCh();
 };

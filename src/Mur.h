@@ -32,6 +32,5 @@ public :
     float GetMouvementAuto() const;
     float SetMouvementAuto(float a);
     
-    
 };
 #endif
