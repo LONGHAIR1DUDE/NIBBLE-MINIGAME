@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Mur.h"
 
+// precondition: direction doit être un point du type (0,1), (1,0), (-1,0) ou (0,-1)
 Mur::Mur (const int x, const int y, const int w, const int h, const Point& direction) {
     mur.x = x;
     mur.y = y;
