@@ -7,89 +7,89 @@
 #include <thread>
 using namespace std;
 
-Jeu::Jeu () : Terrain(), Serpent(12, 10, Terrain, true) {
-    terrain.mangeBonus(Serpent.getTete().x, Serpent.getTete().y);
+Jeu::Jeu () : terrain(), serpent(12, 10, terrain, true) {
+    terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
 }
 
 Jeu::~Jeu () {}
 
-Terrain& Jeu::getTerrain () { return Terrain; }
+Terrain Jeu::getTerrain () const { return terrain; }
 
-Serpent& Jeu::getSerpent () {return Serpent;}
+Serpent Jeu::getSerpent () const {return serpent;}
 
-Mur& Jeu::getMur(int i) {
-    
-    return Murs[i];
+Mur Jeu::getMur(int i) const { 
+    return murs[i];
 }
 
-int& Jeu::getNbMurs() {
-    return Murs.size();
+int Jeu::getNbMurs() const {
+    return murs.size();
 }  
 
-Portail& Jeu::getPortail(int i) {
-    return Portail[i];
+Portail Jeu::getPortail (int i) const {
+    return portail[i];
 }  
 
-int& Jeu::getNbPortails() {
-    return Portail.size();
+int Jeu::getNbPortails() const {
+    return portail.size();
 } 
 
-Bonus& Jeu::getBonus(int i) {
-    return Bonus[i];
+Bonus Jeu::getBonus(int i) const {
+    return bonus[i];
 }
 
-int& Jeu::getNbBonus() {
-    return Bonus.size();
+int Jeu::getNbBonus() const {
+    return bonus.size();
 } 
 
 bool Jeu::actionClavier(const char touche) {
     switch(touche) {
         case 'q': 
-            Serpent.gauche(Terrain);
+            serpent.gauche(terrain);
             break;
         
         case 'd': 
-            Serpent.droite(Terrain);
+            serpent.droite(terrain);
             break;
         
         case 'z': 
-            Serpent.haut(Terrain);
+            serpent.haut(terrain);
             break;
         
         case 's': 
-            Serpent.bas(Terrain);
+            serpent.bas(terrain);
             break;
     }
-    	if (Terrain.getXY(Serpent.getTete)=='.') {
-	    Terrain.mangeBonus(Serpent.getTete());
+    	if (terrain.getXY(serpent.getTete().x, serpent.getTete().y)=='.') {
+	    terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
         return true;
 	}
 	return false;
 }
 
 void Jeu::placementAleatoire() {   
-    int dimx=Terrain.getDimX();
+    int dimx=terrain.getDimX();
+    int x, y, i;
     do{
         do{
             srand(time(NULL));
-            int x = rand() % Terrain.getDimX();
+            x = rand() % terrain.getDimX();
             
-            int y = rand() % Terrain.getDimY();
+            y = rand() % terrain.getDimY();
             
-            int i = rand() % Bonus.size();
-        } while(!Terrain.posValide(x,y))
+            i = rand() % bonus.size();
+        } while(!terrain.posValide(x,y));
 
         //a modifier faut ajouter un void Terrain::setXYBonus(int x,int y,Bonus b);
-        Terrain.ter[y*dimx+x] = Bonus[i];
+        terrain.ter[y*dimx+x] = bonus[i];
         this_thread::sleep_for(2s);
         
-        if(Terrain.getXY(x,y) == Bonus[i])
-            Terrain.ter[y*dimx+x] = '.'; 
+        if(terrain.getXY(x,y) == bonus[i])
+            terrain.ter[y*dimx+x] = '.'; 
 
-    }while(Terrain.getXY(x,y) == ' ');
+    }while(terrain.getXY(x,y) == ' ');
 }
 
 void Jeu::SerpentBouge() {
-    Serpent.getTete().x += Serpent.getDirection().x;
-    Serpent.getTete().y += Serpent.getDirection().y
+    serpent.getTete().x += serpent.getDirection().x;
+    serpent.getTete().y += serpent.getDirection().y
 }

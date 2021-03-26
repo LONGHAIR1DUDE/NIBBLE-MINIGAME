@@ -11,15 +11,18 @@ using namespace std;
 
 class Jeu {
 private:
-    Terrain Terrain;
-    Serpent Serpent;
-    vector<Mur> Murs;
-    vector<Portail> Portail;
-    vector<Bonus> Bonus;
+    Terrain terrain;
+    Serpent serpent;
+    vector<Mur> murs;
+    vector<Portail> portail;
+    vector<Bonus> bonus;
 
 public:
-    Terrain& getTerrain() const;
-    Serpent& getSerpent() const;
+    Jeu();
+    ~Jeu();
+
+    Terrain getTerrain() const;
+    Serpent getSerpent() const;
     Mur getMur(int i) const; 
     int getNbMurs() const;
     Portail getPortail(int i) const;
@@ -28,7 +31,7 @@ public:
     int getNbBonus() const;
     bool actionClavier(const char touche);
     void placementAleatoire();
-    void SerpentBouge(Serpent& serp);
+    void SerpentBouge();
 
 };
 
