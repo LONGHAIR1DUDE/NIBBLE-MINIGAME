@@ -3,12 +3,12 @@
 
 // precondition: direction doit être un point du type (0,1), (1,0), (-1,0) ou (0,-1)
 Mur::Mur (const int x, const int y, const int w, const int h, const Point& direction) {
-    mur.x = x;
-    mur.y = y;
+    posMur[0].x = x;
+    posMur[0].y = y;
     mur.w = w;
     mur.h = h;
-    posMur[0].x = mur.x;
-    posMur[0].y = mur.y;
+    mur.x = posMur[0].x;
+    mur.y = posMur[0].y;
 
     if (direction.x == -1) {
         posMur[1].x = posMur[0].x - mur.w;
