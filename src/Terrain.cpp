@@ -61,6 +61,10 @@ char Terrain::getXY(int x, int y) const {
     return ter[y*dimx+x];
 }
 
+void Terrain::setXY (const int x, const int y, const char c) {
+    ter[y*dimx+x] = c;
+}
+
 // Procédure qui mais le caractère ' ' aux coordonnées (x,y)
 // passées en paramètre
 void Terrain::mangeElement(int x, int y) {
@@ -134,11 +138,10 @@ void Terrain::testRegression(){
     
     for(int i=1;i<dimy-1;i++){
         for(int j=1;j<dimx-1;j++){
-            mangeBonus(j,i);
+            mangeElement(j,i);
             assert(ter[i*dimx+j]==' ');
         }
     }
     cout<<"Class Terrain: assert ended successfully."<<endl;
 }
-
 

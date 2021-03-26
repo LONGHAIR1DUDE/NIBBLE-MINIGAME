@@ -6,9 +6,9 @@
 #include <string>
 using namespace std;
 
-struct Interrupteur{
-    Point positionDepart, positionArrive, interrupteur;
-};
+// struct Interrupteur{
+//     Point positionDepart, positionArrive, interrupteur;
+// };
 
 class Terrain {
 private:
@@ -17,7 +17,7 @@ private:
     int dimy;
     int tailleTerrain;
     Point tabCle[3];
-    Interrupteur tabInter[];
+    // Interrupteur tabInter[];
 
 public:
     Terrain();
@@ -34,6 +34,7 @@ public:
     int getDimY() const;
     int getTailleTerrain() const;
     void testRegression();
+    void setXY(const int x, const int y, const char c);
 };
 
 #endif
