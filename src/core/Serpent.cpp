@@ -13,7 +13,9 @@ Serpent::Serpent (int tailleSerp, int posX, int posY, Terrain& t, bool mouvement
         directionSerpent.y = -1;
 
         for (int i = 1; i < tailleSerp; i++) {
-            setCorps(i, getCorps(i-1).x, getCorps(i-1).y+1);
+            p.x = getCorps(i-1).x;
+            p.y = getCorps(i-1).y+1;
+            corps.push_back(p);
         }
     }
 }

@@ -7,9 +7,8 @@
 #include <thread>
 using namespace std;
 
-Jeu::Jeu () : terrain(), serpent(3, 3, 3, terrain, true) {
+Jeu::Jeu () : terrain(), serpent(10, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true) {
     terrain.recupNiveau("./data/niveau3.txt");
-    serpent.setTete(terrain.getDimX()/2, terrain.getDimY()/2);
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
 }
 
