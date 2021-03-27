@@ -10,4 +10,26 @@ Le thème du projet est le jeu d'arcade Nibble avec des fonctionnalités ainsi q
 
 ## Compilation 
 
-...
+- Linux
+
+Lancer la compilation du projet:
+
+```bash
+$ make 
+```
+Exécutable pour lancer les testes de régression:
+
+```bash
+$ ./bin/test 
+```
+
+Exécutable qui affiche le Terrain dans le terminal:
+
+```bash
+$ ./bin/afficheTerrain
+```
+Exécutable qui lance l'application en mode texte:
+
+```bash
+$ ./bin/nibbleTxt
+```
