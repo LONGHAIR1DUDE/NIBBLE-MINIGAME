@@ -1,7 +1,7 @@
 #ifndef _TXTJEU_H
 #define _TXTJEU_H
 
-#include "Jeu.h"
+#include "../core/Jeu.h"
 
 void txtJeu(Jeu& j);
 
