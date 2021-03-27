@@ -7,9 +7,10 @@
 #include <thread>
 using namespace std;
 
-Jeu::Jeu () : terrain(), serpent(10, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true) {
+Jeu::Jeu () : terrain(), serpent(2, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true) {
     terrain.recupNiveau("./data/niveau3.txt");
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
+    srand(time(NULL));
 }
 
 Jeu::~Jeu () {}
@@ -89,17 +90,58 @@ void Jeu::placementAleatoire() {
     }while(terrain.getXY(x,y) == ' ');
 }
 
-void Jeu::SerpentBouge() {
+void Jeu::SerpentBouge(bool stop) {
+    int x = serpent.getTete().x;
+    int y = serpent.getTete().y;
+    char c; 
+    
     Point dir = serpent.getDirection();
-    if (dir.x == -1) 
+    if (dir.x == -1) {
         serpent.gauche(terrain);
+        c = terrain.getXY(x, y);
+        if (c == 'o') stop = false;
+    }
+        
 
-    if (dir.x == 1) 
+    if (dir.x == 1) {
         serpent.droite(terrain);
+        c = terrain.getXY(x, y);
+        if (c == 'o') stop = false;
+    }
+        
 
-    if (dir.y == -1) 
+    if (dir.y == -1) {
         serpent.haut(terrain);
+        c = terrain.getXY(x, y);
+        if (c == 'o') stop = false;
+    }
 
-    if (dir.y == 1) 
+    if (dir.y == 1) {
         serpent.bas(terrain);
+        c = terrain.getXY(x, y);
+        if (c == 'o') stop = false;
+    }
+        
+}
+
+void Jeu::actionSurSerpent () {
+    int x = serpent.getTete().x;
+    int y = serpent.getTete().y;
+    int cpt = terrain.compteurPiece();
+    int dimx = terrain.getDimX();
+    int dimy = terrain.getDimY();
+
+    if (terrain.getXY(x, y) == '.') {
+        serpent.allongeCorps(terrain);
+        terrain.mangeElement(x, y);
+        cpt--;
+    }
+
+    if (cpt < 10) {
+        do {
+            x = rand()% dimx;
+            x = rand()% dimy;
+        } while (!terrain.posValide(x, y));
+        terrain.setXY(x, y, '.');
+    }
 }

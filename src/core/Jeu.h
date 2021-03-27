@@ -31,7 +31,7 @@ public:
     int getNbBonus() const;
     bool actionClavier(const char touche);
     void placementAleatoire();
-    void SerpentBouge();
+    void SerpentBouge(bool stop);
     void actionSurSerpent();
 
 };

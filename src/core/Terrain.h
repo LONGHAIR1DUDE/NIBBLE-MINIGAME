@@ -35,6 +35,7 @@ public:
     int getTailleTerrain() const;
     void testRegression();
     void setXY(const int x, const int y, const char c);
+    int compteurPiece();
 };
 
 #endif

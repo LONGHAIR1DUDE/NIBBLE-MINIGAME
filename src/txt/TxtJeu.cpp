@@ -43,7 +43,8 @@ void txtJeu (Jeu& j) {
 		usleep(100000);
         #endif // WIN32
         
-        j.SerpentBouge();
+        j.SerpentBouge(ok);
+        j.actionSurSerpent();
 
         car = fenetre.getCh();
         switch (car) {
@@ -65,8 +66,6 @@ void txtJeu (Jeu& j) {
             ok = false;
                 break;
         }
-        
-
     } while (ok);
 }
 

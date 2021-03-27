@@ -62,6 +62,11 @@ char Terrain::getXY(int x, int y) const {
 }
 
 void Terrain::setXY (const int x, const int y, const char c) {
+    assert(x>=0);
+    assert(x<dimx);
+    assert(y>=0);
+    assert(y<dimy);
+    assert(posValide(x, y));
     ter[y*dimx+x] = c;
 }
 
@@ -99,6 +104,20 @@ int Terrain::getDimX () const { return dimx; }
 
 // Retourne la valeur de dimy
 int Terrain::getDimY () const { return dimy; }
+
+int Terrain::compteurPiece () {
+    char c;
+    int cmpt = 0;
+    for (int x = 0; x < dimx; x++) {
+        for (int y = 0; y < dimy; y++) {
+            c = getXY(x, y);
+            if (c == '.')
+                cmpt++;
+        }
+    }
+
+    return cmpt;
+}
 
 void Terrain::testRegression(){
 	
