@@ -13,7 +13,7 @@ private:
     Point directionSerpent;
     Point boutSerpent;
 public:
-    Serpent(const int posX, const int posY, const Terrain& t, bool mouvement);
+    Serpent(int tailleSerp, int posX, int posY, Terrain& t, bool mouvement);
 
     void gauche(const Terrain& t);
     void droite(const Terrain& t);
@@ -25,6 +25,7 @@ public:
     Point getTete() const;
     bool getMouv();
     Point getDirection() const;
+    int getTailleSerpent() const;
     void setCorps(const int i, const int x, const int y);
     void setTete(const int x, const int y);
     void setMouv(bool mouv);

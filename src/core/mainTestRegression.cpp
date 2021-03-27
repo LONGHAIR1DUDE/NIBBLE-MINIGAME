@@ -6,7 +6,7 @@ using namespace std;
 int main() {
     Terrain ter;
     bool mouv = true;
-    Serpent serp(9, 4, ter, mouv);
+    Serpent serp(2, 9, 4, ter, mouv);
     serp.testRegression();
     ter.testRegression();
     return 0;

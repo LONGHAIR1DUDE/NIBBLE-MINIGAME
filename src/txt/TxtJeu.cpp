@@ -22,7 +22,8 @@ void affichageTxt(TxtFenetre& fenetre, const Jeu& jeu) {
         for (int y = 0; y < ter.getDimY(); y++)
             fenetre.ecrire(x, y, ter.getXY(x, y));
 
-    fenetre.ecrire(serp.getTete().x, serp.getTete().y, 'O');
+    for (int i = 0; i < serp.getTailleSerpent(); i++)
+        fenetre.ecrire(serp.getCorps(i).x, serp.getCorps(i).y, 'O');
     
     fenetre.dessiner();
 }
@@ -31,7 +32,7 @@ void txtJeu (Jeu& j) {
     TxtFenetre fenetre(j.getTerrain().getDimX(), j.getTerrain().getDimY());
 
     bool ok = true;
-    int car;
+    char car;
 
     do {
         affichageTxt(fenetre, j);
@@ -39,13 +40,11 @@ void txtJeu (Jeu& j) {
         #ifdef _WIN32
         Sleep(100);
 		#else
-		usleep(100000);
+		usleep(200000);
         #endif // WIN32
-
+        
         j.SerpentBouge();
-        j.placementAleatoire();
-        
-        
+
         car = fenetre.getCh();
         switch (car) {
             case 'z':
@@ -62,7 +61,7 @@ void txtJeu (Jeu& j) {
                 j.actionClavier('d');
                 break;
 
-            case 'x':
+            case 'l':
             ok = false;
                 break;
         }

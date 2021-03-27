@@ -7,7 +7,9 @@
 #include <thread>
 using namespace std;
 
-Jeu::Jeu () : terrain(), serpent(12, 10, terrain, true) {
+Jeu::Jeu () : terrain(), serpent(3, 3, 3, terrain, true) {
+    terrain.recupNiveau("./data/niveau3.txt");
+    serpent.setTete(terrain.getDimX()/2, terrain.getDimY()/2);
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
 }
 
@@ -89,5 +91,16 @@ void Jeu::placementAleatoire() {
 }
 
 void Jeu::SerpentBouge() {
-    serpent.setTete(serpent.getDirection().x, serpent.getDirection().y);
+    Point dir = serpent.getDirection();
+    if (dir.x == -1) 
+        serpent.gauche(terrain);
+
+    if (dir.x == 1) 
+        serpent.droite(terrain);
+
+    if (dir.y == -1) 
+        serpent.haut(terrain);
+
+    if (dir.y == 1) 
+        serpent.bas(terrain);
 }

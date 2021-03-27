@@ -9,7 +9,7 @@ using namespace std;
 
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
-         recupNiveau("./data/niveau1.txt");
+        recupNiveau("./data/niveau1.txt");
 }
 
 Terrain::Terrain(const string& namefile) {

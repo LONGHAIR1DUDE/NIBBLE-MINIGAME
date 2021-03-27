@@ -2,13 +2,19 @@
 #include <cassert>
 using namespace std;
 
-Serpent::Serpent (const int posX, const int posY, const Terrain& t, bool mouvement = false) {
+Serpent::Serpent (int tailleSerp, int posX, int posY, Terrain& t, bool mouvement = false) {
     if (t.posValide(posX, posY)) {
         Point p;
         p.x = posX;
         p.y = posY;
         corps.push_back(p);
         mouvementInverse = mouvement;
+        directionSerpent.x = 0;
+        directionSerpent.y = -1;
+
+        for (int i = 1; i < tailleSerp; i++) {
+            setCorps(i, getCorps(i-1).x, getCorps(i-1).y+1);
+        }
     }
 }
 
@@ -65,9 +71,9 @@ void Serpent::haut (const Terrain& t) {
     temp1.x=corps[0].x;
     temp1.y=corps[0].y;
     if(t.posValide(temp1.x, temp1.y+1)){
-        corps[0].y++;
+        corps[0].y--;
         directionSerpent.x = 0;
-        directionSerpent.y = 1;
+        directionSerpent.y = -1;
         for (int i = 1; i < tailleSerp; i++) {
             temp2.x=corps[i].x;
             temp2.y=corps[i].y;
@@ -88,9 +94,9 @@ void Serpent::bas (const Terrain& t) {
     temp1.x=corps[0].x;
     temp1.y=corps[0].y;
     if(t.posValide(temp1.x, temp1.y-1)){
-        corps[0].y--;
+        corps[0].y++;
         directionSerpent.x = 0;
-        directionSerpent.y = -1;
+        directionSerpent.y = 1;
         for (int i = 1; i < tailleSerp; i++) {
             temp2.x=corps[i].x;
             temp2.y=corps[i].y;
@@ -132,14 +138,18 @@ Point Serpent::getDirection() const {
     return directionSerpent;
 }
 
+int Serpent::getTailleSerpent () const {
+    return corps.size();
+}
+
 void Serpent::setCorps (const int i, const int x, const int y) {
     corps[i].x=x;
     corps[i].y=y;
 }
 
 void Serpent::setTete (const int x, const int y) {
-    corps[0].x=x;
-    corps[0].y=y;
+    corps[0].x = x;
+    corps[0].y = y;
 }
 
 void Serpent::setMouv(bool mouv){
