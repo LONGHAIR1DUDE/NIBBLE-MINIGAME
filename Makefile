@@ -1,12 +1,11 @@
 FLAGS =-Wall -g
 CC = g++ 
-OBJS = ./obj/Terrain.o ./obj/Serpent.o  ./obj/Point.o ./obj/Jeu.o ./obj/TxtFenetre.o ./obj/TxtJeu.o #./obj/Bonus.o ./obj/Mur.o
+OBJS = ./obj/Terrain.o ./obj/Serpent.o  ./obj/Point.o ./obj/Jeu.o ./obj/TxtFenetre.o ./obj/TxtJeu.o ./obj/Bonus.o ./obj/Mur.o ./obj/mainTxt.o 
 EXE1 = ./bin/afficheTerrain
 EXE2 = ./bin/test
-EXE3 = ./bin/jeuTxt
+EXE3 = ./bin/nibble_txt
 
-
-all: $(EXE1) $(EXE2)
+all: $(EXE1) $(EXE2) $(EXE3)
 
 jeuTxt: $(EXE3)
 
@@ -40,7 +39,7 @@ $(EXE3): $(OBJS)
 ./obj/mainAffiche.o: ./src/core/mainAffiche.cpp ./src/core/Terrain.h
 	$(CC) $(FLAGS) -c ./src/core/mainAffiche.cpp -o ./obj/mainAffiche.o
 
-./obj/Jeu.o: ./src/Jeu.cpp ./src/core/Jeu.h ./src/core/Terrain.h ./src/core/Serpent.h ./src/core/Portail.h ./src/core/Mur.h ./src/core/Bonus.h
+./obj/Jeu.o: ./src/core/Jeu.cpp ./src/core/Jeu.h ./src/core/Terrain.h ./src/core/Serpent.h ./src/core/Portail.h ./src/core/Mur.h ./src/core/Bonus.h
 	$(CC) $(FLAGS) -c ./src/core/Jeu.cpp -o ./obj/Jeu.o
 
 ./obj/TxtFenetre.o: ./src/txt/TxtFenetre.cpp ./src/txt/TxtFenetre.h
@@ -49,9 +48,16 @@ $(EXE3): $(OBJS)
 ./obj/TxtJeu.o: ./src/txt/TxtJeu.h ./src/txt/TxtJeu.cpp ./src/txt/TxtFenetre.h ./src/core/Jeu.h
 	$(CC) $(FLAGS) -c ./src/txt/TxtJeu.cpp -o ./obj/TxtJeu.o
 
-./obj/mainTxt.o: ./src/txt/mainTxt.cpp ./src/txt/TxtFenetre.h ./src/txt/TxtJeu.h
+./obj/mainTxt.o: ./src/txt/mainTxt.cpp ./src/txt/TxtFenetre.cpp ./src/txt/TxtFenetre.h ./src/txt/TxtJeu.h
 	$(CC) $(FLAGS) -c ./src/txt/mainTxt.cpp -o ./obj/mainTxt.o
+
+docu: doc/nibble.doxy
+	cd doc ; doxygen nibble.doxy
 
 clean: 
 	rm -rf ./obj/* ./bin/*
+
+
+
+
 
