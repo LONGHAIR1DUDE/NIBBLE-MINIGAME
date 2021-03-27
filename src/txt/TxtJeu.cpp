@@ -23,7 +23,7 @@ void affichageTxt(TxtFenetre& fenetre, const Jeu& jeu) {
             fenetre.ecrire(x, y, ter.getXY(x, y));
 
     for (int i = 0; i < serp.getTailleSerpent(); i++)
-        fenetre.ecrire(serp.getCorps(i).x, serp.getCorps(i).y, 'O');
+        fenetre.ecrire(serp.getCorps(i).x, serp.getCorps(i).y, 'o');
     
     fenetre.dessiner();
 }
@@ -40,7 +40,7 @@ void txtJeu (Jeu& j) {
         #ifdef _WIN32
         Sleep(100);
 		#else
-		usleep(200000);
+		usleep(100000);
         #endif // WIN32
         
         j.SerpentBouge();

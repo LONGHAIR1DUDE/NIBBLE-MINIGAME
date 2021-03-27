@@ -32,6 +32,7 @@ public:
     bool actionClavier(const char touche);
     void placementAleatoire();
     void SerpentBouge();
+    void actionSurSerpent();
 
 };
 

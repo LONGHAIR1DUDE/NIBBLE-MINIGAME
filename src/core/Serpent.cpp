@@ -72,7 +72,7 @@ void Serpent::haut (const Terrain& t) {
     int tailleSerp = corps.size();
     temp1.x=corps[0].x;
     temp1.y=corps[0].y;
-    if(t.posValide(temp1.x, temp1.y+1)){
+    if(t.posValide(temp1.x, temp1.y-1)){
         corps[0].y--;
         directionSerpent.x = 0;
         directionSerpent.y = -1;
@@ -95,7 +95,7 @@ void Serpent::bas (const Terrain& t) {
     int tailleSerp = corps.size();
     temp1.x=corps[0].x;
     temp1.y=corps[0].y;
-    if(t.posValide(temp1.x, temp1.y-1)){
+    if(t.posValide(temp1.x, temp1.y+1)){
         corps[0].y++;
         directionSerpent.x = 0;
         directionSerpent.y = 1;
