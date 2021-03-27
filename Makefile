@@ -48,7 +48,7 @@ $(EXE3): $(OBJS)
 ./obj/TxtJeu.o: ./src/txt/TxtJeu.cpp ./src/txt/TxtJeu.h ./src/txt/TxtFenetre.h ./src/core/Jeu.h
 	$(CC) $(FLAGS) -c $< -o $@
 
-./obj/mainTxt.o: ./src/txt/mainTxt.cpp ./src/txt/TxtFenetre.cpp ./src/txt/TxtFenetre.h ./src/txt/TxtJeu.h
+./obj/mainTxt.o: ./src/txt/mainTxt.cpp ./src/txt/TxtFenetre.cpp ./src/txt/TxtJeu.h
 	$(CC) $(FLAGS) -c $< -o $@
 
 docu: doc/nibble.doxy

@@ -83,6 +83,12 @@ TxtFenetre::TxtFenetre(int dx, int dy) {
     termInit();
 }
 
+void TxtFenetre::effacer (char c) {
+    for(int i=0;i<dimx;++i)
+        for(int j=0;j<dimy;++j)
+            ecrire(i,j,c);
+}
+
 void TxtFenetre::ecrire (int x, int y, char c) {
     if (x<0) return;
     if (y<0) return;

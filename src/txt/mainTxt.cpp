@@ -1,5 +1,5 @@
-#include "TxtFenetre.h"
 #include "TxtJeu.h"
+#include "TxtFenetre.h"
 
 int main ( int argc, char** argv ) {
     termClear();
