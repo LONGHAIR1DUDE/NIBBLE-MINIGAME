@@ -36,6 +36,7 @@ public:
     void testRegression();
     void setXY(const int x, const int y, const char c);
     int compteurPiece();
+    bool emplacementLibre(int x, int y) const;
 };
 
 #endif

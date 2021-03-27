@@ -22,6 +22,9 @@ void affichageTxt(TxtFenetre& fenetre, const Jeu& jeu) {
         for (int y = 0; y < ter.getDimY(); y++)
             fenetre.ecrire(x, y, ter.getXY(x, y));
 
+    fenetre.ecrire(jeu.getPortail(0).getPortail1().x, jeu.getPortail(0).getPortail1().y, 'P');
+    fenetre.ecrire(jeu.getPortail(0).getPortail2().x, jeu.getPortail(0).getPortail2().y, 'P');
+
     for (int i = 0; i < serp.getTailleSerpent(); i++)
         fenetre.ecrire(serp.getCorps(i).x, serp.getCorps(i).y, 'o');
     
@@ -45,6 +48,7 @@ void txtJeu (Jeu& j) {
         
         j.SerpentBouge(ok);
         j.actionSurSerpent();
+        j.actionPortail();
 
         car = fenetre.getCh();
         switch (car) {

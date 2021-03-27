@@ -1,6 +1,6 @@
 FLAGS =-Wall -g
 CC = g++ 
-OBJS = ./obj/Terrain.o ./obj/Serpent.o  ./obj/Point.o ./obj/Jeu.o ./obj/TxtFenetre.o ./obj/TxtJeu.o ./obj/Bonus.o ./obj/Mur.o ./obj/mainTxt.o 
+OBJS = ./obj/Terrain.o ./obj/Serpent.o  ./obj/Point.o ./obj/Jeu.o ./obj/TxtFenetre.o ./obj/TxtJeu.o ./obj/Bonus.o ./obj/Mur.o ./obj/mainTxt.o ./obj/Portail.o
 EXE1 = ./bin/afficheTerrain
 EXE2 = ./bin/test
 EXE3 = ./bin/nibble_txt
@@ -31,6 +31,9 @@ $(EXE3): $(OBJS)
 	$(CC) $(FLAGS) -c $< -o $@
 
 ./obj/Point.o: ./src/core/Point.cpp ./src/core/Point.h 
+	$(CC) $(FLAGS) -c $< -o $@
+
+./obj/Portail.o: ./src/core/Portail.cpp ./src/core/Portail.h ./src/core/Terrain.h
 	$(CC) $(FLAGS) -c $< -o $@
 
 ./obj/mainTestRegression.o: ./src/core/mainTestRegression.cpp ./src/core/Terrain.h ./src/core/Serpent.h 

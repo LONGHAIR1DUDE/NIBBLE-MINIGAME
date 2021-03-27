@@ -1,4 +1,5 @@
 #include "Terrain.h"
+#include "Portail.h"
 #include <cassert>
 #include <fstream>
 #include <cstdlib>
@@ -52,6 +53,10 @@ bool Terrain::posValide(int x, int y) const {
     return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] != '#');
 }
 
+bool Terrain::emplacementLibre(int x, int y) const {
+    return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == ' ');
+}
+
 // Fonction qui retourne le tableau de caractère ter
 char Terrain::getXY(int x, int y) const {
     assert(x>=0);
@@ -67,6 +72,7 @@ void Terrain::setXY (const int x, const int y, const char c) {
     assert(y>=0);
     assert(y<dimy);
     assert(posValide(x, y));
+    assert(emplacementLibre(x, y));
     ter[y*dimx+x] = c;
 }
 

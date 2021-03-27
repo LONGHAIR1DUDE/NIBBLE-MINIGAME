@@ -1,6 +1,7 @@
 #include "Terrain.h"
 #include "Serpent.h"
 #include "Portail.h"
+#include "Point.h"
 #include "Mur.h"
 #include "Bonus.h"
 #include <vector>
@@ -13,9 +14,9 @@ class Jeu {
 private:
     Terrain terrain;
     Serpent serpent;
-    vector<Mur> murs;
-    vector<Portail> portail;
-    vector<Bonus> bonus;
+    vector<Mur> tabMurs;
+    vector<Portail> tabPortail;
+    vector<Bonus> tabBonus;
 
 public:
     Jeu();
@@ -33,6 +34,7 @@ public:
     void placementAleatoire();
     void SerpentBouge(bool stop);
     void actionSurSerpent();
+    void actionPortail();
 
 };
 

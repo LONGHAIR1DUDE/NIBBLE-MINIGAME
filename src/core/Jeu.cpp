@@ -7,10 +7,13 @@
 #include <thread>
 using namespace std;
 
-Jeu::Jeu () : terrain(), serpent(2, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true) {
-    terrain.recupNiveau("./data/niveau3.txt");
+Jeu::Jeu () : terrain("./data/niveau3.txt"), serpent(2, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true) {
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
     srand(time(NULL));
+    Point a {1, 1};
+    Point b {(terrain.getDimX()-2), (terrain.getDimY()-2)};
+    Portail p(a, b);
+    tabPortail.push_back(p);
 }
 
 Jeu::~Jeu () {}
@@ -20,27 +23,27 @@ Terrain Jeu::getTerrain () const { return terrain; }
 Serpent Jeu::getSerpent () const {return serpent;}
 
 Mur Jeu::getMur(int i) const { 
-    return murs[i];
+    return tabMurs[i];
 }
 
 int Jeu::getNbMurs() const {
-    return murs.size();
+    return tabMurs.size();
 }  
 
 Portail Jeu::getPortail (int i) const {
-    return portail[i];
+    return tabPortail[i];
 }  
 
 int Jeu::getNbPortails() const {
-    return portail.size();
+    return tabPortail.size();
 } 
 
 Bonus Jeu::getBonus(int i) const {
-    return bonus[i];
+    return tabBonus[i];
 }
 
 int Jeu::getNbBonus() const {
-    return bonus.size();
+    return tabBonus.size();
 } 
 
 bool Jeu::actionClavier(const char touche) {
@@ -130,6 +133,7 @@ void Jeu::actionSurSerpent () {
     int cpt = terrain.compteurPiece();
     int dimx = terrain.getDimX();
     int dimy = terrain.getDimY();
+    char c = terrain.getXY(x, y);
 
     if (terrain.getXY(x, y) == '.') {
         serpent.allongeCorps(terrain);
@@ -137,11 +141,26 @@ void Jeu::actionSurSerpent () {
         cpt--;
     }
 
-    if (cpt < 10) {
+    if (cpt < 15) {
         do {
             x = rand()% dimx;
             y = rand()% dimy;
-        } while (!terrain.posValide(x, y));
+        } while (!terrain.posValide(x, y) || !terrain.emplacementLibre(x, y));
         terrain.setXY(x, y, '.');
+    }
+}
+
+void Jeu::actionPortail () {
+    int px1 = tabPortail[0].getPortail1().x;
+    int py1 = tabPortail[0].getPortail1().y;
+
+    int px2 = tabPortail[0].getPortail2().x;
+    int py2 = tabPortail[0].getPortail2().y;
+    if ((serpent.getTete().x == px1) && (serpent.getTete().y == py1)) {
+        serpent.setTete(px2, py2);
+    }
+
+    else if ((serpent.getTete().x == px2) && (serpent.getTete().y == py2)) {
+        serpent.setTete(px1, py1);
     }
 }
