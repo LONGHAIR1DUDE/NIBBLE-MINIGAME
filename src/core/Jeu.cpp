@@ -140,7 +140,7 @@ void Jeu::actionSurSerpent () {
     if (cpt < 10) {
         do {
             x = rand()% dimx;
-            x = rand()% dimy;
+            y = rand()% dimy;
         } while (!terrain.posValide(x, y));
         terrain.setXY(x, y, '.');
     }
