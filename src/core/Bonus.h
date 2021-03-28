@@ -9,13 +9,18 @@ class Bonus{
 private:
     int action;
     Point position;
-    void changeTailleSerpent(Serpent & serp);
+    void changeTailleSerpent(Serpent & serp,Terrain& ter);
     void inverseMouvement(Serpent & serp);
 
 public:
     Bonus(int type, int x, int y);
-    void actionBonus(Serpent& serp);
+    Bonus();
+    void setBonus(int type,int x,int y);
+    void actionBonus(Serpent& serp,Terrain& ter);
+    
     Point getPos();
+    int getX();
+    int getY();
     int getAction();
 };
 

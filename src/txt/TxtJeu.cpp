@@ -26,7 +26,8 @@ void affichageTxt (TxtFenetre& fenetre, const Jeu& jeu) {
 
     fenetre.ecrire(jeu.getPortail(0).getPortail1().x, jeu.getPortail(0).getPortail1().y, 'P');
     fenetre.ecrire(jeu.getPortail(0).getPortail2().x, jeu.getPortail(0).getPortail2().y, 'P');
-
+    for(int j= 0;j < jeu.getNbBonus();j++)
+        {fenetre.ecrire(jeu.getBonus(j).getX(), jeu.getBonus(j).getY(), ter.getXY(jeu.getBonus(j).getX(), jeu.getBonus(j).getY()));}
     for (int i = 0; i < serp.getTailleSerpent(); i++) {
         fenetre.ecrire(serp.getCorps(i).x, serp.getCorps(i).y, 'o');   
     }
@@ -59,7 +60,7 @@ void txtJeu (Jeu& j) {
         ok = j.SerpentBouge();
         j.actionSurSerpent();
         j.actionPortail();
-
+        j.placementAleatoire();
         car = fenetre.getCh();
         switch (car) {
             case 'z':

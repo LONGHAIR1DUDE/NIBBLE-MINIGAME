@@ -7,7 +7,7 @@
 #include <thread>
 using namespace std;
 
-Jeu::Jeu () : terrain("./data/niveau3.txt"), serpent(2, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true), score(0) {
+Jeu::Jeu () : terrain("../data/niveau1.txt"), serpent(2, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true), score(0) {
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
     srand(time(NULL));
     Point a {1, 1};
@@ -80,25 +80,39 @@ bool Jeu::actionClavier(const char touche) {
 }
 
 void Jeu::placementAleatoire() {   
-    int x, y;
-    do{
+    
+    
+    
+       
+   
+        int x,y;
+        int a;
+       while(tabBonus.empty())
+       {
         do{
+            
             srand(time(NULL));
             x = rand() % terrain.getDimX();
             
             y = rand() % terrain.getDimY();
             
-            // i = rand() % bonus.size();
-        } while(!terrain.posValide(x,y));
-
-        //a modifier faut ajouter un void Terrain::setXYBonus(int x,int y,Bonus b);
-        terrain.setXY(y, x, 'b');
-        this_thread::sleep_for(2s);
+            a = rand()%2;
+            
+        } while(!terrain.posValide(x, y) || !terrain.emplacementLibre(x, y));
+       
+        Bonus b (a,x,y);
+        tabBonus.push_back(b);
         
-        if(terrain.getXY(x,y) == 'b')
-            terrain.setXY(y,x, '.'); 
-
-    }while(terrain.getXY(x,y) == ' ');
+       
+        
+        terrain.setXY(tabBonus[0].getX() ,tabBonus[0].getY(), 'b');
+         
+       if(terrain.getXY(tabBonus[0].getX() ,tabBonus[0].getY()) != 'b')
+       {      
+        tabBonus.pop_back();
+        }
+        }
+       
 }
 
 bool Jeu::SerpentBouge() {
@@ -144,6 +158,15 @@ void Jeu::actionSurSerpent () {
         terrain.mangeElement(x, y);
         setScore();
         cpt--;
+    }
+    
+    if (terrain.getXY(x, y) == 'b') {
+        tabBonus[0].actionBonus(serpent,terrain);
+        terrain.mangeElement(x, y);
+        
+        
+        tabBonus.pop_back();
+        
     }
 
     if (cpt < 15) {
