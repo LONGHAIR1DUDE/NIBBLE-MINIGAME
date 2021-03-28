@@ -31,5 +31,5 @@ $ ./bin/afficheTerrain
 Exécutable qui lance l'application en mode texte:
 
 ```bash
-$ ./bin/nibbleTxt
+$ ./bin/nibble_txt
 ```
