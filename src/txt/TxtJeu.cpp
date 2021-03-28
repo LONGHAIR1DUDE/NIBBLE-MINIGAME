@@ -28,7 +28,7 @@ void affichageTxt(TxtFenetre& fenetre, const Jeu& jeu) {
     for (int i = 0; i < serp.getTailleSerpent(); i++)
         fenetre.ecrire(serp.getCorps(i).x, serp.getCorps(i).y, 'o');
     
-    fenetre.dessiner();
+    fenetre.dessiner((getDimTerminale().x/2)-(ter.getDimX()/2), (getDimTerminale().y/2)-(ter.getDimY()/2));
 }
 
 void txtJeu (Jeu& j) {

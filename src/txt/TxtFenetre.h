@@ -1,5 +1,6 @@
 #ifndef _TXTFENETRE_H
 #define _TXTFENETRE_H
+#include "../core/Point.h"
 
 class TxtFenetre {
 private:
@@ -16,6 +17,7 @@ public:
     char getCh();
 };
 
+Point getDimTerminale();
 void termClear();
 
 #endif

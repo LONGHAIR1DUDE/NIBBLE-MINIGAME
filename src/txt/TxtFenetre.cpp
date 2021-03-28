@@ -1,4 +1,5 @@
 #include "TxtFenetre.h"
+#include "../core/Terrain.h"
 #include <cassert>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -14,7 +15,7 @@
 #else
 #include <unistd.h>
 #include <termios.h>
-#include <unistd.h>
+#include <sys/ioctl.h>
 #endif
 using namespace std;
 
@@ -106,10 +107,13 @@ void TxtFenetre::ecrire (int x, int y, char* c) {
 }
 
 void TxtFenetre::dessiner (int x, int y) {
-    termMove(0, 0);
+    termClear();
+    termMove(x, y);
     for(int j = 0; j < dimy; ++j) {
-        for(int i = 0; i < dimx; ++i)
+        termMove(x, y+j);
+        for(int i = 0; i < dimx; ++i) {
             printf("%c", fenetre[j*dimx+i]);
+        }
         printf("\n");
     }
     termMove(0, dimy);
@@ -154,4 +158,23 @@ char TxtFenetre::getCh () { // lire un carctere si une touche a ete presee
         touche = fgetc(stdin);
 #endif
     return touche;
+}
+
+Point getDimTerminale () {
+    Point dimT;
+#ifdef _WIN32
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    int columns, rows;
+
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    dimT.x = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    dimT.y = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+#else
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+
+    dimT.x = w.ws_col;
+    dimT.y = w.ws_row;
+#endif
+    return dimT;
 }
