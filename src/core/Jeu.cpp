@@ -101,21 +101,34 @@ void Jeu::placementAleatoire() {
     }while(terrain.getXY(x,y) == ' ');
 }
 
-void Jeu::SerpentBouge() {
+bool Jeu::SerpentBouge() {
     
     Point dir = serpent.getDirection();
+    int x = serpent.getTete().x;
+    int y = serpent.getTete().y;
 
-    if (dir.x == -1) 
+    for (int i = 1; i < serpent.getTailleSerpent(); i++) {
+        if ((serpent.getCorps(i).x == x) && (serpent.getCorps(i).y == y)) 
+            return false;
+    }
+
+    if (dir.x == -1) {
         serpent.gauche(terrain);
-        
-    if (dir.x == 1) 
+    }
+
+    if (dir.x == 1) {
         serpent.droite(terrain);
+    }
 
-    if (dir.y == -1) 
+    if (dir.y == -1) {
         serpent.haut(terrain);
+    }
 
-    if (dir.y == 1) 
+    if (dir.y == 1) {
         serpent.bas(terrain);
+    }
+        
+    return true;
 }
 
 void Jeu::actionSurSerpent () {

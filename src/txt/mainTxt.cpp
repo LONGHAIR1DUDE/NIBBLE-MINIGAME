@@ -6,5 +6,6 @@ int main ( int argc, char** argv ) {
 	Jeu jeu;
 	txtJeu(jeu);
     termClear();
+	cout << "GAME OVER!" << endl << "Score: " << jeu.getScore() << endl;
 	return 0;
 }

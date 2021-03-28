@@ -177,3 +177,7 @@ Point getDimTerminale () {
 #endif
     return dimT;
 }
+
+char TxtFenetre::getCarFenetre (int x, int y) {
+    return fenetre[y*dimx+x];
+}

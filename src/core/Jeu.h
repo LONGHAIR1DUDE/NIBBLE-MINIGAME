@@ -4,6 +4,7 @@
 #include "Point.h"
 #include "Mur.h"
 #include "Bonus.h"
+#include "../txt/TxtFenetre.h"
 #include <vector>
 using namespace std;
 
@@ -35,7 +36,7 @@ public:
     void setScore();
     bool actionClavier(const char touche);
     void placementAleatoire();
-    void SerpentBouge();
+    bool SerpentBouge();
     void actionSurSerpent();
     void actionPortail();
 

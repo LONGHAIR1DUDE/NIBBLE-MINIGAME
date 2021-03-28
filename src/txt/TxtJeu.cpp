@@ -19,8 +19,10 @@ void affichageTxt (TxtFenetre& fenetre, const Jeu& jeu) {
     fenetre.effacer();
 
     for (int x = 0; x < ter.getDimX(); x++) 
-        for (int y = 0; y < ter.getDimY(); y++)
+        for (int y = 0; y < ter.getDimY(); y++) {
             fenetre.ecrire(x, y, ter.getXY(x, y));
+        }
+            
 
     fenetre.ecrire(jeu.getPortail(0).getPortail1().x, jeu.getPortail(0).getPortail1().y, 'P');
     fenetre.ecrire(jeu.getPortail(0).getPortail2().x, jeu.getPortail(0).getPortail2().y, 'P');
@@ -34,7 +36,7 @@ void affichageTxt (TxtFenetre& fenetre, const Jeu& jeu) {
 
 void affichageScore (TxtFenetre& fenetre, Jeu& jeu) {
     cout << "NIBBLE" << endl;
-    cout << "SCORE: " << jeu.getScore();
+    cout << "SCORE: " << jeu.getScore() << endl;
 }
 
 void txtJeu (Jeu& j) {
@@ -54,7 +56,7 @@ void txtJeu (Jeu& j) {
 		usleep(100000);
         #endif // WIN32
         
-        j.SerpentBouge();
+        ok = j.SerpentBouge();
         j.actionSurSerpent();
         j.actionPortail();
 

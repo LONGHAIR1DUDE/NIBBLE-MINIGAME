@@ -15,6 +15,7 @@ public:
     void dessiner(int x = 0, int y = 0);
     void pause();
     char getCh();
+    char getCarFenetre(int x, int y);
 };
 
 Point getDimTerminale();
