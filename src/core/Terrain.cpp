@@ -72,7 +72,7 @@ void Terrain::setXY (const int x, const int y, const char c) {
     assert(y>=0);
     assert(y<dimy);
     assert(posValide(x, y));
-    assert(emplacementLibre(x, y));
+    assert(emplacementLibre(x, y));  
     ter[y*dimx+x] = c;
 }
 

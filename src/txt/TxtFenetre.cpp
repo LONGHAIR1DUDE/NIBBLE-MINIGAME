@@ -107,7 +107,6 @@ void TxtFenetre::ecrire (int x, int y, char* c) {
 }
 
 void TxtFenetre::dessiner (int x, int y) {
-    termClear();
     termMove(x, y);
     for(int j = 0; j < dimy; ++j) {
         termMove(x, y+j);

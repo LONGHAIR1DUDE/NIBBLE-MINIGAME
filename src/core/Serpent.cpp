@@ -167,9 +167,9 @@ void Serpent::setMouv(bool mouv){
     mouvementInverse=mouv;
 }
 
-void Serpent::setDirection (Point d) {
-    directionSerpent.x = d.x;
-    directionSerpent.y = d.y;
+void Serpent::setDirection (int x, int y) {
+    directionSerpent.x = x;
+    directionSerpent.y = y;
 }
 
 void Serpent::testRegression () {

@@ -7,7 +7,7 @@
 #include <thread>
 using namespace std;
 
-Jeu::Jeu () : terrain("./data/niveau3.txt"), serpent(2, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true) {
+Jeu::Jeu () : terrain("./data/niveau3.txt"), serpent(2, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true), score(0) {
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
     srand(time(NULL));
     Point a {1, 1};
@@ -45,6 +45,14 @@ Bonus Jeu::getBonus(int i) const {
 int Jeu::getNbBonus() const {
     return tabBonus.size();
 } 
+
+int Jeu::getScore () {
+    return score;
+}
+
+void Jeu::setScore () {
+    score += 10;
+}
 
 bool Jeu::actionClavier(const char touche) {
     switch(touche) {
@@ -93,38 +101,21 @@ void Jeu::placementAleatoire() {
     }while(terrain.getXY(x,y) == ' ');
 }
 
-void Jeu::SerpentBouge(bool stop) {
-    int x = serpent.getTete().x;
-    int y = serpent.getTete().y;
-    char c; 
+void Jeu::SerpentBouge() {
     
     Point dir = serpent.getDirection();
-    if (dir.x == -1) {
+
+    if (dir.x == -1) 
         serpent.gauche(terrain);
-        c = terrain.getXY(x, y);
-        if (c == 'o') stop = false;
-    }
         
-
-    if (dir.x == 1) {
+    if (dir.x == 1) 
         serpent.droite(terrain);
-        c = terrain.getXY(x, y);
-        if (c == 'o') stop = false;
-    }
-        
 
-    if (dir.y == -1) {
+    if (dir.y == -1) 
         serpent.haut(terrain);
-        c = terrain.getXY(x, y);
-        if (c == 'o') stop = false;
-    }
 
-    if (dir.y == 1) {
+    if (dir.y == 1) 
         serpent.bas(terrain);
-        c = terrain.getXY(x, y);
-        if (c == 'o') stop = false;
-    }
-        
 }
 
 void Jeu::actionSurSerpent () {
@@ -138,6 +129,7 @@ void Jeu::actionSurSerpent () {
     if (terrain.getXY(x, y) == '.') {
         serpent.allongeCorps(terrain);
         terrain.mangeElement(x, y);
+        setScore();
         cpt--;
     }
 

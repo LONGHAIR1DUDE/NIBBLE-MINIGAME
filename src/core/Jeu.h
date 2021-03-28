@@ -17,6 +17,7 @@ private:
     vector<Mur> tabMurs;
     vector<Portail> tabPortail;
     vector<Bonus> tabBonus;
+    int score;
 
 public:
     Jeu();
@@ -30,9 +31,11 @@ public:
     int getNbPortails() const;
     Bonus getBonus(int i) const;
     int getNbBonus() const;
+    int getScore();
+    void setScore();
     bool actionClavier(const char touche);
     void placementAleatoire();
-    void SerpentBouge(bool stop);
+    void SerpentBouge();
     void actionSurSerpent();
     void actionPortail();
 
