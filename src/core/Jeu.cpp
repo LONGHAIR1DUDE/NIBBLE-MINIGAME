@@ -57,13 +57,13 @@ void Jeu::setScore (float num) {
 }
 
 int Jeu::stockerBestScore () {
-    ifstream monBestScoreL("./data/bestScore.txt");
+    ifstream monBestScoreL("../data/bestScore.txt");
     float number;
     if (monBestScoreL) {
         monBestScoreL >> number;
         monBestScoreL.close();   
         if (number < score) {
-            ofstream monBestScoreE("./data/bestScore.txt");
+            ofstream monBestScoreE("../data/bestScore.txt");
             if (monBestScoreE) {  
                 monBestScoreE << score;
                 monBestScoreE.close();
@@ -74,27 +74,33 @@ int Jeu::stockerBestScore () {
         } else {
             return number;
         }
+<<<<<<< HEAD
     } else 
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
     return 0;
+=======
+    } else {
+        cout << "ERREUR: Impossible d'ouvrir le fichier bestscore en lecture !" << endl;
+    }
+>>>>>>> 7bd36bf93ab219804d9612105ccdcfad69e77588
 }
 
 bool Jeu::actionClavier(const char touche) {
     switch(touche) {
-        case 'q': 
-            serpent.gauche(terrain);
+        case 'q': if(!serpent.getMouv()) {serpent.droite(terrain);}
+           else  {serpent.gauche(terrain);}
             break;
         
-        case 'd': 
-            serpent.droite(terrain);
+        case 'd': if(!serpent.getMouv()) {serpent.gauche(terrain);}
+            else  {serpent.droite(terrain);}
             break;
         
-        case 'z': 
-            serpent.haut(terrain);
+        case 'z': if(!serpent.getMouv()) {serpent.bas(terrain);}
+            else {serpent.haut(terrain);}
             break;
         
-        case 's': 
-            serpent.bas(terrain);
+        case 's': if(!serpent.getMouv()) {serpent.haut(terrain);}
+            else {serpent.bas(terrain);}
             break;
     }
     if (terrain.getXY(serpent.getTete().x, serpent.getTete().y)=='.') {
@@ -104,7 +110,12 @@ bool Jeu::actionClavier(const char touche) {
 	return false;
 }
 
-void Jeu::placementAleatoire() {  
+void Jeu::placementAleatoire() {   
+    
+    
+    
+       
+   
         int x,y;
         int a;
         while(tabBonus.empty())
@@ -127,10 +138,7 @@ void Jeu::placementAleatoire() {
         
         terrain.setXY(tabBonus[0].getX() ,tabBonus[0].getY(), 'b');
          
-       if(terrain.getXY(tabBonus[0].getX() ,tabBonus[0].getY()) != 'b')
-       {      
-        tabBonus.pop_back();
-        }
+       
         }
        
 }
@@ -179,14 +187,13 @@ void Jeu::actionSurSerpent () {
         cpt--;
     }
     
-    if (terrain.getXY(x, y) == 'b') {
-        tabBonus[0].actionBonus(serpent,terrain);
-        terrain.mangeElement(x, y);
-        
-        
+        if(terrain.getXY(x,y) == 'b')
+       {    
+           terrain.setXY(tabBonus[0].getX() ,tabBonus[0].getY(), ' ');       
+           tabBonus[0].actionBonus(serpent,terrain);
         tabBonus.pop_back();
         
-    }
+        }
 
     if (cpt < 30) {
         do {

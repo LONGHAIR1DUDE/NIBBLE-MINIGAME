@@ -3,7 +3,7 @@
 
 int main ( int argc, char** argv ) {
     termClear();
-	Jeu jeu("./data/niveau5.txt");
+	Jeu jeu("./data/niveau4.txt");
 	txtJeu(jeu);
     termClear();
 	int bestScore = jeu.stockerBestScore();
