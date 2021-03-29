@@ -125,7 +125,6 @@ void Serpent::bas (const Terrain& t) {
 
 //Fonction à terminer, ajouter détection de position libre
 void Serpent::allongeCorps (const Terrain& t){
-    int tailleSerp=corps.size();
     corps.push_back(boutSerpent);
 }
 
