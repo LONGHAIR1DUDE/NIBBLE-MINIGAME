@@ -18,10 +18,11 @@ private:
     vector<Mur> tabMurs;
     vector<Portail> tabPortail;
     vector<Bonus> tabBonus;
-    int score;
+    float score;
+    float bestScore;
 
 public:
-    Jeu();
+    Jeu(const string& namefile);
     ~Jeu();
 
     Terrain getTerrain() const;
@@ -33,7 +34,8 @@ public:
     Bonus getBonus(int i) const;
     int getNbBonus() const;
     int getScore();
-    void setScore();
+    void setScore(float num);
+    int stockerBestScore();
     bool actionClavier(const char touche);
     void placementAleatoire();
     bool SerpentBouge();

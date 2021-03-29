@@ -31,7 +31,7 @@ void Bonus::changeTailleSerpent(Serpent & serp,Terrain& ter) {
 void Bonus::inverseMouvement(Serpent & serp) {
     serp.setMouv(true); 
 }
-
+ 
 void Bonus::actionBonus(Serpent& serp,Terrain& ter) {
     if(action == 0){
         changeTailleSerpent(serp,ter);

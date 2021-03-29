@@ -5,9 +5,11 @@
 #include <ctime>
 #include <chrono>
 #include <thread>
+#include <fstream>
 using namespace std;
 
-Jeu::Jeu () : terrain("./data/niveau4.txt"), serpent(2, terrain.getDimX()/4, terrain.getDimY()/4, terrain, true), score(0) {
+Jeu::Jeu (const string& namefile) : serpent(2, terrain.getDimX()/4, terrain.getDimY()/4, terrain, true), score(0) {
+    terrain.recupNiveau(namefile);
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
     srand(time(NULL));
     Point a {1, 1};
@@ -50,8 +52,31 @@ int Jeu::getScore () {
     return score;
 }
 
-void Jeu::setScore () {
-    score += 10;
+void Jeu::setScore (float num) {
+    score += num;
+}
+
+int Jeu::stockerBestScore () {
+    ifstream monBestScoreL("./data/bestScore.txt");
+    float number;
+    if (monBestScoreL) {
+        monBestScoreL >> number;
+        monBestScoreL.close();   
+        if (number < score) {
+            ofstream monBestScoreE("./data/bestScore.txt");
+            if (monBestScoreE) {  
+                monBestScoreE << score;
+                monBestScoreE.close();
+                return score;
+            } else {
+                cout << "ERREUR: Impossible d'ouvrir le fichier en ecriture !" << endl;
+            }
+        } else {
+            return number;
+        }
+    } else {
+        cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
+    }
 }
 
 bool Jeu::actionClavier(const char touche) {
@@ -79,12 +104,7 @@ bool Jeu::actionClavier(const char touche) {
 	return false;
 }
 
-void Jeu::placementAleatoire() {   
-    
-    
-    
-       
-   
+void Jeu::placementAleatoire() {  
         int x,y;
         int a;
        while(tabBonus.empty())
@@ -155,7 +175,7 @@ void Jeu::actionSurSerpent () {
     if (terrain.getXY(x, y) == '.') {
         serpent.allongeCorps(terrain);
         terrain.mangeElement(x, y);
-        setScore();
+        setScore(10);
         cpt--;
     }
     
@@ -168,7 +188,7 @@ void Jeu::actionSurSerpent () {
         
     }
 
-    if (cpt < 15) {
+    if (cpt < 30) {
         do {
             x = rand()% dimx;
             y = rand()% dimy;
