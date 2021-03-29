@@ -7,7 +7,7 @@
 #include <thread>
 using namespace std;
 
-Jeu::Jeu () : terrain("./data/niveau3.txt"), serpent(2, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true), score(0) {
+Jeu::Jeu () : terrain("./data/niveau4.txt"), serpent(2, terrain.getDimX()/4, terrain.getDimY()/4, terrain, true), score(0) {
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
     srand(time(NULL));
     Point a {1, 1};
@@ -137,7 +137,6 @@ void Jeu::actionSurSerpent () {
     int cpt = terrain.compteurPiece();
     int dimx = terrain.getDimX();
     int dimy = terrain.getDimY();
-    char c = terrain.getXY(x, y);
 
     if (terrain.getXY(x, y) == '.') {
         serpent.allongeCorps(terrain);
