@@ -98,6 +98,7 @@ void Terrain::posAleaCle () {
         } while (!posValide(tabCle[c].x, tabCle[c].y) || 
              ((tabCle[c].x == tabCle[c-1].x) && (tabCle[c].y == tabCle[c-1].y)) || 
              ((tabCle[2].x == tabCle[0].x) && (tabCle[2].y == tabCle[0].y)));
+        ter[tabCle[c].y*dimx+tabCle[c].x] = 'c';
     }
 }
 
@@ -124,10 +125,6 @@ int Terrain::compteurPiece () {
     }
 
     return cmpt;
-}
-
-Point Terrain::getCle(int i) const {
-    return tabCle[i];
 }
 
 void Terrain::testRegression(){

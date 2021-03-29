@@ -33,7 +33,6 @@ public:
     int getDimX() const;
     int getDimY() const;
     int getTailleTerrain() const;
-    Point getCle(int i) const;
     void testRegression();
     void setXY(const int x, const int y, const char c);
     int compteurPiece();
