@@ -3,9 +3,10 @@
 
 int main ( int argc, char** argv ) {
     termClear();
-	Jeu jeu;
+	Jeu jeu("./data/niveau4.txt");
 	txtJeu(jeu);
     termClear();
-	cout << "GAME OVER!" << endl << "Score: " << jeu.getScore() << endl;
+	int bestScore = jeu.stockerBestScore();
+	cout << "GAME OVER!" << endl << "Score: " << jeu.getScore() << endl << "Best Score: " << bestScore << endl;
 	return 0;
 }
