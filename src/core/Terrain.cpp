@@ -10,8 +10,8 @@ using namespace std;
 
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
-        recupNiveau("./data/niveau1.txt");
-        posAleaCle();
+    recupNiveau("./data/niveau1.txt");
+    posAleaCle();
 }
 
 Terrain::Terrain(const string& namefile) {
@@ -73,8 +73,8 @@ void Terrain::setXY (const int x, const int y, const char c) {
     assert(x<dimx);
     assert(y>=0);
     assert(y<dimy);
-    assert(posValide(x, y));
-    assert(emplacementLibre(x, y));  
+    //assert(posValide(x, y));
+    //assert(emplacementLibre(x, y));  
     ter[y*dimx+x] = c;
 }
 
