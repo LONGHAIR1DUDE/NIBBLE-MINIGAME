@@ -23,9 +23,9 @@ void affichageTxt (TxtFenetre& fenetre, const Jeu& jeu) {
             fenetre.ecrire(x, y, ter.getXY(x, y));
         }
             
-    for (int i = 0; i < 3; i++) {
-        fenetre.ecrire(ter.getCle(i).x, ter.getCle(i).y, 'c');
-    }
+    // for (int i = 0; i < 3; i++) {
+    //     fenetre.ecrire(ter.getCle(i).x, ter.getCle(i).y, 'c');
+    // }
 
     fenetre.ecrire(jeu.getPortail(0).getPortail1().x, jeu.getPortail(0).getPortail1().y, 'P');
     fenetre.ecrire(jeu.getPortail(0).getPortail2().x, jeu.getPortail(0).getPortail2().y, 'P');

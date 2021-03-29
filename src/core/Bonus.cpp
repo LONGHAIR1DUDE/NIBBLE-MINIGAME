@@ -33,11 +33,13 @@ void Bonus::inverseMouvement(Serpent & serp) {
 }
 
 void Bonus::actionBonus(Serpent& serp,Terrain& ter) {
-    cout<<"action :"<<action<<endl;
+    
     if(action == 0){
+        cout<<"Malus!"<<endl;
         changeTailleSerpent(serp,ter);
     }
     else{
+        cout<<"Bonus!"<<endl;
         changeTailleSerpent(serp,ter);
         inverseMouvement(serp);
     }

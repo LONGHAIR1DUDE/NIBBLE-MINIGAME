@@ -74,9 +74,9 @@ int Jeu::stockerBestScore () {
         } else {
             return number;
         }
-    } else {
+    } else 
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
-    }
+    return 0;
 }
 
 bool Jeu::actionClavier(const char touche) {
@@ -97,9 +97,9 @@ bool Jeu::actionClavier(const char touche) {
             serpent.bas(terrain);
             break;
     }
-    	if (terrain.getXY(serpent.getTete().x, serpent.getTete().y)=='.') {
+    if (terrain.getXY(serpent.getTete().x, serpent.getTete().y)=='.') {
 	    terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
-        return true;
+            return true;
 	}
 	return false;
 }
@@ -107,8 +107,8 @@ bool Jeu::actionClavier(const char touche) {
 void Jeu::placementAleatoire() {  
         int x,y;
         int a;
-       while(tabBonus.empty())
-       {
+        while(tabBonus.empty())
+        {
         do{
             
             srand(time(NULL));

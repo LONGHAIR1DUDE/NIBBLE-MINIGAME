@@ -17,10 +17,11 @@ public:
     Bonus();
     void setBonus(int type,int x,int y);
     void actionBonus(Serpent& serp,Terrain& ter);
+    int bonusVitesse();
     
     Point getPos();
     int getX();
-    int getY();
+    int getY(); 
     int getAction();
 };
 

@@ -130,7 +130,8 @@ void Serpent::allongeCorps (const Terrain& t){
 }
 
 void Serpent::retrecirCorps(){
-    corps.pop_back();
+    if (getTailleSerpent() < 3) {} 
+    else corps.pop_back();
 }
 
 Point Serpent::getCorps (const int i) const {
