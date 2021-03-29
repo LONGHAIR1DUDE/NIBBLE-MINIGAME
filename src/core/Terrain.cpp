@@ -10,7 +10,7 @@ using namespace std;
 
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
-    recupNiveau("./data/niveau1.txt");
+    recupNiveau("../data/niveau4.txt");
     posAleaCle();
 }
 
@@ -45,7 +45,7 @@ void Terrain::recupNiveau (const string& nomFichier) {
         dimy = (tailleTerrain/dimx);
 
     } else {
-        cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
+        cout << "ERREUR: Impossible d'ouvrir niveau 4 le fichier en lecture !" << endl;
     }
 }
 
