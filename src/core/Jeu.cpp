@@ -106,11 +106,8 @@ void Jeu::placementAleatoire() {
        
         
         terrain.setXY(tabBonus[0].getX() ,tabBonus[0].getY(), 'b');
-         
-       if(terrain.getXY(tabBonus[0].getX() ,tabBonus[0].getY()) != 'b')
-       {      
-        tabBonus.pop_back();
-        }
+         cout<<"Contenu  position bonus place:"<<terrain.getXY(tabBonus[0].getX() ,tabBonus[0].getY())<<endl;
+       
         }
        
 }
@@ -160,14 +157,13 @@ void Jeu::actionSurSerpent () {
         cpt--;
     }
     
-    if (terrain.getXY(x, y) == 'b') {
-        tabBonus[0].actionBonus(serpent,terrain);
-        terrain.mangeElement(x, y);
-        
-        
+    if(terrain.getXY(x,y) == 'b')
+       {    terrain.setXY(tabBonus[0].getX() ,tabBonus[0].getY(), ' ');
+       cout<<"Contenu  position bonus action :"<<terrain.getXY(tabBonus[0].getX() ,tabBonus[0].getY())<<endl;
+           tabBonus[0].actionBonus(serpent,terrain);
         tabBonus.pop_back();
         
-    }
+        }
 
     if (cpt < 15) {
         do {

@@ -17,12 +17,12 @@ Bonus::Bonus(int i, int x, int y) {
 void Bonus::changeTailleSerpent(Serpent & serp,Terrain& ter) {
     
     if(action==0){
-        for(int i=0;i<action;i++){
+        for(int i=0;i<5;i++){
             serp.allongeCorps(ter);
         }
     }
     else{
-        for(int i = 0; i <= action ; i++){
+        for(int i = 0; i < serp.getTailleSerpent() ; i++){
             serp.retrecirCorps();
         }
     }
@@ -33,6 +33,7 @@ void Bonus::inverseMouvement(Serpent & serp) {
 }
 
 void Bonus::actionBonus(Serpent& serp,Terrain& ter) {
+    cout<<"action :"<<action<<endl;
     if(action == 0){
         changeTailleSerpent(serp,ter);
     }
