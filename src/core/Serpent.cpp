@@ -2,7 +2,7 @@
 #include <cassert>
 using namespace std;
 
-Serpent::Serpent (int tailleSerp, int posX, int posY, Terrain& t, bool mouvement = true) {
+Serpent::Serpent (int tailleSerp, int posX, int posY, Terrain& t, bool mouvement = false) {
     if (t.posValide(posX, posY)) {
         Point p;
         p.x = posX;

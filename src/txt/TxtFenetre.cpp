@@ -84,6 +84,10 @@ TxtFenetre::TxtFenetre(int dx, int dy) {
     termInit();
 }
 
+TxtFenetre::~TxtFenetre () {
+    delete [] fenetre;
+}
+
 void TxtFenetre::effacer (char c) {
     for(int i=0;i<dimx;++i)
         for(int j=0;j<dimy;++j)

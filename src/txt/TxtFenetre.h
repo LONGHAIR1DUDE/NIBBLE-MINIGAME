@@ -8,6 +8,7 @@ private:
     char* fenetre;
 public:
     TxtFenetre(int dx, int dy);
+    ~TxtFenetre();
 
     void effacer(char c = ' ');
     void ecrire(int x, int y, char c);
