@@ -11,12 +11,12 @@ using namespace std;
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
     recupNiveau("./data/niveau4.txt");
-    posAleaCle();
+    // posAleaCle();
 }
 
 Terrain::Terrain(const string& namefile) {
     recupNiveau(namefile);
-    posAleaCle();
+    // posAleaCle();
 }
 
 Terrain::~Terrain () {}

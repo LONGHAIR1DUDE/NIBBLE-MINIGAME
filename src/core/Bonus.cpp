@@ -29,7 +29,7 @@ void Bonus::changeTailleSerpent(Serpent & serp,Terrain& ter) {
 }
 
 void Bonus::inverseMouvement(Serpent & serp) {
-    serp.setMouv(true); 
+    serp.setMouv(false); 
 
 }
 
