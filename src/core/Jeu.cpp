@@ -121,7 +121,7 @@ void Jeu::placementAleatoire() {
             
             y = rand() % terrain.getDimY();
             
-            a = rand()%2;
+            a = rand()%3;
             
         } while(!terrain.posValide(x, y) || !terrain.emplacementLibre(x, y));
        

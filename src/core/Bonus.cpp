@@ -34,17 +34,16 @@ void Bonus::inverseMouvement(Serpent & serp) {
 }
 
 void Bonus::actionBonus(Serpent& serp,Terrain& ter) {
-    
     if(action == 0){
         cout<<"Malus!"<<endl;
         changeTailleSerpent(serp,ter);
+        inverseMouvement(serp);
     }
-    else{
+    else {
         cout<<"Bonus!"<<endl;
         changeTailleSerpent(serp,ter);
-        inverseMouvement(serp);
-        
-    }
+    } 
+
 }
 
 Point Bonus::getPos(){
