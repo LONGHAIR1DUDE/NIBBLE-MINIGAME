@@ -1,12 +1,12 @@
 #ifndef SDLJEU_H_NIBBLE
 #define SDLJEU_H_NIBBLE
 
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <SDL_image.h>
-#include <SDL_mixer.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 
-#include "Jeu.h"
+#include "../core/Jeu.h"
 
 //! \brief Pour gérer une image avec SDL2
 class Image {

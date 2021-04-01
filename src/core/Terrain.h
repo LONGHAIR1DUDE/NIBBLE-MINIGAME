@@ -4,11 +4,8 @@
 #include <vector>
 #include "Point.h"
 #include <string>
+#include "Mur.h"
 using namespace std;
-
-// struct Interrupteur{
-//     Point positionDepart, positionArrive, interrupteur;
-// };
 
 class Terrain {
 private:
@@ -17,7 +14,9 @@ private:
     int dimy;
     int tailleTerrain;
     Point tabCle[3];
-    // Interrupteur tabInter[];
+    // vector<Point> posInterrupteur;
+    vector<Mur> tabMurs;
+
 
 public:
     Terrain();
@@ -34,7 +33,9 @@ public:
     int getDimY() const;
     int getTailleTerrain() const;
     Point getCle(int i) const;
+    // Point getPosInterrupteur(int i) const;
     void testRegression();
+    void tabMursTerrain();
     void setXY(const int x, const int y, const char c);
     int compteurPiece();
     bool emplacementLibre(int x, int y) const;

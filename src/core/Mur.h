@@ -11,10 +11,7 @@ Un mur dans l'application NIBBLE est définie par les 4 points v w x y
 */
 
 #include "Point.h"
-
-struct Rect {
-  int x, y, w, h; // x et y les coordonnées du première élément du mur et w(width), h(height) pour sa largeur et hauteur.
-};
+#include "Rect.h"
 
 class Mur {
 private:
@@ -23,13 +20,14 @@ private:
   bool etatMur; // true si le mur est en position initiale et false si il est dans sa deuxième position 
 
 public:
-  Mur(const int x, const int y, const int w, const int h, const Point& direction);
-  ~Mur();
+  Mur(const int x, const int y, const int w, const int h);
+  Mur();
   
   Rect getMur() const; // retourne les paramètres du mur
   bool getEtatMur() const; // retourne l'etat du mur
   void setEtatMur(const bool e); // modifie l'etat du mur en fonction des paramètres 
   Point getPos(const int indice) const; // retourne le tableau contenant les positions du mur
   void setPos(const int x, const int y); // permet de modifier la position du mur 
+  void setDim(const int w, const int h);
 };
 #endif

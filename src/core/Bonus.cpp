@@ -1,6 +1,6 @@
-#include"Bonus.h"
-#include<iostream>
-#include<cassert>
+#include "Bonus.h"
+#include <iostream>
+#include <cassert>
 using namespace std;
 Bonus::Bonus()
 {
@@ -35,11 +35,11 @@ void Bonus::inverseMouvement(Serpent & serp) {
 
 void Bonus::actionBonus(Serpent& serp,Terrain& ter) {
     if(action == 0){
-        cout<<"Malus!"<<endl;
+        cout<<"Malus!     "<<endl;
         changeTailleSerpent(serp,ter);
     }
     else {
-        cout<<"Bonus!"<<endl;
+        cout<<"Bonus! +200"<<endl;
         changeTailleSerpent(serp,ter);
         inverseMouvement(serp);
     } 

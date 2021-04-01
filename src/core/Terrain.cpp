@@ -6,6 +6,7 @@
 #include <cstring>
 #include <string>
 #include <time.h>
+#include "Rect.h"
 using namespace std;
 
 // Constructeur de la classe Terrain
@@ -48,6 +49,10 @@ void Terrain::recupNiveau (const string& nomFichier) {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
     }
 }
+
+// Point Terrain::getPosInterrupteur (int i) const {
+//     return posInterrupteur[i];
+// }
 
 // Fonction qui renvoie true si les coordonnées (x,y) passées en
 // paramètres ce trouve dans le niveau false sinon
@@ -99,6 +104,60 @@ void Terrain::posAleaCle () {
              ((tabCle[c].x == tabCle[c-1].x) && (tabCle[c].y == tabCle[c-1].y)) || 
              ((tabCle[2].x == tabCle[0].x) && (tabCle[2].y == tabCle[0].y)));
     }
+}
+
+void Terrain::tabMursTerrain() {
+    vector<Rect> posMurTerrain;
+    vector<Rect> murs;
+
+    // boucle for qui stocke dans le tableau posMurTerrain toute les 
+    // positions des caractères '#' excepté ceux des bordures du niveau
+    for (int x = 0; x < dimx; x++) {
+        for (int y = 0; y < dimy; y++) {
+            if (x == (dimx-1) || x == 0 || y == (dimy-1) || y == 0) {
+                if (ter[y*dimx+x] == '#') {
+                    posMurTerrain.data()->x = x;
+                    posMurTerrain.data()->y = y;
+                    posMurTerrain.data()->w = 1;
+                    posMurTerrain.data()->h = 1;
+                }
+            }
+        }
+    }
+
+    int taillePosMur = posMurTerrain.size(); 
+    int tailleMurs;
+
+    // insert le première élément du tableau posMursTerrain 
+    // dans le tableau murs
+    murs.push_back(posMurTerrain[0]);
+
+    // boucle for qui stocke les coordonnées du premières élément 
+    // de chaque mur ainsi que leur dimension
+    for (int i = 1; i < taillePosMur; i++) {
+        tailleMurs = murs.size();
+        for (int j = 0; j < tailleMurs; j++) {
+            if ((posMurTerrain.at(i).x == murs.at(j).x+murs.at(j).w) 
+                && (posMurTerrain.at(i).y == murs.at(j).y)) 
+                murs.at(j).w++;
+
+            if ((posMurTerrain.at(i).y == murs.at(j).y+murs.at(j).h) 
+                && (posMurTerrain.at(i).x == murs.at(j).x)) 
+                murs.at(j).h++;
+
+            else murs.push_back(posMurTerrain[i]);
+        }
+    }
+
+    // boucle for qui stocke les éléments de murs dans le tableau 
+    // de type Mur, tabMurs
+    for (int i = 0; i < tailleMurs; i++) {
+        Mur mur(murs.at(i).x, murs.at(i).y, murs.at(i).w, murs.at(i).h);
+        tabMurs.push_back(mur);
+    }
+
+    posMurTerrain.clear();
+    murs.clear();
 }
 
 void appuyerInterrupteur(int x, int y) {}

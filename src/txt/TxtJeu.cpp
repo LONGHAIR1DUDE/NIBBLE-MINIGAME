@@ -63,7 +63,7 @@ void txtJeu (Jeu& j) {
 		usleep(100000);
         #endif // WIN32
 
-        j.setScore(0.1);
+        j.setScore(1);
         ok = j.SerpentBouge();
         j.actionSurSerpent();
         j.actionPortail();

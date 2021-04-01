@@ -104,12 +104,7 @@ bool Jeu::actionClavier(const char touche) {
 	return false;
 }
 
-void Jeu::placementAleatoire() {   
-    
-    
-    
-       
-   
+void Jeu::placementAleatoire() {      
         int x,y;
         int a;
         while(tabBonus.empty())
@@ -177,7 +172,7 @@ void Jeu::actionSurSerpent () {
     if (terrain.getXY(x, y) == '.') {
         serpent.allongeCorps(terrain);
         terrain.mangeElement(x, y);
-        setScore(10);
+        setScore(100);
         cpt--;
     }
     
