@@ -14,46 +14,7 @@ int main () {
         }
         cout << endl;
     }
-
-    terrain.placementMurs(true);
-    cout << endl;
-    for (int y = 0; y < tailleY; y++) {
-        for (int x = 0; x < tailleX; x++) {
-            cout << terrain.getXY(x,y);
-        }
-        cout << endl;
-    } 
-
-    terrain.tabMursTerrain();
-    int tailleTab = terrain.getTailleTabMurs();
-    cout << tailleTab << endl;
-    terrain.placementMurs(false);
-
-    cout << endl;
-    for (int y = 0; y < tailleY; y++) {
-        for (int x = 0; x < tailleX; x++) {
-            cout << terrain.getXY(x,y);
-        }
-        cout << endl;
-    } 
-
-    terrain.placementMurs(true);
-    cout << endl;
-    for (int y = 0; y < tailleY; y++) {
-        for (int x = 0; x < tailleX; x++) {
-            cout << terrain.getXY(x,y);
-        }
-        cout << endl;
-    } 
-
-    terrain.placementMurs(false);
-    cout << endl;
-    for (int y = 0; y < tailleY; y++) {
-        for (int x = 0; x < tailleX; x++) {
-            cout << terrain.getXY(x,y);
-        }
-        cout << endl;
-    } 
+    
     // for (int i = 0; i < tailleTab; i++) {
     //     // cout << endl;
     //     // cout << i << ": " << terrain.getTabMurs(i).getMur().x << " " << terrain.getTabMurs(i).getMur().y << " " 

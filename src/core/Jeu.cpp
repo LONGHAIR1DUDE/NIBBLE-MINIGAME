@@ -11,6 +11,8 @@ using namespace std;
 Jeu::Jeu (const string& namefile) : serpent(3, terrain.getDimX()/4, terrain.getDimY()/4, terrain, true), score(0) {
     terrain.recupNiveau(namefile);
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
+    terrain.tabMursTerrain();
+    terrain.placementMurs(true);
     srand(time(NULL));
     Point a {1, 1};
     Point b {(terrain.getDimX()-2), (terrain.getDimY()-2)};
@@ -208,3 +210,13 @@ void Jeu::actionPortail () {
     }
 }
 
+void Jeu::actionInterrupteur (bool& etat) {
+    int x = serpent.getTete().x;
+    int y = serpent.getTete().y;
+    if (terrain.getXY(x, y) == 'i') {
+        if (etat)
+            etat = false;
+        else etat = true;
+        terrain.placementMurs(etat);
+    }
+}

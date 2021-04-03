@@ -40,6 +40,7 @@ public:
     bool SerpentBouge();
     void actionSurSerpent();
     void actionPortail();
+    void actionInterrupteur(bool& etat);
 };
 
 #endif

@@ -11,15 +11,15 @@ using namespace std;
 
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
-    recupNiveau("./data/niveau4.txt");
+    recupNiveau("./data/niveau5.txt");
     // posAleaCle();
-    tabMursTerrain();
 }
 
 Terrain::Terrain(const string& namefile) {
     recupNiveau(namefile);
     // posAleaCle();
     tabMursTerrain();
+    placementMurs(true);
 }
 
 Terrain::~Terrain () {}
@@ -241,17 +241,15 @@ void Terrain::placementMurs (bool etat) {
         }
     }
 
-    int indice, largeur, hauteur;
-    if (etat) indice = 0;
-    else indice = 1;
+    int largeur, hauteur;
 
     // Boucle qui dessine les murs stocker dans tabMurs
     for(int y = 1; y < dimy-1; y++) {
         for(int x = 1; x < dimx-1; x++) {
             for (int i = 0; i < nbMurs; i++) {
-
+                tabMurs.at(i).setEtatMur(etat);
                 // vérifie si il y a un mur à la case de coordonnées (x, y)
-                if ((x == tabMurs.at(i).getPos(indice).x) && (y == tabMurs.at(i).getPos(indice).y)) {
+                if ((x == tabMurs.at(i).getMur().x) && (y == tabMurs.at(i).getMur().y)) {
                     largeur = tabMurs.at(i).getMur().w;
                     hauteur = tabMurs.at(i).getMur().h;
 

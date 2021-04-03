@@ -50,6 +50,7 @@ void txtJeu (Jeu& j) {
     TxtFenetre fenetre(j.getTerrain().getDimX(), j.getTerrain().getDimY());
     TxtFenetre score(10, 10);
 
+    bool etat = true;
     bool ok = true;
     char car;
 
@@ -68,6 +69,7 @@ void txtJeu (Jeu& j) {
         j.actionSurSerpent();
         j.actionPortail();
         j.placementAleatoire();
+        j.actionInterrupteur(etat);
         car = fenetre.getCh();
         switch (car) {
             case 'z':
