@@ -27,7 +27,6 @@ public:
   bool getEtatMur() const; // retourne l'etat du mur
   void setEtatMur(const bool e); // modifie l'etat du mur en fonction des paramètres 
   Point getPos(const int indice) const; // retourne le tableau contenant les positions du mur
-  void setPos(const int x, const int y); // permet de modifier la position du mur 
-  void setDim(const int w, const int h);
+  void setPosDim(const int x, const int y, const int w, const int h); // permet de modifier la position du mur 
 };
 #endif

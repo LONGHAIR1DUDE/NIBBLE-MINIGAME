@@ -109,45 +109,64 @@ void Terrain::posAleaCle () {
 void Terrain::tabMursTerrain() {
     vector<Rect> posMurTerrain;
     vector<Rect> murs;
-
+    Rect tampon;
+    
     // boucle for qui stocke dans le tableau posMurTerrain toute les 
     // positions des caractères '#' excepté ceux des bordures du niveau
-    for (int x = 0; x < dimx; x++) {
-        for (int y = 0; y < dimy; y++) {
-            if (x == (dimx-1) || x == 0 || y == (dimy-1) || y == 0) {
+    for (int y = 0; y < dimy-1; y++) {
+        for (int x = 0; x < dimx-1; x++) {
+            if (x != (dimx-1) && x != 0 && y != (dimy-1) && y != 0) {
                 if (ter[y*dimx+x] == '#') {
-                    posMurTerrain.data()->x = x;
-                    posMurTerrain.data()->y = y;
-                    posMurTerrain.data()->w = 1;
-                    posMurTerrain.data()->h = 1;
+                    tampon.x = x;
+                    tampon.y = y;
+                    tampon.w = 1;
+                    tampon.h = 1;
+                    posMurTerrain.push_back(tampon);
                 }
             }
         }
     }
 
     int taillePosMur = posMurTerrain.size(); 
+    cout << taillePosMur << endl;
     int tailleMurs;
 
     // insert le première élément du tableau posMursTerrain 
     // dans le tableau murs
     murs.push_back(posMurTerrain[0]);
+    tailleMurs = 1;
+    bool valSortie;
 
     // boucle for qui stocke les coordonnées du premières élément 
     // de chaque mur ainsi que leur dimension
     for (int i = 1; i < taillePosMur; i++) {
+        cout << "test" << " i: " << i << endl;
+        cout << "murs.size() = " << tailleMurs << endl;
         tailleMurs = murs.size();
         for (int j = 0; j < tailleMurs; j++) {
+            cout << "test" << " j: " << j << endl;
+            valSortie = true;
+            
             if ((posMurTerrain.at(i).x == murs.at(j).x+murs.at(j).w) 
-                && (posMurTerrain.at(i).y == murs.at(j).y)) 
-                murs.at(j).w++;
+                && (posMurTerrain.at(i).y == murs.at(j).y)) {
+                    murs.at(j).w++;
+                    break;
+                }
 
-            if ((posMurTerrain.at(i).y == murs.at(j).y+murs.at(j).h) 
-                && (posMurTerrain.at(i).x == murs.at(j).x)) 
-                murs.at(j).h++;
-
-            else murs.push_back(posMurTerrain[i]);
+            else if ((posMurTerrain.at(i).y == murs.at(j).y+murs.at(j).h) 
+                && (posMurTerrain.at(i).x == murs.at(j).x)) {
+                    murs.at(j).h++;
+                    break;
+                }   
+            
+            else valSortie = false;
         }
+        if (valSortie == false) murs.push_back(posMurTerrain.at(i));
     }
+
+    // for (auto &elt : murs) {
+    //     cout << "x: " << elt.x << " y: " << elt.y << " w: " << elt.w << " h: " << elt.h << endl;
+    // }
 
     // boucle for qui stocke les éléments de murs dans le tableau 
     // de type Mur, tabMurs
@@ -158,6 +177,15 @@ void Terrain::tabMursTerrain() {
 
     posMurTerrain.clear();
     murs.clear();
+
+}
+
+Mur Terrain::getTabMurs (int i) const {
+    return tabMurs[i];
+}
+
+int Terrain::getTailleTabMurs () const {
+    return tabMurs.size();
 }
 
 void appuyerInterrupteur(int x, int y) {}

@@ -3,8 +3,7 @@
 
 // precondition: direction doit être un point du type (0,1), (1,0), (-1,0) ou (0,-1)
 Mur::Mur (const int x, const int y, const int w, const int h) {
-    setDim(w, h);
-    setPos(x, y);
+    setPosDim(x, y, w, h);
     etatMur = true;
 }
 
@@ -26,7 +25,9 @@ void Mur::setEtatMur (const bool e) {
     etatMur = e;
 }
 
-void Mur::setPos (const int x, const int y) {
+void Mur::setPosDim (const int x, const int y, const int w, const int h) {
+    mur.w = w;
+    mur.h = h;
     posMur[0].x = x;
     posMur[0].y = y;
     mur.x = x;
@@ -41,7 +42,3 @@ void Mur::setPos (const int x, const int y) {
     }
 }
 
-void Mur::setDim (const int w, const int h) {
-    mur.w = w;
-    mur.h = h;
-}

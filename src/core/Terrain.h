@@ -33,6 +33,8 @@ public:
     int getDimY() const;
     int getTailleTerrain() const;
     Point getCle(int i) const;
+    Mur getTabMurs(int indice) const;
+    int getTailleTabMurs() const;
     // Point getPosInterrupteur(int i) const;
     void testRegression();
     void tabMursTerrain();
