@@ -15,7 +15,6 @@ class Jeu {
 private:
     Terrain terrain;
     Serpent serpent;
-    vector<Mur> tabMurs;
     vector<Portail> tabPortail;
     vector<Bonus> tabBonus;
     float score;
@@ -41,7 +40,6 @@ public:
     bool SerpentBouge();
     void actionSurSerpent();
     void actionPortail();
-
 };
 
 #endif

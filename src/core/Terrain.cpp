@@ -13,11 +13,13 @@ using namespace std;
 Terrain::Terrain() : dimx(100), dimy(100) {
     recupNiveau("./data/niveau4.txt");
     // posAleaCle();
+    tabMursTerrain();
 }
 
 Terrain::Terrain(const string& namefile) {
     recupNiveau(namefile);
     // posAleaCle();
+    tabMursTerrain();
 }
 
 Terrain::~Terrain () {}
@@ -113,22 +115,19 @@ void Terrain::tabMursTerrain() {
     
     // boucle for qui stocke dans le tableau posMurTerrain toute les 
     // positions des caractères '#' excepté ceux des bordures du niveau
-    for (int y = 0; y < dimy-1; y++) {
-        for (int x = 0; x < dimx-1; x++) {
-            if (x != (dimx-1) && x != 0 && y != (dimy-1) && y != 0) {
-                if (ter[y*dimx+x] == '#') {
-                    tampon.x = x;
-                    tampon.y = y;
-                    tampon.w = 1;
-                    tampon.h = 1;
-                    posMurTerrain.push_back(tampon);
-                }
+    for (int y = 1; y < dimy-1; y++) {
+        for (int x = 1; x < dimx-1; x++) {
+            if (ter[y*dimx+x] == '#') {
+                tampon.x = x;
+                tampon.y = y;
+                tampon.w = 1;
+                tampon.h = 1;
+                posMurTerrain.push_back(tampon);
             }
         }
     }
 
     int taillePosMur = posMurTerrain.size(); 
-    cout << taillePosMur << endl;
     int tailleMurs;
 
     // insert le première élément du tableau posMursTerrain 
@@ -140,11 +139,8 @@ void Terrain::tabMursTerrain() {
     // boucle for qui stocke les coordonnées du premières élément 
     // de chaque mur ainsi que leur dimension
     for (int i = 1; i < taillePosMur; i++) {
-        cout << "test" << " i: " << i << endl;
-        cout << "murs.size() = " << tailleMurs << endl;
         tailleMurs = murs.size();
         for (int j = 0; j < tailleMurs; j++) {
-            cout << "test" << " j: " << j << endl;
             valSortie = true;
             
             if ((posMurTerrain.at(i).x == murs.at(j).x+murs.at(j).w) 
@@ -164,15 +160,28 @@ void Terrain::tabMursTerrain() {
         if (valSortie == false) murs.push_back(posMurTerrain.at(i));
     }
 
-    // for (auto &elt : murs) {
-    //     cout << "x: " << elt.x << " y: " << elt.y << " w: " << elt.w << " h: " << elt.h << endl;
-    // }
-
     // boucle for qui stocke les éléments de murs dans le tableau 
     // de type Mur, tabMurs
     for (int i = 0; i < tailleMurs; i++) {
-        Mur mur(murs.at(i).x, murs.at(i).y, murs.at(i).w, murs.at(i).h);
-        tabMurs.push_back(mur);
+        if (murs.at(i).w > murs.at(i).h) {
+            if (posValide(murs.at(i).x + murs.at(i).w, murs.at(i).y)) {
+                Mur mur(murs.at(i).x, murs.at(i).y, murs.at(i).w, murs.at(i).h);
+                tabMurs.push_back(mur);
+            } else {
+                Mur mur(murs.at(i).x - murs.at(i).w, murs.at(i).y, murs.at(i).w, murs.at(i).h);
+                tabMurs.push_back(mur);
+            }
+        } else {
+            if (posValide(murs.at(i).x, murs.at(i).y + murs.at(i).h)) {
+                Mur mur(murs.at(i).x, murs.at(i).y, murs.at(i).w, murs.at(i).h);
+                tabMurs.push_back(mur);
+            } else {
+                Mur mur(murs.at(i).x, murs.at(i).y  - murs.at(i).h, murs.at(i).w, murs.at(i).h);
+                tabMurs.push_back(mur);
+            }
+        }
+        
+        
     }
 
     posMurTerrain.clear();
@@ -215,6 +224,47 @@ int Terrain::compteurPiece () {
 
 Point Terrain::getCle(int i) const {
     return tabCle[i];
+}
+
+int Terrain::getNbMurs () const {
+    return tabMurs.size();
+}
+
+void Terrain::placementMurs (bool etat) {
+    int nbMurs = getNbMurs();
+
+    // Boucle for qui efface tout les murs qui sont à l'interieur du niveau
+    for(int y = 1; y < dimy-1; y++) {
+        for(int x = 1; x < dimx-1; x++) {
+            if (ter[y*dimx+x] == '#')
+                setXY(x, y, ' ');
+        }
+    }
+
+    int indice, largeur, hauteur;
+    if (etat) indice = 0;
+    else indice = 1;
+
+    // Boucle qui dessine les murs stocker dans tabMurs
+    for(int y = 1; y < dimy-1; y++) {
+        for(int x = 1; x < dimx-1; x++) {
+            for (int i = 0; i < nbMurs; i++) {
+
+                // vérifie si il y a un mur à la case de coordonnées (x, y)
+                if ((x == tabMurs.at(i).getPos(indice).x) && (y == tabMurs.at(i).getPos(indice).y)) {
+                    largeur = tabMurs.at(i).getMur().w;
+                    hauteur = tabMurs.at(i).getMur().h;
+
+                    // Boucle dessine le mur par rapport à sa hauteur et sa largeur
+                    for (int j = 0; j < largeur; j++) {
+                        for (int k = 0; k < hauteur; k++) {
+                            setXY(x+j, y+k, '#');
+                        }
+                    }
+                } 
+            }
+        }
+    }
 }
 
 void Terrain::testRegression(){
@@ -261,4 +311,5 @@ void Terrain::testRegression(){
     }
     cout<<"Class Terrain: assert ended successfully."<<endl;
 }
+
 

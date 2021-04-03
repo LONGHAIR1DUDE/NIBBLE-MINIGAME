@@ -3,8 +3,13 @@
 
 // precondition: direction doit être un point du type (0,1), (1,0), (-1,0) ou (0,-1)
 Mur::Mur (const int x, const int y, const int w, const int h) {
+    Point p{0, 0};
+    for (int i = 0; i < 2; i++) {
+        posMur[i].x = p.x;
+        posMur[i].y = p.y;
+    }
     setPosDim(x, y, w, h);
-    etatMur = true;
+    setEtatMur(true);
 }
 
 Mur::Mur () {}
@@ -23,6 +28,14 @@ Point Mur::getPos (const int indice) const {
 
 void Mur::setEtatMur (const bool e) {
     etatMur = e;
+    if (etatMur) {
+        mur.x = posMur[0].x;
+        mur.y = posMur[0].y;
+    } else {
+        mur.x = posMur[1].x;
+        mur.y = posMur[1].y;
+    }
+
 }
 
 void Mur::setPosDim (const int x, const int y, const int w, const int h) {
@@ -33,12 +46,15 @@ void Mur::setPosDim (const int x, const int y, const int w, const int h) {
     mur.x = x;
     mur.y = y;
 
-    if (mur.w > mur.h) {
-        posMur[1].x += mur.w;
-        posMur[1].y = mur.y;
+    posMur[1].x = x;
+    posMur[1].y = y;
+
+    if (w > h) {
+        posMur[1].x += w;
+        posMur[1].y = y;
     } else {
-        posMur[1].x = mur.x;
-        posMur[1].y += mur.h;
+        posMur[1].x = x;
+        posMur[1].y += h;
     }
 }
 

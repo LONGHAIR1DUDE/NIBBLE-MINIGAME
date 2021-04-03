@@ -12,6 +12,7 @@ Un mur dans l'application NIBBLE est définie par les 4 points v w x y
 
 #include "Point.h"
 #include "Rect.h"
+#include <vector>
 
 class Mur {
 private:

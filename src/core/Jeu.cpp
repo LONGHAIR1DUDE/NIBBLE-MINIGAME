@@ -25,11 +25,11 @@ Terrain Jeu::getTerrain () const { return terrain; }
 Serpent Jeu::getSerpent () const {return serpent;}
 
 Mur Jeu::getMur(int i) const { 
-    return tabMurs[i];
+    return terrain.getTabMurs(i);
 }
 
 int Jeu::getNbMurs() const {
-    return tabMurs.size();
+    return terrain.getNbMurs();
 }  
 
 Portail Jeu::getPortail (int i) const {
@@ -207,3 +207,4 @@ void Jeu::actionPortail () {
         serpent.setTete(px1, py1);
     }
 }
+
