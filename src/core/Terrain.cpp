@@ -7,17 +7,18 @@
 #include <string>
 #include <time.h>
 #include "Rect.h"
+#include "Serpent.h"
 using namespace std;
 
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
-    recupNiveau("./data/niveau3.txt");
-    // posAleaCle();
+    recupNiveau("./data/niveau2.txt");
+    posAleaCle();
 }
 
 Terrain::Terrain(const string& namefile) {
     recupNiveau(namefile);
-    // posAleaCle();
+    posAleaCle();
     tabMursTerrain();
     placementMurs(true);
 }
@@ -52,10 +53,6 @@ void Terrain::recupNiveau (const string& nomFichier) {
     }
 }
 
-// Point Terrain::getPosInterrupteur (int i) const {
-//     return posInterrupteur[i];
-// }
-
 // Fonction qui renvoie true si les coordonnées (x,y) passées en
 // paramètres ce trouve dans le niveau false sinon
 bool Terrain::posValide(int x, int y) const {
@@ -63,7 +60,8 @@ bool Terrain::posValide(int x, int y) const {
 }
 
 bool Terrain::emplacementLibre(int x, int y) const {
-    return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == ' ');
+    return (((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == ' ') || 
+            ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == '.'));
 }
 
 // Fonction qui retourne le tableau de caractère ter
@@ -98,14 +96,24 @@ void Terrain::mangeElement(int x, int y) {
 // Procédure qui place aléatoirement 3 clés dans un niveau
 void Terrain::posAleaCle () {
     srand(time(NULL));
+    Point cle{0, 0};
+    for (int i = 0; i < 3; i++)
+        tabCle.push_back(cle);
+
     for (int c = 0; c < 3; c++) {
-        do {
-            tabCle[c].x = rand()% dimx;
-            tabCle[c].y = rand()% dimy;
-        } while (!posValide(tabCle[c].x, tabCle[c].y) || 
-             ((tabCle[c].x == tabCle[c-1].x) && (tabCle[c].y == tabCle[c-1].y)) || 
-             ((tabCle[2].x == tabCle[0].x) && (tabCle[2].y == tabCle[0].y)));
-    }
+        if (c == 0) {
+            tabCle.at(c).x = rand()% dimx;
+            tabCle.at(c).y = rand()% dimy;
+        }
+        
+        else 
+            do {
+                tabCle.at(c).x = rand()% dimx;
+                tabCle.at(c).y = rand()% dimy;
+            } while (!posValide(tabCle.at(c).x, tabCle.at(c).y) || 
+                    ((tabCle.at(c).x == tabCle.at(c-1).x) && (tabCle.at(c).y == tabCle.at(c-1).y)) || 
+                    ((tabCle.at(2).x == tabCle.at(0).x) && (tabCle.at(2).y == tabCle.at(0).y)));
+    } 
 }
 
 void Terrain::tabMursTerrain() {
@@ -193,6 +201,10 @@ Mur Terrain::getTabMurs (int i) const {
     return tabMurs[i];
 }
 
+int Terrain::getNbCle () const {
+    return tabCle.size();
+}
+
 int Terrain::getTailleTabMurs () const {
     return tabMurs.size();
 }
@@ -222,12 +234,20 @@ int Terrain::compteurPiece () {
     return cmpt;
 }
 
-Point Terrain::getCle(int i) const {
-    return tabCle[i];
+Point Terrain::getCle(int indice) const {
+    return tabCle.at(indice);
 }
 
 int Terrain::getNbMurs () const {
     return tabMurs.size();
+}
+
+void Terrain::supprimeCle (int indice) {
+    if (indice == 0) 
+        tabCle.erase(tabCle.begin());
+    else if (indice == 2)
+        tabCle.erase(tabCle.begin()+2);
+    else tabCle.erase(tabCle.begin()+1);
 }
 
 void Terrain::placementMurs (bool etat) {
@@ -242,6 +262,7 @@ void Terrain::placementMurs (bool etat) {
     }
 
     int largeur, hauteur;
+    bool obstacle;
 
     // Boucle qui dessine les murs stocker dans tabMurs
     for(int y = 1; y < dimy-1; y++) {
@@ -250,19 +271,34 @@ void Terrain::placementMurs (bool etat) {
                 tabMurs.at(i).setEtatMur(etat);
                 // vérifie si il y a un mur à la case de coordonnées (x, y)
                 if ((x == tabMurs.at(i).getMur().x) && (y == tabMurs.at(i).getMur().y)) {
+                    obstacle = false;
                     largeur = tabMurs.at(i).getMur().w;
                     hauteur = tabMurs.at(i).getMur().h;
-
+                    
+                    for (int j = 0; j < largeur; j++) {
+                        for (int k = 0; k < hauteur; k++) {
+                            if (!emplacementLibre(x+j, y+k)) {
+                                obstacle = true;
+                                break;
+                            }
+                        }
+                    }
+                    
                     // Boucle dessine le mur par rapport à sa hauteur et sa largeur
                     for (int j = 0; j < largeur; j++) {
                         for (int k = 0; k < hauteur; k++) {
-                            setXY(x+j, y+k, '#');
+                            if (obstacle) setXY(x-j, y-k, '#');
+                            else setXY(x+j, y+k, '#');
                         }
                     }
                 } 
             }
         }
     }
+}
+
+bool Terrain::caseContientSerpent (int x, int y) {
+    
 }
 
 void Terrain::testRegression(){

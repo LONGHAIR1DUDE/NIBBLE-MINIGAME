@@ -14,7 +14,17 @@ int main () {
         }
         cout << endl;
     }
-    
+
+    for (int i = 0; i < terrain.getNbCle(); i++) {
+        cout << terrain.getCle(i).x << " " << terrain.getCle(i).y << endl;
+    }
+
+    terrain.supprimeCle(0);
+
+    cout << endl;
+    for (int i = 0; i < terrain.getNbCle(); i++) {
+        cout << terrain.getCle(i).x << " " << terrain.getCle(i).y << endl;
+    }
     // for (int i = 0; i < tailleTab; i++) {
     //     // cout << endl;
     //     // cout << i << ": " << terrain.getTabMurs(i).getMur().x << " " << terrain.getTabMurs(i).getMur().y << " " 

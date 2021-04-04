@@ -8,7 +8,7 @@
 #include <fstream>
 using namespace std;
 
-Jeu::Jeu (const string& namefile) : serpent(3, terrain.getDimX()/4, terrain.getDimY()/4, terrain, true), score(0) {
+Jeu::Jeu (const string& namefile) : serpent(3, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true), score(0) {
     terrain.recupNiveau(namefile);
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
     terrain.tabMursTerrain();
@@ -170,20 +170,24 @@ void Jeu::actionSurSerpent () {
     int cpt = terrain.compteurPiece();
     int dimx = terrain.getDimX();
     int dimy = terrain.getDimY();
+    char element = terrain.getXY(x, y);
+    int nbCle = terrain.getNbCle();
 
-    if (terrain.getXY(x, y) == '.') {
+    for (int i = 0; i < nbCle; i++) {
+        terrain.setXY(terrain.getCle(i).x, terrain.getCle(i).y, 'c');
+    }
+
+    if (element == '.') {
         serpent.allongeCorps(terrain);
         terrain.mangeElement(x, y);
         setScore(100);
         cpt--;
     }
     
-        if(terrain.getXY(x,y) == 'b')
-       {    
+        if(element == 'b') {    
            terrain.setXY(tabBonus[0].getX() ,tabBonus[0].getY(), ' ');       
            tabBonus[0].actionBonus(serpent,terrain);
-        tabBonus.pop_back();
-        
+            tabBonus.pop_back();
         }
 
     if (cpt < 30) {
@@ -193,6 +197,15 @@ void Jeu::actionSurSerpent () {
         } while (!terrain.posValide(x, y) || !terrain.emplacementLibre(x, y));
         terrain.setXY(x, y, '.');
     }
+
+    if (element == 'c') {
+        terrain.mangeElement(x, y);
+        for (int i = 0; i < 3; i++) 
+            if ((terrain.getCle(i).x == x) && (terrain.getCle(i).y == y)) {
+                terrain.supprimeCle(i);
+                break;
+            } 
+    } 
 }
 
 void Jeu::actionPortail () {

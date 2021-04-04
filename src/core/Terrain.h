@@ -13,7 +13,7 @@ private:
     int dimx;
     int dimy;
     int tailleTerrain;
-    Point tabCle[3];
+    vector<Point> tabCle;
     // vector<Point> posInterrupteur;
     vector<Mur> tabMurs;
     int nbMurs;
@@ -33,17 +33,19 @@ public:
     int getDimX() const;
     int getDimY() const;
     int getTailleTerrain() const;
-    Point getCle(int i) const;
+    Point getCle(int indice) const;
     Mur getTabMurs(int indice) const;
     int getTailleTabMurs() const;
+    int getNbCle() const;
     int getNbMurs() const;
-    // Point getPosInterrupteur(int i) const;
     void testRegression();
     void tabMursTerrain();
     void setXY(const int x, const int y, const char c);
     int compteurPiece();
     bool emplacementLibre(int x, int y) const;
     void placementMurs(bool etat);
+    void supprimeCle(int indice);
+    bool caseContientSerpent(int x, int y);
 };
 
 #endif
