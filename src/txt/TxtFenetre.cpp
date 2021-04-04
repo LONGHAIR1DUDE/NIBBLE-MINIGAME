@@ -89,6 +89,7 @@ TxtFenetre::~TxtFenetre () {
 }
 
 void TxtFenetre::effacer (char c) {
+    termClear();
     for(int i=0;i<dimx;++i)
         for(int j=0;j<dimy;++j)
             ecrire(i,j,c);
