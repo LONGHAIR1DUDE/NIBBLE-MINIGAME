@@ -1,4 +1,5 @@
 bin/*
 obj/*
 data/bestScore.txt
-doc/html/*
+doc/html
+doc/latex

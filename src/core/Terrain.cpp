@@ -16,14 +16,74 @@ Terrain::Terrain() : dimx(100), dimy(100) {
     posAleaCle();
 }
 
-Terrain::Terrain(const string& namefile) {
-    recupNiveau(namefile);
+Terrain::Terrain(const string& nomFichier) {
+    recupNiveau(nomFichier);
     posAleaCle();
     tabMursTerrain();
     placementMurs(true);
 }
 
 Terrain::~Terrain () {}
+
+// Fonction qui retourne le tableau de caractère ter
+char Terrain::getXY(int x, int y) const {
+    assert(x>=0);
+    assert(x<dimx);
+    assert(y>=0);
+    assert(y<dimy);
+    return ter[y*dimx+x];
+}
+
+// Retourne la valeur de dimx
+int Terrain::getDimX () const { 
+    return dimx; 
+}
+
+// Retourne la valeur de dimy
+int Terrain::getDimY () const { 
+    return dimy; 
+}
+
+// Retourne la taille du tableau dynamique ter
+int Terrain::getTailleTerrain() const { 
+    return tailleTerrain; 
+}
+
+Point Terrain::getCle(int indice) const {
+    return tabCle.at(indice);
+}
+
+Mur Terrain::getTabMurs (int i) const {
+    return tabMurs[i];
+}
+
+int Terrain::getTailleTabMurs () const {
+    return tabMurs.size();
+}
+
+int Terrain::getNbCle () const {
+    return tabCle.size();
+}
+
+int Terrain::getNbMurs () const {
+    return tabMurs.size();
+}
+
+void Terrain::setXY (const int x, const int y, const char c) {
+    assert(x>=0);
+    assert(x<dimx);
+    assert(y>=0);
+    assert(y<dimy);
+    // assert(posValide(x, y));
+    // assert(emplacementLibre(x, y));  
+    ter[y*dimx+x] = c;
+}
+
+// Fonction qui renvoie true si les coordonnées (x,y) passées en
+// paramètres ce trouve dans le niveau false sinon
+bool Terrain::posValide(int x, int y) const {
+    return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] != '#');
+}
 
 // Lis le fichier passé en paramètre et stocke les caractères dans
 // le tableau dynamique ter
@@ -53,46 +113,6 @@ void Terrain::recupNiveau (const string& nomFichier) {
     }
 }
 
-// Fonction qui renvoie true si les coordonnées (x,y) passées en
-// paramètres ce trouve dans le niveau false sinon
-bool Terrain::posValide(int x, int y) const {
-    return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] != '#');
-}
-
-bool Terrain::emplacementLibre(int x, int y) {
-    return (((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == ' ') || 
-            ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == '.'));
-}
-
-// Fonction qui retourne le tableau de caractère ter
-char Terrain::getXY(int x, int y) const {
-    assert(x>=0);
-    assert(x<dimx);
-    assert(y>=0);
-    assert(y<dimy);
-    return ter[y*dimx+x];
-}
-
-void Terrain::setXY (const int x, const int y, const char c) {
-    assert(x>=0);
-    assert(x<dimx);
-    assert(y>=0);
-    assert(y<dimy);
-    //assert(posValide(x, y));
-    //assert(emplacementLibre(x, y));  
-    ter[y*dimx+x] = c;
-}
-
-// Procédure qui mais le caractère ' ' aux coordonnées (x,y)
-// passées en paramètre
-void Terrain::mangeElement(int x, int y) {
-    assert(x>=0);
-    assert(x<dimx);
-    assert(y>=0);
-    assert(y<dimy);
-    ter[y*dimx+x] = ' ';
-}
-
 // Procédure qui place aléatoirement 3 clés dans un niveau
 void Terrain::posAleaCle () {
     srand(time(NULL));
@@ -102,8 +122,10 @@ void Terrain::posAleaCle () {
 
     for (int c = 0; c < 3; c++) {
         if (c == 0) {
-            tabCle.at(c).x = rand()% dimx;
-            tabCle.at(c).y = rand()% dimy;
+            do {
+                tabCle.at(c).x = rand()% dimx;
+                tabCle.at(c).y = rand()% dimy;
+            } while (!posValide(tabCle.at(c).x, tabCle.at(c).y));
         }
         
         else 
@@ -114,6 +136,16 @@ void Terrain::posAleaCle () {
                     ((tabCle.at(c).x == tabCle.at(c-1).x) && (tabCle.at(c).y == tabCle.at(c-1).y)) || 
                     ((tabCle.at(2).x == tabCle.at(0).x) && (tabCle.at(2).y == tabCle.at(0).y)));
     } 
+}
+
+// Procédure qui mais le caractère ' ' aux coordonnées (x,y)
+// passées en paramètre
+void Terrain::mangeElement(int x, int y) {
+    assert(x>=0);
+    assert(x<dimx);
+    assert(y>=0);
+    assert(y<dimy);
+    ter[y*dimx+x] = ' ';
 }
 
 void Terrain::tabMursTerrain() {
@@ -197,29 +229,6 @@ void Terrain::tabMursTerrain() {
 
 }
 
-Mur Terrain::getTabMurs (int i) const {
-    return tabMurs[i];
-}
-
-int Terrain::getNbCle () const {
-    return tabCle.size();
-}
-
-int Terrain::getTailleTabMurs () const {
-    return tabMurs.size();
-}
-
-void appuyerInterrupteur(int x, int y) {}
-
-// Retourne la taille du tableau dynamique ter
-int Terrain::getTailleTerrain() const { return tailleTerrain; }
-
-// Retourne la valeur de dimx
-int Terrain::getDimX () const { return dimx; }
-
-// Retourne la valeur de dimy
-int Terrain::getDimY () const { return dimy; }
-
 int Terrain::compteurPiece () {
     char c;
     int cmpt = 0;
@@ -234,20 +243,10 @@ int Terrain::compteurPiece () {
     return cmpt;
 }
 
-Point Terrain::getCle(int indice) const {
-    return tabCle.at(indice);
-}
 
-int Terrain::getNbMurs () const {
-    return tabMurs.size();
-}
-
-void Terrain::supprimeCle (int indice) {
-    if (indice == 0) 
-        tabCle.erase(tabCle.begin());
-    else if (indice == 2)
-        tabCle.erase(tabCle.begin()+2);
-    else tabCle.erase(tabCle.begin()+1);
+bool Terrain::emplacementLibre(int x, int y) {
+    return (((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == ' ') || 
+            ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == '.'));
 }
 
 void Terrain::placementMurs (bool etat) {
@@ -295,6 +294,15 @@ void Terrain::placementMurs (bool etat) {
             }
         }
     }
+}
+
+
+void Terrain::supprimeCle (int indice) {
+    if (indice == 0) 
+        tabCle.erase(tabCle.begin());
+    else if (indice == 2)
+        tabCle.erase(tabCle.begin()+2);
+    else tabCle.erase(tabCle.begin()+1);
 }
 
 void Terrain::testRegression(){
