@@ -59,7 +59,7 @@ bool Terrain::posValide(int x, int y) const {
     return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] != '#');
 }
 
-bool Terrain::emplacementLibre(int x, int y) const {
+bool Terrain::emplacementLibre(int x, int y) {
     return (((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == ' ') || 
             ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && ter[y*dimx+x] == '.'));
 }
@@ -295,10 +295,6 @@ void Terrain::placementMurs (bool etat) {
             }
         }
     }
-}
-
-bool Terrain::caseContientSerpent (int x, int y) {
-    
 }
 
 void Terrain::testRegression(){

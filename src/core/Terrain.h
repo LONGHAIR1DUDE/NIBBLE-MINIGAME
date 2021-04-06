@@ -16,9 +16,7 @@ private:
     vector<Point> tabCle;
     // vector<Point> posInterrupteur;
     vector<Mur> tabMurs;
-    int nbMurs;
-
-
+    
 public:
     Terrain();
     Terrain(const string& namefile);
@@ -42,10 +40,9 @@ public:
     void tabMursTerrain();
     void setXY(const int x, const int y, const char c);
     int compteurPiece();
-    bool emplacementLibre(int x, int y) const;
+    bool emplacementLibre(int x, int y);
     void placementMurs(bool etat);
     void supprimeCle(int indice);
-    bool caseContientSerpent(int x, int y);
 };
 
 #endif

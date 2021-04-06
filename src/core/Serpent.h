@@ -31,6 +31,7 @@ public:
     void setMouv(bool mouv);
     void setDirection(int x, int y);
     void testRegression();
+    bool caseContientSerpent(int x, int y);
  };
 
 

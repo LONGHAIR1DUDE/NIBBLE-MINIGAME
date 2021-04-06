@@ -172,6 +172,10 @@ void Serpent::setDirection (int x, int y) {
     directionSerpent.y = y;
 }
 
+bool Serpent::caseContientSerpent (int x, int y) {
+    return ((x == corps.at(y*getTailleSerpent()+x).x) && (y == corps.at(y*getTailleSerpent()+x).y));
+}
+
 void Serpent::testRegression () {
     const Terrain t;
     Point p1(10, 4);
