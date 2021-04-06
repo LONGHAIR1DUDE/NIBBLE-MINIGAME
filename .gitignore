@@ -1,0 +1,4 @@
+bin/*
+obj/*
+data/bestScore.txt
+doc/html/*
