@@ -15,7 +15,6 @@ private:
 public:
     Bonus(int type, int x, int y);
     Bonus();
-    void setBonus(int type,int x,int y);
     void actionBonus(Serpent& serp,Terrain& ter);
     int bonusVitesse();
     
@@ -23,6 +22,7 @@ public:
     int getX();
     int getY(); 
     int getAction();
+    void setBonus(int i, int x, int y);
 };
 
 #endif

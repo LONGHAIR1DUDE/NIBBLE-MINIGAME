@@ -64,7 +64,7 @@ void txtJeu (Jeu& j) {
         ok = j.SerpentBouge();
         j.actionSurSerpent();
         j.actionPortail();
-        j.placementAleatoire();
+        j.placementAleatoireBonus();
         j.actionInterrupteur(etat);
         car = fenetre.getCh();
         switch (car) {

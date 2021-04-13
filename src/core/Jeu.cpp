@@ -8,7 +8,8 @@
 #include <fstream>
 using namespace std;
 
-Jeu::Jeu (const string& namefile) : serpent(3, terrain.getDimX()/2, terrain.getDimY()/2, terrain, true), score(0) {
+Jeu::Jeu (const string& namefile) : serpent(3, terrain.getDimX()/2, 
+    terrain.getDimY()/2, terrain, true), score(0) {
     terrain.recupNiveau(namefile);
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
     terrain.tabMursTerrain();
@@ -18,6 +19,7 @@ Jeu::Jeu (const string& namefile) : serpent(3, terrain.getDimX()/2, terrain.getD
     Point b {(terrain.getDimX()-2), (terrain.getDimY()-2)};
     Portail p(a, b);
     tabPortail.push_back(p);
+    srand(time(NULL));
 }
 
 Jeu::~Jeu () {}
@@ -58,13 +60,13 @@ void Jeu::setScore (float num) {
     score += num;
 }
 
-int Jeu::stockerBestScore () {
+int Jeu::stockerMeilleurScore () {
     ifstream monBestScoreL("./data/bestScore.txt");
-    float number;
+    float num;
     if (monBestScoreL) {
-        monBestScoreL >> number;
+        monBestScoreL >> num;
         monBestScoreL.close();   
-        if (number < score) {
+        if (num < score) {
             ofstream monBestScoreE("./data/bestScore.txt");
             if (monBestScoreE) {  
                 monBestScoreE << score;
@@ -74,7 +76,7 @@ int Jeu::stockerBestScore () {
                 cout << "ERREUR: Impossible d'ouvrir le fichier en ecriture !" << endl;
             }
         } else {
-            return number;
+            return num;
         }
     } else 
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
@@ -106,32 +108,31 @@ bool Jeu::actionClavier(const char touche) {
 	return false;
 }
 
-void Jeu::placementAleatoire() {      
-        int x,y;
-        int a;
-        while(tabBonus.empty())
-        {
-        do{
-            
-            srand(time(NULL));
-            x = rand() % terrain.getDimX();
-            
-            y = rand() % terrain.getDimY();
-            
-            a = rand()%3;
-            
-        } while(!terrain.posValide(x, y) || !terrain.emplacementLibre(x, y));
-       
-        Bonus b (a,x,y);
-        tabBonus.push_back(b);
-        
-       
-        
-        terrain.setXY(tabBonus[0].getX() ,tabBonus[0].getY(), 'b');
-         
-       
+void Jeu::placementAleatoireBonus() {      
+    int x, y, a;
+    int dimx = terrain.getDimX();
+    int dimy = terrain.getDimY();
+
+    // boucle for qui créé et stocke 3 bonus dans le tableau tabBonus
+    for (int i = 0; i < 3; i++) {
+        a = rand()% 3;
+        if (i == 0) {
+            do {
+                x = rand()% dimx;
+                y = rand()% dimy;
+            } while(!terrain.posValide(x, y)); 
+        } else {
+            do {
+                x = rand()% dimx;
+                y = rand()% dimy;        
+            } while(!terrain.posValide(x, y) || ((tabBonus[i-1].getX() == x) 
+                    && (tabBonus[i-1].getY() == y))); 
         }
-       
+        Bonus b(a, x, y);
+        tabBonus.push_back(b);
+        terrain.setXY(tabBonus[i].getX(), tabBonus[i].getY(), 'b');
+    }
+        
 }
 
 bool Jeu::SerpentBouge() {
@@ -172,6 +173,7 @@ void Jeu::actionSurSerpent () {
     int dimy = terrain.getDimY();
     char element = terrain.getXY(x, y);
     int nbCle = terrain.getNbCle();
+    int tailleTabBonus = tabBonus.size();
 
     for (int i = 0; i < nbCle; i++) {
         terrain.setXY(terrain.getCle(i).x, terrain.getCle(i).y, 'c');
@@ -184,11 +186,25 @@ void Jeu::actionSurSerpent () {
         cpt--;
     }
     
-        if(element == 'b') {    
-           terrain.setXY(tabBonus[0].getX() ,tabBonus[0].getY(), ' ');       
-           tabBonus[0].actionBonus(serpent,terrain);
-            tabBonus.pop_back();
-        }
+    if(element == 'b') { 
+        terrain.mangeElement(x, y);  
+        int indice, action, coordx, coordy; 
+        for (int i = 0; i < tailleTabBonus; i++) {
+            if (x == tabBonus[i].getX() && y == tabBonus[i].getY()) {
+                indice = i;
+                break;
+            }
+        }    
+
+        tabBonus[indice].actionBonus(serpent, terrain);
+
+        do {
+            action = rand()% 3;
+            coordx = rand()% dimx;
+            coordy = rand()% dimy;
+        } while(!terrain.posValide(coordx, coordy) || !terrain.emplacementLibre(coordx, coordy));
+        tabBonus[indice].setBonus(action, coordx, coordy);
+    }
 
     if (cpt < 30) {
         do {
