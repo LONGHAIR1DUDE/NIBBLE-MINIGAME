@@ -12,8 +12,9 @@ using namespace std;
 
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
-    recupNiveau("../data/niveau5.txt");
+    recupNiveau("./data/niveau5.txt");
     posAleaCle();
+    srand(time(NULL));
 }
 
 Terrain::Terrain(const string& nomFichier) {
@@ -21,6 +22,7 @@ Terrain::Terrain(const string& nomFichier) {
     posAleaCle();
     tabMursTerrain();
     placementMurs(true);
+    srand(time(NULL));
 }
 
 Terrain::~Terrain () {}
@@ -115,7 +117,6 @@ void Terrain::recupNiveau (const string& nomFichier) {
 
 // Procédure qui place aléatoirement 3 clés dans un niveau
 void Terrain::posAleaCle () {
-    srand(time(NULL));
     Point cle{0, 0};
     for (int i = 0; i < 3; i++)
         tabCle.push_back(cle);

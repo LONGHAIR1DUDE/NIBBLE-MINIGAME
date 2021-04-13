@@ -34,9 +34,9 @@ public:
     int getNbBonus() const;
     int getScore();
     void setScore(float num);
-    int stockerBestScore();
+    int stockerMeilleurScore();
     bool actionClavier(const char touche);
-    void placementAleatoire();
+    void placementAleatoireBonus();
     bool SerpentBouge();
     void actionSurSerpent();
     void actionPortail();

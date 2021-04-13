@@ -49,14 +49,17 @@ void Bonus::actionBonus(Serpent& serp,Terrain& ter) {
 Point Bonus::getPos(){
     return position;
 }
+
 int Bonus::getX()
 {
     return position.x;
 }
+
 int Bonus::getY()
 {
     return position.y;
 }
+
 int Bonus::getAction(){
     return action;
 }
