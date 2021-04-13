@@ -12,7 +12,7 @@ using namespace std;
 
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100) {
-    recupNiveau("../data/niveau5.txt");
+    recupNiveau("./data/niveau5.txt");
     posAleaCle();
 }
 

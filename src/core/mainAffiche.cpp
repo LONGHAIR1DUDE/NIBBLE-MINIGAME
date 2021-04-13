@@ -3,7 +3,7 @@
 using namespace std;
 
 int main () {
-    Terrain terrain("../data/niveau5.txt");
+    Terrain terrain("./data/niveau5.txt");
     int tailleX = terrain.getDimX();
     int tailleY = terrain.getDimY();
     int tailleTerrain = terrain.getTailleTerrain();

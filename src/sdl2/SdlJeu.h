@@ -25,5 +25,31 @@ public:
     SDL_Texture * getTexture() const;
     void setSurface(SDL_Surface * surf);
 };
+class sdlJeu{
+    private : 
+    Jeu jeu;
+    SDL_Window * window;
+    SDL_Renderer * renderer;
+    TTF_Font * font ;
+    Image font_im;
+    SDL_Color font_color;
+    Mix_Chunk * son ;
+    bool avecson;
 
+    Image im_TeteSerpent;
+    Image im_CorpsSerpent;
+    Image im_QueueSerpent;
+    Image im_Piece;
+    Image im_Bonus;
+    Image im_Mur;
+    Image im_Cle;
+    Image im_Portail;
+
+    bool souris;
+    bool touche;
+    public : sdlJeu();
+    ~sdlJeu();
+    void sdlBoucle();
+    void sdlAff();
+};
 #endif

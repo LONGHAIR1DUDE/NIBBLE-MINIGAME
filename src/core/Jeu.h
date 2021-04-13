@@ -22,6 +22,7 @@ private:
 
 public:
     Jeu(const string& namefile);
+    
     ~Jeu();
 
     Terrain getTerrain() const;
