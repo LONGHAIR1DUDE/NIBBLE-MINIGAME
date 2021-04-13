@@ -109,11 +109,11 @@ bool Jeu::actionClavier(const char touche) {
 }
 
 void Jeu::placementAleatoireBonus() {      
-    int x,y, a;
+    int x, y, a;
     int dimx = terrain.getDimX();
     int dimy = terrain.getDimY();
 
-    // boucle for qui créé et stocke 5 bonus dans le tableau tabBonus
+    // boucle for qui créé et stocke 3 bonus dans le tableau tabBonus
     for (int i = 0; i < 3; i++) {
         a = rand()% 3;
         if (i == 0) {
@@ -195,6 +195,8 @@ void Jeu::actionSurSerpent () {
                 break;
             }
         }    
+
+        tabBonus[indice].actionBonus(serpent, terrain);
 
         do {
             action = rand()% 3;
