@@ -5,7 +5,7 @@
 #include <iostream>
 using namespace std;
 
-const int TAILLE_SPRITE = 32;
+const int TAILLE_SPRITE = 42;
 
 float temps () {
     return float(SDL_GetTicks()) / CLOCKS_PER_SEC;  // conversion des ms en secondes en divisant par 1000
@@ -134,7 +134,7 @@ sdlJeu::sdlJeu () : jeu("./data/niveau5.txt") {
     im_Mur.chargeFichier("data/nibblemap3.png",renderer);
     im_Cle.chargeFichier("data/cle.png",renderer);
     im_Portail.chargeFichier("data/portail.png",renderer);
-
+    im_Interrupteur.chargeFichier("data/interrupteurEteint.png",renderer);
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",50);
     if (font == NULL)
@@ -189,9 +189,17 @@ void sdlJeu::sdlAff () {
 				im_Mur.dessiner(renderer,x*TAILLE_SPRITE,y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
 			else if (ter.getXY(x,y)=='.')
 				im_Piece.dessiner(renderer,x*TAILLE_SPRITE,y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
+                else if (ter.getXY(x, y) == 'i')
+                        im_Interrupteur.dessiner(renderer,x*TAILLE_SPRITE,y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
+                        else if (ter.getXY(x, y) == 'b')                              
+                                im_Bonus.dessiner(renderer,x*TAILLE_SPRITE,y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);           
+                            else if (ter.getXY(x, y) == 'c')
+                                im_Cle.dessiner(renderer,x*TAILLE_SPRITE,y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
     //Afficher les sprites des bonus
+    for(int j= 0;j < jeu.getNbBonus();j++) {
     im_Bonus.dessiner(renderer,bon.getX()*TAILLE_SPRITE,bon.getY()*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
-	// Afficher le sprite de Serpent
+    }
+    // Afficher le sprite de Serpent
 	im_TeteSerpent.dessiner(renderer,serp.getTete().x*TAILLE_SPRITE,serp.getTete().y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
     int a = serp.getTailleSerpent();
     for(int i=1;i<a-1;++i)
@@ -218,12 +226,12 @@ void sdlJeu::sdlBoucle () {
     Uint32 t = SDL_GetTicks(), nt;
 
 	// tant que ce n'est pas la fin ...
-	while (!quit) {
+	do {
             jeu.setScore(1);
         ok = jeu.SerpentBouge();
         jeu.actionSurSerpent();
         jeu.actionPortail();
-        jeu.placementAleatoire();
+        jeu.placementAleatoireBonus();
         jeu.actionInterrupteur(etat);
         /*nt = SDL_GetTicks();
         if (nt-t>500) {
@@ -235,19 +243,19 @@ void sdlJeu::sdlBoucle () {
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
 			else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
-                bool mangePastille = false;
+              
 				switch (events.key.keysym.scancode) {
 				case SDL_SCANCODE_UP:
-					mangePastille = jeu.actionClavier('z');    // car Y inverse
+					jeu.actionClavier('z');    // car Y inverse
 					break;
 				case SDL_SCANCODE_DOWN:
-					mangePastille = jeu.actionClavier('s');     // car Y inverse
+					jeu.actionClavier('s');     // car Y inverse
 					break;
 				case SDL_SCANCODE_LEFT:
-					mangePastille = jeu.actionClavier('q');
+					jeu.actionClavier('q');
 					break;
 				case SDL_SCANCODE_RIGHT:
-					mangePastille = jeu.actionClavier('d');
+					jeu.actionClavier('d');
 					break;
                 case SDL_SCANCODE_ESCAPE:
                 case SDL_SCANCODE_Q:
@@ -255,7 +263,7 @@ void sdlJeu::sdlBoucle () {
                     break;
 				default: break;
 				}
-				if ((avecson) && (mangePastille))
+				if (avecson)
                     Mix_PlayChannel(-1,son,0);
 			}
 		}
@@ -265,5 +273,5 @@ void sdlJeu::sdlBoucle () {
 
 		// on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
-	}
+	}while(!quit);
 }

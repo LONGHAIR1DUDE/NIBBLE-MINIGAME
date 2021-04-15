@@ -44,6 +44,7 @@ class sdlJeu{
     Image im_Mur;
     Image im_Cle;
     Image im_Portail;
+    Image im_Interrupteur;
 
     bool souris;
     bool touche;
