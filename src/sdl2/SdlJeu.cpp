@@ -3,6 +3,13 @@
 #include "SdlJeu.h"
 #include <stdlib.h>
 #include <iostream>
+
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif // WIN32
+
 using namespace std;
 
 const int TAILLE_SPRITE = 42;
@@ -79,7 +86,7 @@ SDL_Texture * Image::getTexture() const {return texture;}
 
 void Image::setSurface(SDL_Surface * surf) {surface = surf;}
 
-sdlJeu::sdlJeu () : jeu("./data/niveau5.txt") {
+sdlJeu::sdlJeu () : jeu("./data/niveau2.txt") {
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
@@ -227,6 +234,13 @@ void sdlJeu::sdlBoucle () {
 
 	// tant que ce n'est pas la fin ...
 	do {
+
+        #ifdef _WIN32
+        Sleep(100);
+		#else
+		usleep(100000);
+        #endif // WIN32
+
             jeu.setScore(1);
         ok = jeu.SerpentBouge();
         jeu.actionSurSerpent();
