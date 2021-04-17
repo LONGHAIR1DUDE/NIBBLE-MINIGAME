@@ -17,24 +17,26 @@ private:
     Serpent serpent;
     vector<Portail> tabPortail;
     vector<Bonus> tabBonus;
-    float score;
-    float bestScore;
+    int score;
+    int *p_score;
+    int meilleurScore;
 
 public:
     Jeu(const string& namefile);
     
     ~Jeu();
 
-    Terrain getTerrain() const;
-    Serpent getSerpent() const;
-    Mur getMur(int i) const; 
+    const Terrain& getTerrain() const;
+    const Serpent& getSerpent() const;
+    Mur getMur(int i); 
     int getNbMurs() const;
-    Portail getPortail(int i) const;
+    Portail& getPortail(int i);
     int getNbPortails() const;
-    Bonus getBonus(int i) const;
+    Bonus& getBonus(int i);
     int getNbBonus() const;
     int getScore();
-    void setScore(float num);
+    int getMeilleurScore();
+    void setScore(int val);
     int stockerMeilleurScore();
     bool actionClavier(const char touche);
     void placementAleatoireBonus();

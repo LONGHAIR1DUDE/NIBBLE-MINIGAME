@@ -20,15 +20,16 @@ Jeu::Jeu (const string& namefile) : serpent(3, terrain.getDimX()/2,
     Portail p(a, b);
     tabPortail.push_back(p);
     srand(time(NULL));
+    p_score = &score;
 }
 
 Jeu::~Jeu () {}
 
-Terrain Jeu::getTerrain () const { return terrain; }
+const Terrain& Jeu::getTerrain () const { return terrain; }
 
-Serpent Jeu::getSerpent () const {return serpent;}
+const Serpent& Jeu::getSerpent () const {return serpent;}
 
-Mur Jeu::getMur(int i) const { 
+Mur Jeu::getMur(int i) { 
     return terrain.getTabMurs(i);
 }
 
@@ -36,7 +37,7 @@ int Jeu::getNbMurs() const {
     return terrain.getNbMurs();
 }  
 
-Portail Jeu::getPortail (int i) const {
+Portail& Jeu::getPortail (int i) {
     return tabPortail[i];
 }  
 
@@ -44,7 +45,7 @@ int Jeu::getNbPortails() const {
     return tabPortail.size();
 } 
 
-Bonus Jeu::getBonus(int i) const {
+Bonus& Jeu::getBonus(int i) {
     return tabBonus[i];
 }
 
@@ -56,27 +57,31 @@ int Jeu::getScore () {
     return score;
 }
 
-void Jeu::setScore (float num) {
-    score += num;
+int Jeu::getMeilleurScore () {
+    return meilleurScore;
+}
+
+void Jeu::setScore (int val) {
+    *p_score += val;
 }
 
 int Jeu::stockerMeilleurScore () {
-    ifstream monBestScoreL("./data/bestScore.txt");
-    float num;
-    if (monBestScoreL) {
-        monBestScoreL >> num;
-        monBestScoreL.close();   
-        if (num < score) {
-            ofstream monBestScoreE("./data/bestScore.txt");
-            if (monBestScoreE) {  
-                monBestScoreE << score;
-                monBestScoreE.close();
+    ifstream monMeilleurScoreL("./data/bestScore.txt");
+    if (monMeilleurScoreL) {
+        monMeilleurScoreL >> meilleurScore;
+        monMeilleurScoreL.close();   
+        if (meilleurScore < score) {
+            ofstream monMeilleurScoreE("./data/bestScore.txt");
+            if (monMeilleurScoreE) {  
+                monMeilleurScoreE << score;
+                monMeilleurScoreE.close();
+                meilleurScore = score;
                 return score;
             } else {
                 cout << "ERREUR: Impossible d'ouvrir le fichier en ecriture !" << endl;
             }
         } else {
-            return num;
+            return meilleurScore;
         }
     } else 
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
@@ -85,20 +90,20 @@ int Jeu::stockerMeilleurScore () {
 
 bool Jeu::actionClavier(const char touche) {
     switch(touche) {
-        case 'q': if(!serpent.getMouv()) {serpent.droite(terrain);}
-           else  {serpent.gauche(terrain);}
+        case 'q': if(!serpent.getMouv()) {serpent.setDirection(1,0,terrain);}
+           else  {serpent.setDirection(-1,0,terrain);}
             break;
         
-        case 'd': if(!serpent.getMouv()) {serpent.gauche(terrain);}
-            else  {serpent.droite(terrain);}
+        case 'd': if(!serpent.getMouv()) {serpent.setDirection(-1,0,terrain);}
+            else  {serpent.setDirection(1,0,terrain);}
             break;
         
-        case 'z': if(!serpent.getMouv()) {serpent.bas(terrain);}
-            else {serpent.haut(terrain);}
+        case 'z': if(!serpent.getMouv()) {serpent.setDirection(0,1,terrain);}
+            else {serpent.setDirection(0,-1,terrain);}
             break;
         
-        case 's': if(!serpent.getMouv()) {serpent.haut(terrain);}
-            else {serpent.bas(terrain);}
+        case 's': if(!serpent.getMouv()) {serpent.setDirection(0,-1,terrain);}
+            else {serpent.setDirection(0,1,terrain);}
             break;
     }
     if (terrain.getXY(serpent.getTete().x, serpent.getTete().y)=='.') {
