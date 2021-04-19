@@ -7,6 +7,7 @@ int main (int argc, char** argv) {
 	sj.sdlBoucle();
 	int score = jeu.getScore();
 	int meilleurScore = jeu.getMeilleurScore();
+	sj.sdlGameOver();
 	cout << "GAME OVER!" << endl << "Score: " << score << endl << "Best Score: " << meilleurScore << endl;
 	return 0;
 }

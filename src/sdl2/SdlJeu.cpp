@@ -142,6 +142,7 @@ sdlJeu::sdlJeu () : jeu("./data/niveau2.txt") {
     im_Cle.chargeFichier("data/cle.png",renderer);
     im_Portail.chargeFichier("data/portail.png",renderer);
     im_Interrupteur.chargeFichier("data/interrupteurEteint.png",renderer);
+    im_GameOver.chargeFichier("data/game-over.jpg",renderer);
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",50);
     if (font == NULL)
@@ -203,6 +204,7 @@ void sdlJeu::sdlAff () {
                             else if (ter.getXY(x, y) == 'c')
                                 im_Cle.dessiner(renderer,x*TAILLE_SPRITE,y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
     //Afficher les sprites des bonus
+    
     for(int j= 0;j < jeu.getNbBonus();j++) {
     im_Bonus.dessiner(renderer,bon.getX()*TAILLE_SPRITE,bon.getY()*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
     }
@@ -223,6 +225,14 @@ void sdlJeu::sdlAff () {
     SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTitre);
 
 }
+void sdlJeu::sdlGameOver()
+{  
+    
+      
+    im_GameOver.dessiner(renderer,0,0,1920,1080);
+   
+
+}
 
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
@@ -234,7 +244,7 @@ void sdlJeu::sdlBoucle () {
 
 	// tant que ce n'est pas la fin ...
 	do {
-
+        
         #ifdef _WIN32
         Sleep(100);
 		#else
@@ -247,12 +257,7 @@ void sdlJeu::sdlBoucle () {
         jeu.actionPortail();
         jeu.placementAleatoireBonus();
         jeu.actionInterrupteur(etat);
-        /*nt = SDL_GetTicks();
-        if (nt-t>500) {
-            jeu.actionsAutomatiques();
-            t = nt;
-        }*/
-
+        
 		// tant qu'il y a des evenements � traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
@@ -287,5 +292,21 @@ void sdlJeu::sdlBoucle () {
 
 		// on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
-	}while(!quit);
+	}while(!quit && ok);
+    quit = false ;
+    do{ sdlGameOver();
+        		while (SDL_PollEvent(&events)) {
+			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
+			else if (events.type == SDL_KEYDOWN) {   
+                switch (events.key.keysym.sym) {
+                case SDL_SCANCODE_ESCAPE:
+                case SDLK_l:
+                    quit = true;
+                    break;
+				default: break;
+				}
+            }
+                }
+        SDL_RenderPresent(renderer);
+    }while(!quit);
 }

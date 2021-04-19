@@ -45,12 +45,13 @@ class sdlJeu{
     Image im_Cle;
     Image im_Portail;
     Image im_Interrupteur;
-
+    Image im_GameOver;
     bool souris;
     bool touche;
     public : sdlJeu();
     ~sdlJeu();
     void sdlBoucle();
     void sdlAff();
+    void sdlGameOver();
 };
 #endif
