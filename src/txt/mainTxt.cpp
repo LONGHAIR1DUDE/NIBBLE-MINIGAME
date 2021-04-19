@@ -6,7 +6,8 @@ int main ( int argc, char** argv ) {
 	Jeu jeu("./data/niveau5.txt");
 	txtJeu(jeu);
     termClear();
-	int bestScore = jeu.stockerMeilleurScore();
-	cout << "GAME OVER!" << endl << "Score: " << jeu.getScore() << endl << "Best Score: " << bestScore << endl;
+	int score = jeu.getScore();
+	int meilleurScore = jeu.getMeilleurScore();
+	cout << "GAME OVER!" << endl << "Score: " << score << endl << "Best Score: " << meilleurScore << endl;
 	return 0;
 }

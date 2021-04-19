@@ -167,9 +167,38 @@ void Serpent::setMouv(bool mouv){
     mouvementInverse=mouv;
 }
 
-void Serpent::setDirection (int x, int y) {
-    directionSerpent.x = x;
-    directionSerpent.y = y;
+/* PAS ENCORE FONCTIONNEL */
+void Serpent::setDirection (int x, int y, const Terrain& t) {
+    if (getDirection().x == -x || getDirection().y == -y) {}
+    else {
+        directionSerpent.x = x;
+        directionSerpent.y = y;
+    }
+    // else if ((directionSerpent.x == 1) || (directionSerpent.x == -1)) {
+    //     if (y == 1) {
+    //         if (t.posValide(corps[0].x, corps[0].y+1)) {
+    //             directionSerpent.x = x;
+    //             directionSerpent.y = y;
+    //         } else {}
+    //     } else if (y == -1) {
+    //         if (t.posValide(corps[0].x, corps[0].y-1)) {
+    //             directionSerpent.x = x;
+    //             directionSerpent.y = y;
+    //         } else {}
+    //     }
+    // } else if ((directionSerpent.x == 1) || (directionSerpent.x == -1)) {
+    //     if (x == 1) {
+    //         if (t.posValide(corps[0].x+1, corps[0].y)) {
+    //             directionSerpent.x = x;
+    //             directionSerpent.y = y;
+    //         } else {}
+    //     } else if (x == -1) {
+    //         if (t.posValide(corps[0].x-1, corps[0].y)) {
+    //             directionSerpent.x = x;
+    //             directionSerpent.y = y;
+    //         } else {}
+    //     }
+    // }    
 }
 
 bool Serpent::caseContientSerpent (int x, int y) {

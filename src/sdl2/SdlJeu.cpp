@@ -258,21 +258,21 @@ void sdlJeu::sdlBoucle () {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
 			else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
               
-				switch (events.key.keysym.scancode) {
-				case SDL_SCANCODE_UP:
+				switch (events.key.keysym.sym) {
+				case SDLK_z:
 					jeu.actionClavier('z');    // car Y inverse
 					break;
-				case SDL_SCANCODE_DOWN:
+				case SDLK_s:
 					jeu.actionClavier('s');     // car Y inverse
 					break;
-				case SDL_SCANCODE_LEFT:
+				case SDLK_q:
 					jeu.actionClavier('q');
 					break;
-				case SDL_SCANCODE_RIGHT:
+				case SDLK_d:
 					jeu.actionClavier('d');
 					break;
                 case SDL_SCANCODE_ESCAPE:
-                case SDL_SCANCODE_Q:
+                case SDLK_l:
                     quit = true;
                     break;
 				default: break;

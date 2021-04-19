@@ -20,8 +20,6 @@ Terrain::Terrain() : dimx(100), dimy(100) {
 Terrain::Terrain(const string& nomFichier) {
     recupNiveau(nomFichier);
     posAleaCle();
-    tabMursTerrain();
-    placementMurs(true);
     srand(time(NULL));
 }
 
@@ -170,63 +168,64 @@ void Terrain::tabMursTerrain() {
 
     int taillePosMur = posMurTerrain.size(); 
     int tailleMurs;
+    if (taillePosMur != 0) {
+        // insert le première élément du tableau posMursTerrain 
+        // dans le tableau murs
+        murs.push_back(posMurTerrain[0]);
+        tailleMurs = 1;
+        bool valSortie;
 
-    // insert le première élément du tableau posMursTerrain 
-    // dans le tableau murs
-    murs.push_back(posMurTerrain[0]);
-    tailleMurs = 1;
-    bool valSortie;
+        // boucle for qui stocke les coordonnées du premières élément 
+        // de chaque mur ainsi que leur dimension
+        for (int i = 1; i < taillePosMur; i++) {
+            tailleMurs = murs.size();
+            for (int j = 0; j < tailleMurs; j++) {
+                valSortie = true;
+                
+                if ((posMurTerrain.at(i).x == murs.at(j).x+murs.at(j).w) 
+                    && (posMurTerrain.at(i).y == murs.at(j).y)) {
+                        murs.at(j).w++;
+                        break;
+                    }
 
-    // boucle for qui stocke les coordonnées du premières élément 
-    // de chaque mur ainsi que leur dimension
-    for (int i = 1; i < taillePosMur; i++) {
-        tailleMurs = murs.size();
-        for (int j = 0; j < tailleMurs; j++) {
-            valSortie = true;
-            
-            if ((posMurTerrain.at(i).x == murs.at(j).x+murs.at(j).w) 
-                && (posMurTerrain.at(i).y == murs.at(j).y)) {
-                    murs.at(j).w++;
-                    break;
+                else if ((posMurTerrain.at(i).y == murs.at(j).y+murs.at(j).h) 
+                    && (posMurTerrain.at(i).x == murs.at(j).x)) {
+                        murs.at(j).h++;
+                        break;
+                    }   
+                
+                else valSortie = false;
+            }
+            if (valSortie == false) murs.push_back(posMurTerrain.at(i));
+        }
+
+        // boucle for qui stocke les éléments de murs dans le tableau 
+        // de type Mur, tabMurs
+        for (int i = 0; i < tailleMurs; i++) {
+            if (murs.at(i).w > murs.at(i).h) {
+                if (posValide(murs.at(i).x + murs.at(i).w, murs.at(i).y)) {
+                    Mur mur(murs.at(i).x, murs.at(i).y, murs.at(i).w, murs.at(i).h);
+                    tabMurs.push_back(mur);
+                } else {
+                    Mur mur(murs.at(i).x - murs.at(i).w, murs.at(i).y, murs.at(i).w, murs.at(i).h);
+                    tabMurs.push_back(mur);
                 }
-
-            else if ((posMurTerrain.at(i).y == murs.at(j).y+murs.at(j).h) 
-                && (posMurTerrain.at(i).x == murs.at(j).x)) {
-                    murs.at(j).h++;
-                    break;
-                }   
+            } else {
+                if (posValide(murs.at(i).x, murs.at(i).y + murs.at(i).h)) {
+                    Mur mur(murs.at(i).x, murs.at(i).y, murs.at(i).w, murs.at(i).h);
+                    tabMurs.push_back(mur);
+                } else {
+                    Mur mur(murs.at(i).x, murs.at(i).y  - murs.at(i).h, murs.at(i).w, murs.at(i).h);
+                    tabMurs.push_back(mur);
+                }
+            }
             
-            else valSortie = false;
+            
         }
-        if (valSortie == false) murs.push_back(posMurTerrain.at(i));
-    }
 
-    // boucle for qui stocke les éléments de murs dans le tableau 
-    // de type Mur, tabMurs
-    for (int i = 0; i < tailleMurs; i++) {
-        if (murs.at(i).w > murs.at(i).h) {
-            if (posValide(murs.at(i).x + murs.at(i).w, murs.at(i).y)) {
-                Mur mur(murs.at(i).x, murs.at(i).y, murs.at(i).w, murs.at(i).h);
-                tabMurs.push_back(mur);
-            } else {
-                Mur mur(murs.at(i).x - murs.at(i).w, murs.at(i).y, murs.at(i).w, murs.at(i).h);
-                tabMurs.push_back(mur);
-            }
-        } else {
-            if (posValide(murs.at(i).x, murs.at(i).y + murs.at(i).h)) {
-                Mur mur(murs.at(i).x, murs.at(i).y, murs.at(i).w, murs.at(i).h);
-                tabMurs.push_back(mur);
-            } else {
-                Mur mur(murs.at(i).x, murs.at(i).y  - murs.at(i).h, murs.at(i).w, murs.at(i).h);
-                tabMurs.push_back(mur);
-            }
-        }
-        
-        
+        posMurTerrain.clear();
+        murs.clear();
     }
-
-    posMurTerrain.clear();
-    murs.clear();
 
 }
 

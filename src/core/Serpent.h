@@ -29,7 +29,7 @@ public:
     void setCorps(const int i, const int x, const int y);
     void setTete(const int x, const int y);
     void setMouv(bool mouv);
-    void setDirection(int x, int y);
+    void setDirection(int x, int y, const Terrain& t);
     void testRegression();
     bool caseContientSerpent(int x, int y);
  };
