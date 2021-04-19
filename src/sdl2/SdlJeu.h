@@ -35,7 +35,7 @@ class sdlJeu{
     SDL_Color font_color;
     Mix_Chunk * son ;
     bool avecson;
-
+    
     Image im_TeteSerpent;
     Image im_CorpsSerpent;
     Image im_QueueSerpent;
@@ -53,5 +53,6 @@ class sdlJeu{
     void sdlBoucle();
     void sdlAff();
     void sdlGameOver();
+    int sdlJeu_score;
 };
 #endif

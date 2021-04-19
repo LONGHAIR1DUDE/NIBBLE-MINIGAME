@@ -294,7 +294,9 @@ void sdlJeu::sdlBoucle () {
         SDL_RenderPresent(renderer);
 	}while(!quit && ok);
     quit = false ;
-    do{ sdlGameOver();
+    sdlJeu_score = jeu.getScore();
+    do{ 
+        sdlGameOver();
         		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
 			else if (events.type == SDL_KEYDOWN) {   
@@ -309,4 +311,5 @@ void sdlJeu::sdlBoucle () {
                 }
         SDL_RenderPresent(renderer);
     }while(!quit);
+    
 }

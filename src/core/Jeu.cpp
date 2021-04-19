@@ -188,6 +188,7 @@ void Jeu::actionSurSerpent () {
         serpent.allongeCorps(terrain);
         terrain.mangeElement(x, y);
         setScore(100);
+        
         cpt--;
     }
     
