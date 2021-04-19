@@ -37,7 +37,7 @@ int Jeu::getNbMurs() const {
     return terrain.getNbMurs();
 }  
 
-Portail& Jeu::getPortail (int i) {
+Portail Jeu::getPortail (int i) const {
     return tabPortail[i];
 }  
 
@@ -45,7 +45,7 @@ int Jeu::getNbPortails() const {
     return tabPortail.size();
 } 
 
-Bonus& Jeu::getBonus(int i) {
+Bonus Jeu::getBonus(int i) const {
     return tabBonus[i];
 }
 

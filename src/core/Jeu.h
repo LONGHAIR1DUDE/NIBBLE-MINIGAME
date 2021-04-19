@@ -30,9 +30,9 @@ public:
     const Serpent& getSerpent() const;
     Mur getMur(int i); 
     int getNbMurs() const;
-    Portail& getPortail(int i);
+    Portail getPortail(int i) const;
     int getNbPortails() const;
-    Bonus& getBonus(int i);
+    Bonus getBonus(int i) const;
     int getNbBonus() const;
     int getScore();
     int getMeilleurScore();
