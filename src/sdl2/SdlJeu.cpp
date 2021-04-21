@@ -46,13 +46,14 @@ void Image::chargeFichier (const char* nomFichier, SDL_Renderer * renderer) {
     SDL_Surface * surfaceCorrectPixelFormat = SDL_ConvertSurfaceFormat(surface,SDL_PIXELFORMAT_ARGB8888,0);
     SDL_FreeSurface(surface);
     surface = surfaceCorrectPixelFormat;
-
+   
     texture = SDL_CreateTextureFromSurface(renderer,surfaceCorrectPixelFormat);
     if (texture == NULL) {
         cout << "Error: problem to create the texture of "<< nomFichier << endl;
         SDL_Quit();
         exit(1);
     }
+    SDL_FreeSurface(surfaceCorrectPixelFormat);
 }
 
 void Image::chargeSurface (SDL_Renderer * renderer) {
@@ -133,12 +134,12 @@ sdlJeu::sdlJeu () : jeu("./data/niveau2.txt") {
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 
     // IMAGES
-    im_TeteSerpent.chargeFichier("data/teteSerpent.png",renderer);
-    im_CorpsSerpent.chargeFichier("data/corpsSerpent.png",renderer);
-    im_QueueSerpent.chargeFichier("data/queueSerpent.png",renderer);
-    im_Piece.chargeFichier("data/piece.png",renderer);
+    im_TeteSerpent.chargeFichier("data/snake-head.png",renderer);
+    im_CorpsSerpent.chargeFichier("data/snake-tex.png",renderer);
+    im_QueueSerpent.chargeFichier("data/tail.png",renderer);
+    im_Piece.chargeFichier("data/food.png",renderer);
     im_Bonus.chargeFichier("data/fruit1.png",renderer);
-    im_Mur.chargeFichier("data/nibblemap3.png",renderer);
+    im_Mur.chargeFichier("data/nibble-map.png",renderer);
     im_Cle.chargeFichier("data/cle.png",renderer);
     im_Portail.chargeFichier("data/portail.png",renderer);
     im_Interrupteur.chargeFichier("data/interrupteurEteint.png",renderer);
@@ -159,11 +160,11 @@ sdlJeu::sdlJeu () : jeu("./data/niveau2.txt") {
     // SONS
     if (avecson)
     {
-        son = Mix_LoadWAV("data/son.wav");
+        son = Mix_LoadWAV("data/son1.wav");
         if (son == NULL) 
-            son = Mix_LoadWAV("../data/son.wav");
+            son = Mix_LoadWAV("../data/son1.wav");
         if (son == NULL) {
-                cout << "Failed to load son.wav! SDL_mixer Error: " << Mix_GetError() << endl; 
+                cout << "Failed to load son1.wav! SDL_mixer Error: " << Mix_GetError() << endl; 
                 SDL_Quit();
                 exit(1);
         }
@@ -215,6 +216,20 @@ void sdlJeu::sdlAff () {
     {
         im_CorpsSerpent.dessiner(renderer,serp.getCorps(i).x*TAILLE_SPRITE,serp.getCorps(i).y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
     }
+    if(serp.getCorps(a-2).x==serp.getCorps(a-1).x-1) 
+    {
+        im_QueueSerpent.chargeFichier("data/tail-right.png",renderer);
+    }else if(serp.getCorps(a-2).x==serp.getCorps(a-1).x+1) 
+    {
+        im_QueueSerpent.chargeFichier("data/tail-left.png",renderer);
+    }else if(serp.getCorps(a-2).y==serp.getCorps(a-1).y-1) 
+    {
+        im_QueueSerpent.chargeFichier("data/tail.png",renderer);
+    }else if(serp.getCorps(a-2).y==serp.getCorps(a-1).y+1) 
+    {
+        im_QueueSerpent.chargeFichier("data/tail-down.png",renderer);
+    }
+    
     im_QueueSerpent.dessiner(renderer,serp.getCorps(a-1).x*TAILLE_SPRITE,serp.getCorps(a-1).y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
 
    im_Portail.dessiner(renderer,p.getPortail1().x*TAILLE_SPRITE,p.getPortail1().y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
@@ -239,9 +254,9 @@ void sdlJeu::sdlBoucle () {
 	bool quit = false;
     bool etat = true;
     bool ok = true;
-
-    Uint32 t = SDL_GetTicks(), nt;
-
+    
+    
+   Mix_PlayChannel(-1,son,0);
 	// tant que ce n'est pas la fin ...
 	do {
         
@@ -265,25 +280,34 @@ void sdlJeu::sdlBoucle () {
               
 				switch (events.key.keysym.sym) {
 				case SDLK_z:
-					jeu.actionClavier('z');    // car Y inverse
-					break;
+					jeu.actionClavier('z');  
+                    im_CorpsSerpent.chargeFichier("data/snake-tex.png",renderer);  // car Y inverse
+					im_TeteSerpent.chargeFichier("data/snake-head.png",renderer);
+                    break;
 				case SDLK_s:
-					jeu.actionClavier('s');     // car Y inverse
+					jeu.actionClavier('s'); 
+                    im_CorpsSerpent.chargeFichier("data/snake-tex.png",renderer);
+                    im_TeteSerpent.chargeFichier("data/snake-head-down.png",renderer);    // car Y inverse
 					break;
 				case SDLK_q:
 					jeu.actionClavier('q');
-					break;
+                    im_CorpsSerpent.chargeFichier("data/snake-tex-right.png",renderer);
+					im_TeteSerpent.chargeFichier("data/snake-head-left.png",renderer);
+                    break;
 				case SDLK_d:
 					jeu.actionClavier('d');
-					break;
+                    im_CorpsSerpent.chargeFichier("data/snake-tex-right.png",renderer);
+					im_TeteSerpent.chargeFichier("data/snake-head-right.png",renderer);
+                    break;
                 case SDL_SCANCODE_ESCAPE:
                 case SDLK_l:
                     quit = true;
                     break;
 				default: break;
 				}
-				if (avecson)
-                    Mix_PlayChannel(-1,son,0);
+				
+                //if (avecson)
+                  //  Mix_PlayChannel(-1,son,0);
 			}
 		}
 
@@ -293,6 +317,7 @@ void sdlJeu::sdlBoucle () {
 		// on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
 	}while(!quit && ok);
+    
     quit = false ;
     sdlJeu_score = jeu.getScore();
     do{ 
@@ -310,6 +335,7 @@ void sdlJeu::sdlBoucle () {
             }
                 }
         SDL_RenderPresent(renderer);
+        
     }while(!quit);
     
 }
