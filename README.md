@@ -36,3 +36,9 @@ $ ./bin/afficheTerrain
 ```bash
 $ ./bin/nibble_txt
 ```
+
+- Exécutable qui lance l'application en mode graphique:
+
+```bash
+$ ./bin/nibble_sdl2
+```
