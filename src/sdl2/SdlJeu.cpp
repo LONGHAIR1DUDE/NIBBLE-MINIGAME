@@ -12,7 +12,7 @@
 
 using namespace std;
 
-const int TAILLE_SPRITE = 42;
+const int TAILLE_SPRITE = 29;
 
 float temps () {
     return float(SDL_GetTicks()) / CLOCKS_PER_SEC;  // conversion des ms en secondes en divisant par 1000
@@ -160,9 +160,9 @@ sdlJeu::sdlJeu () : jeu("./data/niveau2.txt") {
     // SONS
     if (avecson)
     {
-        son = Mix_LoadWAV("data/son1.wav");
+        son = Mix_LoadWAV("data/snake-music.wav");
         if (son == NULL) 
-            son = Mix_LoadWAV("../data/son1.wav");
+            son = Mix_LoadWAV("../data/snake-music.wav");
         if (son == NULL) {
                 cout << "Failed to load son1.wav! SDL_mixer Error: " << Mix_GetError() << endl; 
                 SDL_Quit();
@@ -244,9 +244,8 @@ void sdlJeu::sdlGameOver()
 {  
     
       
-    im_GameOver.dessiner(renderer,0,0,1920,1080);
-   
-
+    im_GameOver.dessiner(renderer,0,0,1280,720);
+   	
 }
 
 void sdlJeu::sdlBoucle () {
@@ -256,7 +255,7 @@ void sdlJeu::sdlBoucle () {
     bool ok = true;
     
     
-   Mix_PlayChannel(-1,son,0);
+   Mix_PlayChannel(-1,son,-1);
 	// tant que ce n'est pas la fin ...
 	do {
         
