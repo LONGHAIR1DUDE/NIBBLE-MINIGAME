@@ -53,6 +53,7 @@ void Serpent::gauche(const Terrain &t)
         }
     }
 }
+
 void Serpent::droite(const Terrain &t)
 {
     Point temp1, temp2;
@@ -114,6 +115,7 @@ void Serpent::haut(const Terrain &t)
         }
     }
 }
+
 void Serpent::bas(const Terrain &t)
 {
     Point temp1, temp2;
@@ -202,7 +204,6 @@ void Serpent::setMouv(bool mouv)
     mouvementInverse = mouv;
 }
 
-/* PAS ENCORE FONCTIONNEL */
 void Serpent::setDirection(int x, int y, const Terrain &t)
 {
     if (getDirection().x == -x || getDirection().y == -y)

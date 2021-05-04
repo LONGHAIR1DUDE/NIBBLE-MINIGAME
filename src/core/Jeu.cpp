@@ -275,7 +275,7 @@ void Jeu::actionSurSerpent()
             multiplicateur = 1;
         }
         else if (tabBonus[indice].getAction() == 2)
-            multiplicateur = 1.5;
+            multiplicateur = 2;
         else multiplicateur = 0.5;
         do
         {
