@@ -372,14 +372,14 @@ void Jeu::tabMursTerrain()
             {
                 valSortie = true;
 
-                if ((posMurTerrain.at(i).x == murs.at(j).x + murs.at(j).w) && 
+                if ((posMurTerrain.at(i).x == murs.at(j).x + murs.at(j).w) &&
                     (posMurTerrain.at(i).y == murs.at(j).y))
                 {
                     murs.at(j).w++;
                     break;
                 }
 
-                else if ((posMurTerrain.at(i).y == murs.at(j).y + murs.at(j).h) && 
+                else if ((posMurTerrain.at(i).y == murs.at(j).y + murs.at(j).h) &&
                          (posMurTerrain.at(i).x == murs.at(j).x))
                 {
                     murs.at(j).h++;
@@ -477,13 +477,15 @@ void Jeu::placementMurs(bool etat)
 
                     if (obstacle)
                         tabMurs[i].setEtatMur(!etat);
+                    int _x = tabMurs[i].getMur().x;
+                    int _y = tabMurs[i].getMur().y;
 
                     // Boucle dessine le mur par rapport à sa hauteur et sa largeur
                     for (int j = 0; j < largeur; j++)
                     {
                         for (int k = 0; k < hauteur; k++)
                         {
-                            terrain.setXY(x + j, y + k, '#');
+                            terrain.setXY(_x + j, _y + k, '#');
                         }
                     }
                 }
