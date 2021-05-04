@@ -1,25 +1,27 @@
 #ifndef SERPENT_H
 #define SERPENT_H
-#include<iostream>
+#include <iostream>
 #include <vector>
 #include "Terrain.h"
 #include "Point.h"
 using namespace std;
 
-class Serpent {
+class Serpent
+{
 private:
     vector<Point> corps;
     bool mouvementInverse;
     Point directionSerpent;
     Point boutSerpent;
-public:
-    Serpent(int tailleSerp, int posX, int posY, Terrain& t, bool mouvement);
 
-    void gauche(const Terrain& t);
-    void droite(const Terrain& t);
-    void haut(const Terrain& t);
-    void bas(const Terrain& t);
-    void allongeCorps (const Terrain& t);//A terminer
+public:
+    Serpent(int tailleSerp, int posX, int posY, Terrain &t, bool mouvement);
+
+    void gauche(const Terrain &t);
+    void droite(const Terrain &t);
+    void haut(const Terrain &t);
+    void bas(const Terrain &t);
+    void allongeCorps(const Terrain &t);
     void retrecirCorps();
     Point getCorps(const int i) const;
     Point getTete() const;
@@ -29,10 +31,8 @@ public:
     void setCorps(const int i, const int x, const int y);
     void setTete(const int x, const int y);
     void setMouv(bool mouv);
-    void setDirection(int x, int y, const Terrain& t);
+    void setDirection(int x, int y, const Terrain &t);
     void testRegression();
-    bool caseContientSerpent(int x, int y);
- };
-
+};
 
 #endif

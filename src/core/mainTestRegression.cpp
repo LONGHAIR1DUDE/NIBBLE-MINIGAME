@@ -3,7 +3,8 @@
 #include "Serpent.h"
 using namespace std;
 
-int main() {
+int main()
+{
     Terrain ter;
     bool mouv = true;
     Serpent serp(2, 9, 4, ter, mouv);

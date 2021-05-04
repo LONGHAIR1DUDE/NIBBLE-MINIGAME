@@ -1,14 +1,16 @@
 #include "Point.h"
 using namespace std;
 
-Point::Point () {}
+Point::Point() {}
 
-Point::Point (int valX, int valY) {
+Point::Point(int valX, int valY)
+{
     x = valX;
-    y = valY; 
+    y = valY;
 }
 
-Point& Point::operator =(const Point& operandeDroite){
+Point &Point::operator=(const Point &operandeDroite)
+{
     x = operandeDroite.x;
     y = operandeDroite.y;
     return *this;

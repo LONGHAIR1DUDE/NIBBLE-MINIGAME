@@ -1,9 +1,9 @@
 #include "Terrain.h"
 #include "Serpent.h"
-#include "Portail.h"
 #include "Point.h"
 #include "Mur.h"
 #include "Bonus.h"
+#include "Rect.h"
 #include "../txt/TxtFenetre.h"
 #include <vector>
 using namespace std;
@@ -11,25 +11,27 @@ using namespace std;
 #ifndef _JEU_H
 #define _JEU_H
 
-class Jeu {
+class Jeu
+{
 private:
     Terrain terrain;
     Serpent serpent;
     vector<Portail> tabPortail;
     vector<Bonus> tabBonus;
+    vector<Mur> tabMurs;
     int score;
     int *p_score;
     int meilleurScore;
 
 public:
-    Jeu(const string& namefile);
-    
+    Jeu(const string &namefile);
+
     ~Jeu();
 
-    const Terrain& getTerrain() const;
-    const Serpent& getSerpent() const;
-    Mur getMur(int i); 
+    const Terrain &getTerrain() const;
+    const Serpent &getSerpent() const;
     int getNbMurs() const;
+    Mur getMur(int i) const;
     Portail getPortail(int i) const;
     int getNbPortails() const;
     Bonus getBonus(int i) const;
@@ -43,7 +45,11 @@ public:
     bool SerpentBouge();
     void actionSurSerpent();
     void actionPortail();
-    void actionInterrupteur(bool& etat);
+    bool caseContientSerpent(int x, int y);
+    void placementMurs(bool etat);
+    void actionInterrupteur(bool &etat);
+    void tabMursTerrain();
+    void afficheTabMurs();
 };
 
 #endif
