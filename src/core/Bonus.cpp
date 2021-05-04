@@ -46,10 +46,15 @@ void Bonus::actionBonus(Serpent &serp, Terrain &ter)
         cout << "Malus!     " << endl;
         changeTailleSerpent(serp, ter);
     }
-    else
+    else if (action == 1)
     {
-        cout << "Bonus! +200" << endl;
+        cout << "Bonus! +500" << endl;
         changeTailleSerpent(serp, ter);
+        inverseMouvement(serp);
+    }
+    else 
+    {
+        cout << "Bonus! x2" << endl;
         inverseMouvement(serp);
     }
 }

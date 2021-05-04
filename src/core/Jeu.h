@@ -20,8 +20,8 @@ private:
     vector<Bonus> tabBonus;
     vector<Mur> tabMurs;
     int score;
-    int *p_score;
     int meilleurScore;
+    int multiplicateur;
 
 public:
     Jeu(const string &namefile);

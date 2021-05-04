@@ -21,7 +21,7 @@ Jeu::Jeu(const string &namefile) : serpent(3, terrain.getDimX() / 2,
     Point b{(terrain.getDimX() - 2), (terrain.getDimY() - 2)};
     Portail p(a, b);
     tabPortail.push_back(p);
-    p_score = &score;
+    multiplicateur = 1;
 }
 
 Jeu::~Jeu() {}
@@ -72,7 +72,7 @@ Mur Jeu::getMur(int i) const
 
 void Jeu::setScore(int val)
 {
-    *p_score += val;
+    score += val*multiplicateur;
 }
 
 int Jeu::stockerMeilleurScore()
@@ -270,7 +270,13 @@ void Jeu::actionSurSerpent()
         }
 
         tabBonus[indice].actionBonus(serpent, terrain);
-
+        if (tabBonus[indice].getAction() == 1) {
+            setScore(500);
+            multiplicateur = 1;
+        }
+        else if (tabBonus[indice].getAction() == 2)
+            multiplicateur = 1.5;
+        else multiplicateur = 0.5;
         do
         {
             action = rand() % 3;
