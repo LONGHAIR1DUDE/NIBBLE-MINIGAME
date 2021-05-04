@@ -12,7 +12,7 @@
 
 using namespace std;
 
-const int TAILLE_SPRITE = 42;
+const int TAILLE_SPRITE = 29;
 
 float temps()
 {
@@ -180,14 +180,13 @@ sdlJeu::sdlJeu() : jeu("./data/niveau2.txt")
     // SONS
     if (avecson)
     {
-        son = Mix_LoadWAV("data/son1.wav");
-        if (son == NULL)
-            son = Mix_LoadWAV("../data/son1.wav");
-        if (son == NULL)
-        {
-            cout << "Failed to load son1.wav! SDL_mixer Error: " << Mix_GetError() << endl;
-            SDL_Quit();
-            exit(1);
+        son = Mix_LoadWAV("data/snake-music.wav");
+        if (son == NULL) 
+            son = Mix_LoadWAV("../data/snake-music.wav");
+        if (son == NULL) {
+                cout << "Failed to load son1.wav! SDL_mixer Error: " << Mix_GetError() << endl; 
+                SDL_Quit();
+                exit(1);
         }
     }
 }
@@ -271,9 +270,11 @@ void sdlJeu::sdlAff()
     SDL_RenderCopy(renderer, font_im.getTexture(), NULL, &positionTitre);
 }
 void sdlJeu::sdlGameOver()
-{
-
-    im_GameOver.dessiner(renderer, 0, 0, 1920, 1080);
+{  
+    
+      
+    im_GameOver.dessiner(renderer,0,0,1280,720);
+   	
 }
 
 void sdlJeu::sdlBoucle()
@@ -282,13 +283,13 @@ void sdlJeu::sdlBoucle()
     bool quit = false;
     bool etat = true;
     bool ok = true;
-
-    Mix_PlayChannel(-1, son, 0);
-    // tant que ce n'est pas la fin ...
-    do
-    {
-
-#ifdef _WIN32
+    
+    
+   Mix_PlayChannel(-1,son,-1);
+	// tant que ce n'est pas la fin ...
+	do {
+        
+        #ifdef _WIN32
         Sleep(100);
 #else
         usleep(100000);
