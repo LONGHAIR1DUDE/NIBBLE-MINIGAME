@@ -3,6 +3,6 @@
 
 #include "../core/Jeu.h"
 
-void txtJeu(Jeu& j);
+void txtJeu(Jeu &j);
 
 #endif

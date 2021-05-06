@@ -2,13 +2,14 @@
 #include <iostream>
 using namespace std;
 
-Rect::Rect () {}
+Rect::Rect() {}
 
-Rect::Rect(int cx, int cy, int dw, int dh) {
+Rect::Rect(int cx, int cy, int dw, int dh)
+{
     x = cx;
     y = cy;
     w = dw;
     h = dh;
 }
 
-Rect::~Rect () {}
+Rect::~Rect() {}

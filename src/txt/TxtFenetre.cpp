@@ -24,14 +24,13 @@ void termMove(int x, int y) // deplace le curseur du terminal
 #ifdef _WIN32
     // Deplace le curseur en haut a gauche du terminal
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD origine = { (SHORT)x, (SHORT)y };
+    COORD origine = {(SHORT)x, (SHORT)y};
     SetConsoleCursorPosition(console, origine);
 #else
     char t[16];
     sprintf(t, "\033[%d;%dH", y, x);
-    printf("%s",t);
+    printf("%s", t);
 #endif
-
 }
 
 void termClear() // efface le terminal
@@ -47,7 +46,8 @@ void termInit() // configure la saisie : ne pas afficher les caracteres tapes
 {
 #ifdef _WIN32
     HANDLE console = GetStdHandle(STD_INPUT_HANDLE);
-    DWORD mode; GetConsoleMode(console, &mode);
+    DWORD mode;
+    GetConsoleMode(console, &mode);
     SetConsoleMode(console, mode & ~ENABLE_LINE_INPUT & ~ENABLE_ECHO_INPUT);
 #else
     struct termios ttystate;
@@ -56,13 +56,15 @@ void termInit() // configure la saisie : ne pas afficher les caracteres tapes
     //get the terminal state
     tcgetattr(STDIN_FILENO, &ttystate);
 
-    if (state) {
+    if (state)
+    {
         //turn off canonical mode
         ttystate.c_lflag &= ICANON;
         //minimum of number input read.
         ttystate.c_cc[VMIN] = 1;
     }
-    else {
+    else
+    {
         //turn on canonical mode
         ttystate.c_lflag |= ICANON;
     }
@@ -76,47 +78,60 @@ void termInit() // configure la saisie : ne pas afficher les caracteres tapes
 #endif
 }
 
-TxtFenetre::TxtFenetre(int dx, int dy) {
+TxtFenetre::TxtFenetre(int dx, int dy)
+{
     dimx = dx;
     dimy = dy;
-    fenetre = new char[dimx*dimy];
+    fenetre = new char[dimx * dimy];
     effacer();
     termInit();
 }
 
-TxtFenetre::~TxtFenetre () {
-    delete [] fenetre;
+TxtFenetre::~TxtFenetre()
+{
+    delete[] fenetre;
 }
 
-void TxtFenetre::effacer (char c) {
+void TxtFenetre::effacer(char c)
+{
     termClear();
-    for(int i=0;i<dimx;++i)
-        for(int j=0;j<dimy;++j)
-            ecrire(i,j,c);
+    for (int i = 0; i < dimx; ++i)
+        for (int j = 0; j < dimy; ++j)
+            ecrire(i, j, c);
 }
 
-void TxtFenetre::ecrire (int x, int y, char c) {
-    if (x<0) return;
-    if (y<0) return;
-    if (x>=dimx) return;
-    if (y>=dimy) return;
-    fenetre[y*dimx+x] = c;
+void TxtFenetre::ecrire(int x, int y, char c)
+{
+    if (x < 0)
+        return;
+    if (y < 0)
+        return;
+    if (x >= dimx)
+        return;
+    if (y >= dimy)
+        return;
+    fenetre[y * dimx + x] = c;
 }
 
-void TxtFenetre::ecrire (int x, int y, char* c) {
+void TxtFenetre::ecrire(int x, int y, char *c)
+{
     int i = 0;
-    while (c[i]!='\0') {
-        ecrire(x+i,y,c[i]);
+    while (c[i] != '\0')
+    {
+        ecrire(x + i, y, c[i]);
         ++i;
     }
 }
 
-void TxtFenetre::dessiner (int x, int y) {
+void TxtFenetre::dessiner(int x, int y)
+{
     termMove(x, y);
-    for(int j = 0; j < dimy; ++j) {
-        termMove(x, y+j);
-        for(int i = 0; i < dimx; ++i) {
-            printf("%c", fenetre[j*dimx+i]);
+    for (int j = 0; j < dimy; ++j)
+    {
+        termMove(x, y + j);
+        for (int i = 0; i < dimx; ++i)
+        {
+            printf("%c", fenetre[j * dimx + i]);
         }
         printf("\n");
     }
@@ -124,28 +139,32 @@ void TxtFenetre::dessiner (int x, int y) {
 }
 
 #if not defined _WIN32
-int kbhit() {
+int kbhit()
+{
     struct timeval tv;
     fd_set fds;
     tv.tv_sec = 0;
     tv.tv_usec = 0;
     FD_ZERO(&fds);
     FD_SET(STDIN_FILENO, &fds); //STDIN_FILENO is 0
-    select(STDIN_FILENO+1, &fds, NULL, NULL, &tv);
+    select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
     return FD_ISSET(STDIN_FILENO, &fds);
 }
 #endif
 
-void TxtFenetre::pause () {
+void TxtFenetre::pause()
+{
 #ifdef _WIN32
     system("pause");
 #else
     printf("Appuyer sur une touche\n");
-    while(!kbhit());
+    while (!kbhit())
+        ;
 #endif
 }
 
-char TxtFenetre::getCh () { // lire un carctere si une touche a ete presee
+char TxtFenetre::getCh()
+{ // lire un carctere si une touche a ete presee
     char touche = 0;
 #ifdef _WIN32
     if (kbhit())
@@ -164,7 +183,8 @@ char TxtFenetre::getCh () { // lire un carctere si une touche a ete presee
     return touche;
 }
 
-Point getDimTerminale () {
+Point getDimTerminale()
+{
     Point dimT;
 #ifdef _WIN32
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -183,6 +203,7 @@ Point getDimTerminale () {
     return dimT;
 }
 
-char TxtFenetre::getCarFenetre (int x, int y) {
-    return fenetre[y*dimx+x];
+char TxtFenetre::getCarFenetre(int x, int y)
+{
+    return fenetre[y * dimx + x];
 }

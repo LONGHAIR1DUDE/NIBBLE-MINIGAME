@@ -2,10 +2,12 @@
 #define _PORTAIL_H
 #include "Point.h"
 
-class Portail {
+class Portail
+{
 private:
     Point c1;
     Point c2;
+
 public:
     Portail(Point pt1, Point pt2);
 

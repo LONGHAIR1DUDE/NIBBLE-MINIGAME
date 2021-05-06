@@ -1,13 +1,16 @@
 #include "TxtJeu.h"
 #include "TxtFenetre.h"
 
-int main ( int argc, char** argv ) {
-    termClear();
-	Jeu jeu("./data/niveau5.txt");
+int main(int argc, char **argv)
+{
+	termClear();
+	Jeu jeu("./data/niveau2.txt");
 	txtJeu(jeu);
-    termClear();
+	termClear();
 	int score = jeu.getScore();
 	int meilleurScore = jeu.getMeilleurScore();
-	cout << "GAME OVER!" << endl << "Score: " << score << endl << "Best Score: " << meilleurScore << endl;
+	cout << "GAME OVER!" << endl
+		 << "Score: " << score << endl
+		 << "Best Score: " << meilleurScore << endl;
 	return 0;
 }

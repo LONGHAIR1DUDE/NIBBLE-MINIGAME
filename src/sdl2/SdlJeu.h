@@ -9,35 +9,36 @@
 #include "../core/Jeu.h"
 
 //! \brief Pour gérer une image avec SDL2
-class Image {
+class Image
+{
 
 private:
-
-    SDL_Surface * surface;
-    SDL_Texture * texture;
+    SDL_Surface *surface;
+    SDL_Texture *texture;
     bool aChange;
 
 public:
-    Image () ;
-    void chargeFichier (const char* nomFichier, SDL_Renderer * renderer);
-    void chargeSurface (SDL_Renderer * renderer);
-    void dessiner (SDL_Renderer * renderer, int x, int y, int w=-1, int h=-1);
-    SDL_Texture * getTexture() const;
-    void setSurface(SDL_Surface * surf);
+    Image();
+    void chargeFichier(const char *nomFichier, SDL_Renderer *renderer);
+    void chargeSurface(SDL_Renderer *renderer);
+    void dessiner(SDL_Renderer *renderer, int x, int y, int w = -1, int h = -1);
+    SDL_Texture *getTexture() const;
+    void setSurface(SDL_Surface *surf);
 };
-class sdlJeu{
-    private : 
+class sdlJeu
+{
+private:
     Jeu jeu;
-    SDL_Window * window;
-    SDL_Renderer * renderer;
-    TTF_Font * font ;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    TTF_Font *font;
     Image font_im;
     Image score_im;
     Image score_up_im;
     SDL_Color font_color;
-    Mix_Chunk * son ;
+    Mix_Chunk *son;
     bool avecson;
-    
+
     Image im_TeteSerpent;
     Image im_CorpsSerpent;
     Image im_QueueSerpent;
@@ -50,7 +51,9 @@ class sdlJeu{
     Image im_GameOver;
     bool souris;
     bool touche;
-    public : sdlJeu();
+
+public:
+    sdlJeu();
     ~sdlJeu();
     void sdlBoucle();
     void sdlAff();

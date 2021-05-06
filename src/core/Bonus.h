@@ -5,22 +5,23 @@
 #include "Terrain.h"
 using namespace std;
 
-class Bonus{
+class Bonus
+{
 private:
     int action;
     Point position;
-    void changeTailleSerpent(Serpent & serp,Terrain& ter);
-    void inverseMouvement(Serpent & serp);
+    void changeTailleSerpent(Serpent &serp, Terrain &ter);
+    void inverseMouvement(Serpent &serp);
 
 public:
     Bonus(int type, int x, int y);
     Bonus();
-    void actionBonus(Serpent& serp,Terrain& ter);
+    void actionBonus(Serpent &serp, Terrain &ter);
     int bonusVitesse();
-    
+
     Point getPos();
     int getX();
-    int getY(); 
+    int getY();
     int getAction();
     void setBonus(int i, int x, int y);
 };
