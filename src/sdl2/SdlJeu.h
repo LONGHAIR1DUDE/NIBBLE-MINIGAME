@@ -32,6 +32,8 @@ class sdlJeu{
     SDL_Renderer * renderer;
     TTF_Font * font ;
     Image font_im;
+    Image score_im;
+    Image score_up_im;
     SDL_Color font_color;
     Mix_Chunk * son ;
     bool avecson;

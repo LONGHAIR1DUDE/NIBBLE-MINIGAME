@@ -156,7 +156,13 @@ sdlJeu::sdlJeu () : jeu("./data/niveau2.txt") {
 	font_color.r = 50;font_color.g = 50;font_color.b = 255;
 	font_im.setSurface(TTF_RenderText_Solid(font,"Nibble",font_color));
 	font_im.chargeSurface(renderer);
-
+   /* const char score = (char)jeu.getScore();
+	font_color.r = 0;font_color.g = 0;font_color.b = 0;
+	score_im.setSurface(TTF_RenderText_Solid(font,"Score :",font_color));
+	score_im.chargeSurface(renderer);
+    font_color.r = 0;font_color.g = 0;font_color.b = 0;
+	score_up_im.setSurface(TTF_RenderText_Solid(font,&score,font_color));
+	score_up_im.chargeSurface(renderer);*/
     // SONS
     if (avecson)
     {
@@ -254,7 +260,12 @@ void sdlJeu::sdlBoucle () {
     bool etat = true;
     bool ok = true;
     
-    
+    SDL_Rect posTitre;
+    posTitre.x = 640;posTitre.y = 360;posTitre.w = 100;posTitre.h = 30;
+    SDL_RenderCopy(renderer,score_im.getTexture(),NULL,&posTitre);
+    SDL_Rect posTitre1;
+    posTitre1.x = 640;posTitre1.y = 400;posTitre1.w = 100;posTitre1.h = 30;
+    SDL_RenderCopy(renderer,score_up_im.getTexture(),NULL,&posTitre1);
    Mix_PlayChannel(-1,son,-1);
 	// tant que ce n'est pas la fin ...
 	do {
@@ -279,24 +290,35 @@ void sdlJeu::sdlBoucle () {
               
 				switch (events.key.keysym.sym) {
 				case SDLK_z:
-					jeu.actionClavier('z');  
-                    im_CorpsSerpent.chargeFichier("data/snake-tex.png",renderer);  // car Y inverse
-					im_TeteSerpent.chargeFichier("data/snake-head.png",renderer);
+					jeu.actionClavier('z'); 
+                    
+                    im_CorpsSerpent.chargeFichier("data/snake-tex.png",renderer); 
+                    
+					if(jeu.getSerpent().getDirection().x == 0 && jeu.getSerpent().getDirection().y == -1)
+                    {im_TeteSerpent.chargeFichier("data/snake-head.png",renderer);}
                     break;
 				case SDLK_s:
-					jeu.actionClavier('s'); 
+					jeu.actionClavier('s');
+                     
                     im_CorpsSerpent.chargeFichier("data/snake-tex.png",renderer);
-                    im_TeteSerpent.chargeFichier("data/snake-head-down.png",renderer);    // car Y inverse
-					break;
+                    if(jeu.getSerpent().getDirection().x == 0 && jeu.getSerpent().getDirection().y == 1)
+                    {im_TeteSerpent.chargeFichier("data/snake-head-down.png",renderer);}    
+                    
+                    break;
 				case SDLK_q:
-					jeu.actionClavier('q');
-                    im_CorpsSerpent.chargeFichier("data/snake-tex-right.png",renderer);
+				    jeu.actionClavier('q');
+                    
+                    if(jeu.getSerpent().getDirection().x == -1 && jeu.getSerpent().getDirection().y == 0)
+                    {im_CorpsSerpent.chargeFichier("data/snake-tex-right.png",renderer);
 					im_TeteSerpent.chargeFichier("data/snake-head-left.png",renderer);
+                    }
                     break;
 				case SDLK_d:
 					jeu.actionClavier('d');
-                    im_CorpsSerpent.chargeFichier("data/snake-tex-right.png",renderer);
+                    if(jeu.getSerpent().getDirection().x == 1 && jeu.getSerpent().getDirection().y == 0)
+                    {im_CorpsSerpent.chargeFichier("data/snake-tex-right.png",renderer);
 					im_TeteSerpent.chargeFichier("data/snake-head-right.png",renderer);
+                    }
                     break;
                 case SDL_SCANCODE_ESCAPE:
                 case SDLK_l:
