@@ -4,14 +4,12 @@
 int main(int argc, char **argv)
 {
 	Jeu jeu("./data/niveau5.txt");
-	sdlJeu sj;
+	sdlJeu sj(argv[1]);
+	
 	sj.sdlBoucle();
-	int score = sj.sdlJeu_score;
-
-	int meilleurScore = jeu.getMeilleurScore();
-	sj.sdlGameOver();
+	
 	cout << "GAME OVER!" << endl
-		 << "Score: " << score << endl
-		 << "Best Score: " << meilleurScore << endl;
+		 << "Score: " << sj.sdlJeu_score<< endl
+		 << "Best Score: " << sj.meilleurScore << endl;
 	return 0;
 }

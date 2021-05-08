@@ -172,7 +172,7 @@ Point Serpent::getTete() const
     return corps[0];
 }
 
-bool Serpent::getMouv()
+bool Serpent::getMouv() const
 {
     return mouvementInverse;
 }

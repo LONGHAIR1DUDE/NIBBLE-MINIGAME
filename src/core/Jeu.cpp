@@ -76,14 +76,14 @@ void Jeu::setScore(int val)
 
 int Jeu::stockerMeilleurScore()
 {
-    ifstream monMeilleurScoreL("./data/bestScore.txt");
+    ifstream monMeilleurScoreL("data/bestScore.txt");
     if (monMeilleurScoreL)
     {
         monMeilleurScoreL >> meilleurScore;
         monMeilleurScoreL.close();
         if (meilleurScore < score)
         {
-            ofstream monMeilleurScoreE("./data/bestScore.txt");
+            ofstream monMeilleurScoreE("data/bestScore.txt");
             if (monMeilleurScoreE)
             {
                 monMeilleurScoreE << score;
@@ -102,8 +102,10 @@ int Jeu::stockerMeilleurScore()
         }
     }
     else
-        cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
-    return 0;
+        {
+            cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
+            return 0;
+        }
 }
 
 bool Jeu::actionClavier(const char touche)

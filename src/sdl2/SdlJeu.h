@@ -6,6 +6,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 
+
+
 #include "../core/Jeu.h"
 
 //! \brief Pour gérer une image avec SDL2
@@ -32,6 +34,7 @@ private:
     SDL_Window *window;
     SDL_Renderer *renderer;
     TTF_Font *font;
+    TTF_Font *pdark;
     Image font_im;
     Image score_im;
     Image score_up_im;
@@ -53,11 +56,16 @@ private:
     bool touche;
 
 public:
-    sdlJeu();
+    sdlJeu(char * size);
     ~sdlJeu();
+    double TAILLE_SPRITE ;
+    double TAILLE_SPRITE_Y ;
+    int screen_width;
+    int screen_height;
     void sdlBoucle();
     void sdlAff();
     void sdlGameOver();
+    int meilleurScore;
     int sdlJeu_score;
 };
 #endif

@@ -265,7 +265,7 @@ public:
         }
      * @endcode
     */
-    bool getMouv();
+    bool getMouv() const;
 
     /**
      * @brief accesseur sur la direction du serpent 
