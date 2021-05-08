@@ -2,6 +2,8 @@
 Ce TP projet est réalisé dans le cadre de l'UE LIFAP4, en 2e année de license Informatique à l'université Claude Bernard de Lyon.
 Le thème du projet est le jeu d'arcade Nibble avec des fonctionnalités ainsi que des mécaniques supplémentaires.
 
+[pdf]https://tomuss.univ-lyon1.fr/=ST-1052892-7Rehr9YcUSGnmdcOozwg-cas.univ-lyon1.fr/2021/Printemps/UE-INF2015L/upload_get/7_15/0_33/UE-INF2015L_DepotCahierDesCharges_nibble_p1803192_p1907354_p1801934.pdf
+
 # Exemple 
 - Fruits bonus/malus 
 - Portails qui téléporte le serpent d'un point A vers un point B
