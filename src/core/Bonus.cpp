@@ -2,12 +2,14 @@
 #include <iostream>
 #include <cassert>
 using namespace std;
+
 Bonus::Bonus()
 {
     action = 0;
     position.x = 7;
     position.y = 7;
 }
+
 Bonus::Bonus(int i, int x, int y)
 {
     action = i;
@@ -78,6 +80,7 @@ int Bonus::getAction()
 {
     return action;
 }
+
 void Bonus::setBonus(int i, int x, int y)
 {
     action = i;

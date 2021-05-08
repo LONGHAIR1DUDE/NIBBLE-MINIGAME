@@ -2,8 +2,6 @@
 #include <iostream>
 using namespace std;
 
-Rect::Rect() {}
-
 Rect::Rect(int cx, int cy, int dw, int dh)
 {
     x = cx;
@@ -11,5 +9,7 @@ Rect::Rect(int cx, int cy, int dw, int dh)
     w = dw;
     h = dh;
 }
+
+Rect::Rect() {}
 
 Rect::~Rect() {}

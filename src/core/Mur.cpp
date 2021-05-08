@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Mur.h"
 
-// precondition: direction doit être un point du type (0,1), (1,0), (-1,0) ou (0,-1)
 Mur::Mur(const int x, const int y, const int w, const int h)
 {
     Point p{0, 0};
@@ -13,8 +12,6 @@ Mur::Mur(const int x, const int y, const int w, const int h)
     setPosDim(x, y, w, h);
     setEtatMur(true);
 }
-
-Mur::Mur() {}
 
 Rect Mur::getMur() const
 {

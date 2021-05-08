@@ -48,7 +48,6 @@ void affichageScore(TxtFenetre &fenetre, Jeu &jeu)
     cout << "NIBBLE" << endl;
     cout << "SCORE: " << jeu.getScore() << endl;
     cout << "MEILLEUR SCORE: " << jeu.stockerMeilleurScore() << endl;
-    // jeu.afficheTabMurs();
 }
 
 void txtJeu(Jeu &j)

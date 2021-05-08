@@ -8,11 +8,10 @@
 #include <fstream>
 using namespace std;
 
-Jeu::Jeu(const string &namefile) : serpent(3, terrain.getDimX() / 2,
-                                           terrain.getDimY() / 2, terrain, true),
-                                   score(0)
+Jeu::Jeu(const string &nomFichier) : serpent(3, terrain.getDimX() / 2, 
+                    terrain.getDimY() / 2, terrain, true), score(0)
 {
-    terrain.recupNiveau(namefile);
+    terrain.recupNiveau(nomFichier);
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
     tabMursTerrain();
     placementMurs(true);
@@ -33,6 +32,11 @@ const Serpent &Jeu::getSerpent() const { return serpent; }
 int Jeu::getNbMurs() const
 {
     return tabMurs.size();
+}
+
+Mur Jeu::getMur(int i) const
+{
+    return tabMurs[i];
 }
 
 Portail Jeu::getPortail(int i) const
@@ -63,11 +67,6 @@ int Jeu::getScore()
 int Jeu::getMeilleurScore()
 {
     return meilleurScore;
-}
-
-Mur Jeu::getMur(int i) const
-{
-    return tabMurs[i];
 }
 
 void Jeu::setScore(int val)
@@ -511,16 +510,5 @@ void Jeu::actionInterrupteur(bool &etat)
         else
             etat = true;
         placementMurs(etat);
-    }
-}
-
-void Jeu::afficheTabMurs()
-{
-    for (int i = 0; i < getNbMurs(); i++)
-    {
-        cout << tabMurs[i].getPos(0).x << " " << tabMurs[i].getPos(0).y << endl;
-        cout << tabMurs[i].getMur().w << " " << tabMurs[i].getMur().h << endl;
-        cout << tabMurs[i].getEtatMur() << endl;
-        cout << endl;
     }
 }
