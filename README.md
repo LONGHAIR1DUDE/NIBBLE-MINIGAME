@@ -76,3 +76,11 @@ $ ./bin/nibble_txt
 ```bash
 $ ./bin/nibble_sdl2
 ```
+## Les touches
+
+- `z`: Aller en haut.
+- `q`: Aller à gauche.
+- `s`: Aller en bas.
+- `d`: Aller à droite. 
+
+- `l`: Quitter le jeu (sous txt et sdl).
