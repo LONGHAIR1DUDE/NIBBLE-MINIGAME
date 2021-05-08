@@ -14,6 +14,7 @@ Le thème du projet est le jeu d'arcade Nibble avec des fonctionnalités ainsi q
     - `src/core/`: contient les fichiers `.cpp` et `.h` 'noyaux' de l'application (tout ce qui est hors affichage graphique).
     - `src/sdl2/`: contient les fichiers `.cpp` et `.h` pour l'affiche graphique avec sdl2.
     - `src/txt/`: contient les fichiers `.cpp` et `.h` pour l'affichage texte dans le terminal.
+    
 
 - `obj/`: Contient les fichiers `.obj` créés par le Makefile.
 
