@@ -3,31 +3,31 @@
 #include <cassert>
 using namespace std;
 
-Bonus::Bonus()
+Bonus::Bonus() // constructeur par défaut
 {
     action = 0;
     position.x = 7;
     position.y = 7;
 }
 
-Bonus::Bonus(int i, int x, int y)
+Bonus::Bonus(int i, int x, int y) // constructeur par copie 
 {
     action = i;
     position.x = x;
     position.y = y;
 }
 
-void Bonus::changeTailleSerpent(Serpent &serp, Terrain &ter)
+void Bonus::changeTailleSerpent(Serpent &serp, Terrain &ter) // fonction qui change la taille du serpent 
 {
-    if (action == 0)
-    {
-        for (int i = 0; i < 5; i++)
+    if (action == 0) // si l'entier qui correspond à une action vaut 0
+    { 
+        for (int i = 0; i < 5; i++) 
         {
             serp.setMouv(false);
             serp.allongeCorps(ter);
         }
     }
-    else
+    else // sinon
     {
         for (int i = 0; i < serp.getTailleSerpent(); i++)
         {

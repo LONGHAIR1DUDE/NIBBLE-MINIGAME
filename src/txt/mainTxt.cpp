@@ -4,7 +4,7 @@
 int main(int argc, char **argv)
 {
 	termClear();
-	Jeu jeu("./data/niveau2.txt");
+	Jeu jeu("./data/niveau4.txt");
 	txtJeu(jeu);
 	termClear();
 	int score = jeu.getScore();

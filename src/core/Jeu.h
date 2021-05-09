@@ -228,10 +228,59 @@ public:
      * @brief fonction qui assigne les touches du clavier à des actions
      * @param touche de type char: correspond à une touche du clavier 
      * @code 
+     * void Jeu::actionClavier(const char touche) // gestion des touches pour les différentes actions
+        {
+            switch (touche)
+            {
+            case 'q': 
+                if (!serpent.getMouv())
+                {
+                    serpent.setDirection(1, 0, terrain);
+                }
+                else
+                {
+                    serpent.setDirection(-1, 0, terrain);
+                }
+                break;
+
+            case 'd':
+                if (!serpent.getMouv())
+                {
+                    serpent.setDirection(-1, 0, terrain);
+                }
+                else
+                {
+                    serpent.setDirection(1, 0, terrain);
+                }
+                break;
+
+            case 'z':
+                if (!serpent.getMouv())
+                {
+                    serpent.setDirection(0, 1, terrain);
+                }
+                else
+                {
+                    serpent.setDirection(0, -1, terrain);
+                }
+                break;
+
+            case 's':
+                if (!serpent.getMouv())
+                {
+                    serpent.setDirection(0, -1, terrain);
+                }
+                else
+                {
+                    serpent.setDirection(0, 1, terrain);
+                }
+                break;
+            }
+        }
      * @endcode
      * @return true si le serpent mange une pièce false sinon
     */
-    bool actionClavier(const char touche);
+    void actionClavier(const char touche);
 
     /**
      * @brief fonction qui place aléatoirement les bonus 

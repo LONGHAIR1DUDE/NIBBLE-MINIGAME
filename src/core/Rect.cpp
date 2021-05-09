@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Rect::Rect(int cx, int cy, int dw, int dh)
+Rect::Rect(int cx, int cy, int dw, int dh) // constructeur par copie de la classe
 {
     x = cx;
     y = cy;
@@ -10,6 +10,6 @@ Rect::Rect(int cx, int cy, int dw, int dh)
     h = dh;
 }
 
-Rect::Rect() {}
+Rect::Rect() {} // constructeur par défaut de la classe
 
-Rect::~Rect() {}
+Rect::~Rect() {} // destructeur de la classe

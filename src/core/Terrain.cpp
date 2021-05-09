@@ -7,177 +7,158 @@
 #include <time.h>
 using namespace std;
 
-// Constructeur de la classe Terrain
-Terrain::Terrain() : dimx(100), dimy(100)
+Terrain::Terrain() : dimx(100), dimy(100) // Constructeur par défaut de la classe, dimx et dimy prennent la valeur 100
 {
-    recupNiveau("./data/niveau3.txt");
-    posAleaCle();
-    srand(time(NULL));
+    recupNiveau("./data/niveau3.txt"); // on récupère un fichier pour initialiser le niveau  
+    posAleaCle(); // on pose les clés aléatoirement dans le niveau
+    srand(time(NULL)); // initialisation de la fonction rand
 }
 
-Terrain::Terrain(const string &nomFichier)
+Terrain::Terrain(const string &nomFichier) // constructeur par copie de la classe qui prend une chaine de caractère en paramètre 
 {
-    recupNiveau(nomFichier);
-    posAleaCle();
-    srand(time(NULL));
+    recupNiveau(nomFichier); // on récupère un fichier pour initialiser le niveau  
+    posAleaCle(); // on pose les clés aléatoirement dans le niveau
+    srand(time(NULL)); // initialisation de la fonction rand
 }
 
-Terrain::~Terrain() {}
+Terrain::~Terrain() {} // destructeur de la classe 
 
-// Fonction qui retourne le tableau de caractère ter
-char Terrain::getXY(int x, int y) const
+char Terrain::getXY(int x, int y) const // accesseur qui retourne le tableau de caractère ter
 {
-    assert(x >= 0);
-    assert(x < dimx);
-    assert(y >= 0);
-    assert(y < dimy);
-    return ter[y * dimx + x];
+    assert(x >= 0); // vérification que x est supérieur ou égale à zéro 
+    assert(x < dimx); // vérification que x est inférieur à la dimension en x du niveau  
+    assert(y >= 0); // vérification que y est supérieur ou égale à zéro 
+    assert(y < dimy); // vérification que y est inférieur à la dimension en y du niveau  
+    return ter[y * dimx + x]; // retourne le tableau dynamique ter
 }
 
-// Retourne la valeur de dimx
-int Terrain::getDimX() const
+int Terrain::getDimX() const // accesseur qui retourne la valeur de dimx
 {
     return dimx;
 }
 
-// Retourne la valeur de dimy
-int Terrain::getDimY() const
+int Terrain::getDimY() const // accesseur qui retourne la valeur de dimy
 {
     return dimy;
 }
 
-// Retourne la taille du tableau dynamique ter
-int Terrain::getTailleTerrain() const
+int Terrain::getTailleTerrain() const // accesseur qui retourne la taille du tableau dynamique ter
 {
     return tailleTerrain;
 }
 
-Point Terrain::getCle(int indice) const
+Point Terrain::getCle(int indice) const // accesseur qui retourne la clé d'indice passé en paramètre 
 {
     return tabCle.at(indice);
 }
 
-Mur Terrain::getTabMurs(int i) const
+Mur Terrain::getTabMurs(int i) const // accesseur qui retourne le mur d'indice passé en paramètre
 {
     return tabMurs[i];
 }
 
-int Terrain::getTailleTabMurs() const
-{
-    return tabMurs.size();
-}
-
-int Terrain::getNbCle() const
+int Terrain::getNbCle() const // accesseur qui retourne la taille du tableau tabCle
 {
     return tabCle.size();
 }
 
-int Terrain::getNbMurs() const
+int Terrain::getNbMurs() const // accesseur qui retourn la taille du tableau tabMurs
 {
     return tabMurs.size();
 }
 
-void Terrain::setXY(const int x, const int y, const char c)
+void Terrain::setXY(const int x, const int y, const char c) // mutateur qui modifie le caractère du tableau aux coordonnées passés en paramètre 
 {
-    assert(x >= 0);
-    assert(x < dimx);
-    assert(y >= 0);
-    assert(y < dimy);
-    // assert(posValide(x, y));
-    // assert(emplacementLibre(x, y));
-    ter[y * dimx + x] = c;
+    assert(x >= 0); // vérifie que x est supérieur ou égale à 0
+    assert(x < dimx); // vérifie que x est inférieur à la dimension en x du niveau   
+    assert(y >= 0); // vérifie que y est supérieur ou égale à 0
+    assert(y < dimy); // vérifie que y est inférieur à la dimension en y du niveau   
+    ter[y * dimx + x] = c; // change la valeur dans le tableau ter 
 }
-
-// Fonction qui renvoie true si les coordonnées (x,y) passées en
-// paramètres ce trouve dans le niveau false sinon
-bool Terrain::posValide(int x, int y) const
+ 
+bool Terrain::posValide(int x, int y) const // Fonction qui renvoie true si les coordonnées (x,y) passées en paramètres ne correspond pas à un mur false sinon
 {
     return ((x >= 0) && (x < dimx) && (y >= 0) && (y < dimy) && ter[y * dimx + x] != '#');
 }
 
-// Lis le fichier passé en paramètre et stocke les caractères dans
-// le tableau dynamique ter
-void Terrain::recupNiveau(const string &nomFichier)
+void Terrain::recupNiveau(const string &nomFichier) // Lis le fichier passé en paramètre et stocke les caractères dans le tableau dynamique ter
 {
-    ifstream monFichier(nomFichier);
-    if (monFichier)
+    ifstream monFichier(nomFichier); // ouvre le fichier en lecture
+    if (monFichier) // si le fichier s'ouvre
     {
-        ter.clear();
-        string nbCarLigne;
-        getline(monFichier, nbCarLigne);
-        dimx = nbCarLigne.size();
+        ter.clear(); // on vide le tableau ter 
+        string nbCarLigne; 
+        getline(monFichier, nbCarLigne); // on stocke la première ligne dans la variable nbCarLigne
+        dimx = nbCarLigne.size(); // on récupère la taille de la première ligne
 
-        monFichier.seekg(0, std::ios::beg);
+        monFichier.seekg(0, std::ios::beg); // on retourne au début du fichier 
         char a;
         int cpt = 1;
-        while (monFichier.get(a))
+        while (monFichier.get(a)) // tant qu'un caractère du fichier est lu 
         {
-            if (cpt % (dimx + 1) != 0)
+            if (cpt % (dimx + 1) != 0) // si se n'est pas le caractère de fin de chaine
             {
-                ter.push_back(a);
+                ter.push_back(a); // on stocke le caractère à la fin du tableau 
             }
             cpt++;
         }
 
-        tailleTerrain = ter.size();
-        dimy = (tailleTerrain / dimx);
+        tailleTerrain = ter.size(); // on récupère la taille du tableau ter
+        dimy = (tailleTerrain / dimx); // on récupère la dimension en y du niveau 
     }
-    else
+    else // sinon (le fichier ne s'ouvre pas)
     {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
     }
 }
 
-// Procédure qui place aléatoirement 3 clés dans un niveau
-void Terrain::posAleaCle()
+void Terrain::posAleaCle() // Procédure qui place aléatoirement 3 clés dans un niveau
 {
-    Point cle{0, 0};
-    for (int i = 0; i < 3; i++)
+    Point cle{0, 0}; // déclaraction d'une variable de type Point 
+    for (int i = 0; i < 3; i++) // initialisation du tableau tabCle 
         tabCle.push_back(cle);
 
-    for (int c = 0; c < 3; c++)
+    for (int c = 0; c < 3; c++) // boucle for qui affecte des coordonnées à chaque clé du tableau 
     {
-        if (c == 0)
+        if (c == 0) // si c'est le première élément du tableau tabCle
         {
             do
             {
-                tabCle.at(c).x = rand() % dimx;
-                tabCle.at(c).y = rand() % dimy;
-            } while (!posValide(tabCle.at(c).x, tabCle.at(c).y));
+                tabCle.at(c).x = rand() % dimx; // valeur aléatoire entre 0 et la dimension en x - 1 
+                tabCle.at(c).y = rand() % dimy; // valeur aléatoire entre 0 et la dimension en y - 1 
+            } while (!posValide(tabCle.at(c).x, tabCle.at(c).y)); // faire ... tant que la position n'est pas valide 
         }
 
-        else
+        else // sinon (pas le première élément du tableau tabCle)
             do
             {
-                tabCle.at(c).x = rand() % dimx;
-                tabCle.at(c).y = rand() % dimy;
-            } while (!posValide(tabCle.at(c).x, tabCle.at(c).y) ||
+                tabCle.at(c).x = rand() % dimx; // valeur aléatoire entre 0 et la dimension en x - 1 
+                tabCle.at(c).y = rand() % dimy; // valeur aléatoire entre 0 et la dimension en y - 1 
+            } while (!posValide(tabCle.at(c).x, tabCle.at(c).y) || // faire ... tant que la position n'est pas valide ou si une clé est déjà aux coordonnées affectées
                      ((tabCle.at(c).x == tabCle.at(c - 1).x) && (tabCle.at(c).y == tabCle.at(c - 1).y)) ||
-                     ((tabCle.at(2).x == tabCle.at(0).x) && (tabCle.at(2).y == tabCle.at(0).y)));
+                     ((tabCle.at(2).x == tabCle.at(0).x) && (tabCle.at(2).y == tabCle.at(0).y))); 
     }
 }
 
-// Procédure qui mais le caractère ' ' aux coordonnées (x,y)
-// passées en paramètre
-void Terrain::mangeElement(int x, int y)
+void Terrain::mangeElement(int x, int y) // Procédure qui mais le caractère ' ' aux coordonnées (x,y) passées en paramètre
 {
-    assert(x >= 0);
-    assert(x < dimx);
-    assert(y >= 0);
-    assert(y < dimy);
-    ter[y * dimx + x] = ' ';
+    assert(x >= 0); // vérifie que x est supérieur ou égale à 0
+    assert(x < dimx); // vérifie que x est inférieur à la dimension en x du niveau 
+    assert(y >= 0); // vérifie que x est supérieur ou égale à 0
+    assert(y < dimy); // vérifie que x est inférieur à la dimension en x du niveau 
+    ter[y * dimx + x] = ' '; // remplace le caractère du tableau par ' '
 }
 
-int Terrain::compteurPiece()
+int Terrain::compteurPiece() // compte le nombre de pièce présente dans le niveau 
 {
     char c;
     int cmpt = 0;
-    for (int x = 0; x < dimx; x++)
+    for (int x = 0; x < dimx; x++) // boucle for qui parcoure le terrain en x
     {
-        for (int y = 0; y < dimy; y++)
+        for (int y = 0; y < dimy; y++) // boucle for qui parcoure le terrain en y
         {
             c = getXY(x, y);
-            if (c == '.')
+            if (c == '.') // si le caractère du tableau ter est '.' on incrémente le compteur 
                 cmpt++;
         }
     }
@@ -185,13 +166,13 @@ int Terrain::compteurPiece()
     return cmpt;
 }
 
-bool Terrain::emplacementLibre(int x, int y)
+bool Terrain::emplacementLibre(int x, int y) // vérifie si la case du tableau est libre (libre si la case contient une pièce ou est vide)
 {
     return (((x >= 0) && (x < dimx) && (y >= 0) && (y < dimy) && ter[y * dimx + x] == ' ') ||
             ((x >= 0) && (x < dimx) && (y >= 0) && (y < dimy) && ter[y * dimx + x] == '.'));
 }
 
-void Terrain::supprimeCle(int indice)
+void Terrain::supprimeCle(int indice) // supprime la clé d'indice passé en paramètre 
 {
     if (indice == 0)
         tabCle.erase(tabCle.begin());

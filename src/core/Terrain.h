@@ -137,16 +137,6 @@ public:
     Mur getTabMurs(int indice) const;
 
     /**
-     * \brief retourne la taille du tableau tabMurs
-     * \code
-     *  int Terrain::getTailleTabMurs () const {
-            return tabMurs.size();
-        }
-     * \endcode
-     */
-    int getTailleTabMurs() const;
-
-    /**
      * \brief retourne le nombre de clé
      * \code
      *  int Terrain::getNbCle () const {

@@ -3,7 +3,7 @@
 #include <cassert>
 using namespace std;
 
-Portail::Portail(Point pt1, Point pt2)
+Portail::Portail(Point pt1, Point pt2) // constructeur par copie de la classe
 {
     c1.x = pt1.x;
     c1.y = pt1.y;
@@ -12,12 +12,12 @@ Portail::Portail(Point pt1, Point pt2)
     c2.y = pt2.y;
 }
 
-Point Portail::getPortail1() const
+Point Portail::getPortail1() const // accesseur sur le premier portail
 {
     return c1;
 }
 
-Point Portail::getPortail2() const
+Point Portail::getPortail2() const // accesseur sur le deuxième portail
 {
     return c2;
 }
