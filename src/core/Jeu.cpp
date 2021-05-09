@@ -103,8 +103,8 @@ int Jeu::stockerMeilleurScore() // stocke le meilleur score dans un fichier
     else // sinon (ne s'ouvre pas en lecture)
         {
             cout << "ERREUR: Impossible d'ouvrir le fichier en lecture !" << endl;
-            return 0;
         }
+    return 0;
 }
 
 void Jeu::actionClavier(const char touche) // gestion des touches pour les différentes actions
