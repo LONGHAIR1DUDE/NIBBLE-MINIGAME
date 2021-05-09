@@ -8,10 +8,9 @@
 #include <fstream>
 using namespace std;
 
-Jeu::Jeu(const string &nomFichier) : serpent(3, terrain.getDimX() / 2, 
+Jeu::Jeu(const string &nomFichier) : terrain(nomFichier) ,serpent(3, terrain.getDimX() / 2, 
                     terrain.getDimY() / 2, terrain, true), score(0)
 {
-    terrain.recupNiveau(nomFichier);
     terrain.mangeElement(serpent.getTete().x, serpent.getTete().y);
     tabMursTerrain();
     placementMurs(true);

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Portail.h"
+#include <cassert>
 using namespace std;
 
 Portail::Portail(Point pt1, Point pt2)
@@ -19,4 +20,15 @@ Point Portail::getPortail1() const
 Point Portail::getPortail2() const
 {
     return c2;
+}
+
+void Portail::testRegression() {
+    Point p1(3, 5); 
+    Point p2(7, 2);
+
+    Point port1 = getPortail1();
+    Point port2 = getPortail2();
+    assert(port1.x == c1.x && port1.y == c1.y);
+    assert(port2.x == c2.x && port2.y == c2.y);
+    cout << "Class Portail: assert ended successfully !" << endl;
 }

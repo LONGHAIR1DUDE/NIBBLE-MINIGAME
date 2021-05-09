@@ -176,6 +176,10 @@ public:
         @endcode 
     */
     void setBonus(int i, int x, int y);
+
+    void testRegression();
 };
+
+
 
 #endif

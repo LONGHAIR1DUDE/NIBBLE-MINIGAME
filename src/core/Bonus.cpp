@@ -87,3 +87,35 @@ void Bonus::setBonus(int i, int x, int y)
     position.x = x;
     position.y = y;
 }
+
+void Bonus::testRegression() {
+    int indice = 5; 
+    int _x = 4; 
+    int _y = 3;
+    setBonus(indice, _x, _y);
+    assert(action == 5 && position.x == 4 && position.y == 3);
+    cout << "SetBonus ok!" << endl;
+
+    int ac = getAction();
+    assert(ac == 0);
+    cout << "getAction ok!" << endl;
+
+    _x = getX();
+    _y = getY();
+    assert(_x == 7 && _y == 7);
+    cout << "getX et getY ok!" << endl;
+
+    Point pos = getPos();
+    assert(pos.x == 7 && pos.y == 7);
+    cout << "getPos ok!" << endl;
+
+    Terrain ter;
+    Serpent serp(3, 5, 7, ter, true);
+
+    inverseMouvement(serp);
+    assert(serp.getMouv() == false);
+    cout << "inverseMouvement ok!" << endl;
+
+    cout << "Class Bonus: assert ended successfully !" << endl;    
+
+}

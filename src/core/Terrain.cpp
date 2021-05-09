@@ -10,7 +10,7 @@ using namespace std;
 // Constructeur de la classe Terrain
 Terrain::Terrain() : dimx(100), dimy(100)
 {
-    recupNiveau("./data/niveau2.txt");
+    recupNiveau("./data/niveau3.txt");
     posAleaCle();
     srand(time(NULL));
 }
@@ -211,13 +211,15 @@ void Terrain::testRegression()
     {
         assert(ter[i] == '#');
     }
-    for (int i = 1; i < 17; i++)
+
+    for (int i = 1; i < dimy - 1; i++)
     {
         for (int j = 1; j < dimx - 1; j++)
         {
             assert(ter[i * dimx + j] == '.');
         }
     }
+    
     for (int i = (dimy - 1) * dimx; i < (dimy - 1) * dimx + dimx; i++)
     {
         assert(ter[i] == '#');

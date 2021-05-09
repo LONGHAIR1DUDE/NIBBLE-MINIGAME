@@ -52,6 +52,8 @@ public:
      * @endcode
     */
     Point getPortail2() const;
+
+    void testRegression();
 };
 
 #endif

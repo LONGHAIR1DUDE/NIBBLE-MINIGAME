@@ -50,7 +50,7 @@ $(EXE4): $(OBJSDL2)
 ./obj/Portail.o: $(CORE)/Portail.cpp $(CORE)/Portail.h $(CORE)/Terrain.h
 	$(CC) $(FLAGS) -c $< -o $@
 
-./obj/mainTestRegression.o: $(CORE)/mainTestRegression.cpp $(CORE)/Terrain.h $(CORE)/Serpent.h 
+./obj/mainTestRegression.o: $(CORE)/mainTestRegression.cpp $(CORE)/Terrain.h $(CORE)/Serpent.h $(CORE)/Bonus.h $(CORE)/Point.h $(CORE)/Rect.h $(CORE)/Portail.h $(CORE)/Mur.h $(CORE)/Jeu.h   
 	$(CC) $(FLAGS) -c $< -o $@	
 
 ./obj/mainAffiche.o: $(CORE)/mainAffiche.cpp $(CORE)/Terrain.h
