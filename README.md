@@ -50,9 +50,20 @@ $ sudo apt-get install libsdl2-dev
 
 1. Lancer la compilation du projet:
 
-```bash
-$ make 
-```
+    - Compiler les fichiers .cpp
+    ```bash
+    $ make 
+    ```
+
+    - Générer la documentation avec doxygen 
+    ```bash
+    $ make docu 
+    ```
+
+    - Supprimer touts les éxécutables et les fichiers objets
+    ```bash
+    $ make clean
+    ```
 
 2. Les exécutables:
 
