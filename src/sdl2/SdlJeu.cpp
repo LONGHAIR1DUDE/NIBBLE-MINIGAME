@@ -495,8 +495,8 @@ void sdlJeu::sdlBoucle()
                     }
                     break;
                 case SDL_SCANCODE_ESCAPE:
-                case SDLK_l:
-                    quit = true;
+                case SDLK_ESCAPE:
+                quit = true;
                     break;
                 default:
                     break;
@@ -531,7 +531,7 @@ quit = false;
                 switch (events.key.keysym.sym)
                 {
                 case SDL_SCANCODE_ESCAPE:
-                case SDLK_l:
+                case SDLK_ESCAPE:
                     quit = true;
                     break;
 				
