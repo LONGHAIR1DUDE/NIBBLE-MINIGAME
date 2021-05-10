@@ -35,10 +35,16 @@ private:
     SDL_Renderer *renderer;
     TTF_Font *font;
     TTF_Font *pdark;
+    TTF_Font *player;
     Image font_im;
     Image score_im;
     Image score_up_im;
+    Image over_best_im;
+    Image best_score_im;
     SDL_Color font_color;
+    SDL_Color Title_color;
+    SDL_Color best_col;
+    SDL_Color game_color;
     Mix_Chunk *son;
     bool avecson;
 
@@ -56,7 +62,7 @@ private:
     bool touche;
 
 public:
-    sdlJeu(char * size);
+    sdlJeu(char * size , const string &filename);
     ~sdlJeu();
     double TAILLE_SPRITE ;
     double TAILLE_SPRITE_Y ;
@@ -65,6 +71,11 @@ public:
     void sdlBoucle();
     void sdlAff();
     void sdlGameOver();
+    SDL_Rect r_score;
+    SDL_Rect r_score_border;
+    SDL_Rect r_best_score;
+    SDL_Rect r_best_score_border;
+    SDL_Rect r_game_over;
     int meilleurScore;
     int sdlJeu_score;
 };
