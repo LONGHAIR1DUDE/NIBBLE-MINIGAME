@@ -16,13 +16,12 @@ using namespace std;
 class Terrain
 {
 private:
-    vector<char> ter;     /* !< tableau dynamique de caractère */
-    int dimx;             /* !< dimension en x du terrain */
-    int dimy;             /* !< dimension en y du terrain */
-    int tailleTerrain;    /* !< taille du terrain */
-    vector<Point> tabCle; /* !< tableau dynamique de Point qui stocke les cles */
-    // vector<Point> posInterrupteur;
-    vector<Mur> tabMurs; /* !< tableau dynamique de Mur */
+    vector<char> ter; //!< tableau dynamique de caractère 
+    int dimx; //!< dimension en x du terrain 
+    int dimy; //!< dimension en y du terrain 
+    int tailleTerrain; //!< taille du terrain 
+    vector<Point> tabCle; //!< tableau dynamique de Point qui stocke les cles 
+    vector<Mur> tabMurs; //!< tableau dynamique de Mur 
 
 public:
     /**

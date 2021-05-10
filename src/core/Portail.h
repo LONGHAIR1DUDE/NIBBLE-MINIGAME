@@ -9,8 +9,8 @@
 class Portail
 {
 private:
-    Point c1;
-    Point c2;
+    Point c1; //!< c1 de type Point, coordonnées du premier portail
+    Point c2; //!< cé de type Point, coordonnées du second portail
 
 public:
 

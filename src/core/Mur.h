@@ -21,9 +21,9 @@ Un mur dans l'application NIBBLE est définie par les 4 points v w x y
 class Mur
 {
 private:
-  Rect mur;
-  Point posMur[2]; // tableau contenant les 2 positions du mur (celle par défaut et la deuxième)
-  bool etatMur;    // true si le mur est en position initiale et false si il est dans sa deuxième position
+  Rect mur; //!< mur de type Rect, permet d'avoir la position du mur ainsi que ses dimensions 
+  Point posMur[2]; //!< tableau contenant les 2 positions du mur (celle par défaut et la deuxième)
+  bool etatMur;    //!< true si le mur est en position initiale et false si il est dans sa deuxième position
 
 public:
 

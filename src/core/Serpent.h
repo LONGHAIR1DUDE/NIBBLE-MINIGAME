@@ -13,10 +13,10 @@ using namespace std;
 class Serpent
 {
 private:
-    vector<Point> corps;
-    bool mouvementInverse;
-    Point directionSerpent;
-    Point boutSerpent;
+    vector<Point> corps; //!< corps de type vector (tableau dynamique), contient les parties du serpent 
+    bool mouvementInverse; //!< mouvementInverse de type booléen, définit le sens du mouvement du serpent (par rapport aux touches)
+    Point directionSerpent; //!< directionSerpent de type Point, permet de définir la direction du serpent
+    Point boutSerpent; //!< boutSerpent de type Point, correspond au dernière élément du serpent 
 
 public:
     /**

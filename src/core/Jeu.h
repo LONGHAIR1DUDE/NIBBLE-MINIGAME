@@ -18,14 +18,14 @@ using namespace std;
 class Jeu
 {
 private:
-    Terrain terrain;
-    Serpent serpent;
-    vector<Portail> tabPortail;
-    vector<Bonus> tabBonus;
-    vector<Mur> tabMurs;
-    int score;
-    int meilleurScore;
-    int multiplicateur;
+    Terrain terrain; //!< terrain de type Terrain, correspond au niveau dans lequel vont ce dérouler le jeu   
+    Serpent serpent; //!< serpent de type Serpent, serpent sur lequel des éléments vont intéragir 
+    vector<Portail> tabPortail; //!< tabPortail de type vector (tableau dynamique), va contenir les portails placés dans le niveau 
+    vector<Bonus> tabBonus; //!< tabBonus de type vector (tableau dynamique), va contenir les bonus placés dans le niveau
+    vector<Mur> tabMurs; //!< tabMurs de type vector (tableau dynamique), va contenir les murs placés dans le niveau
+    int score; //!< score de type entier, récupère le score d'une partie
+    int meilleurScore; //!< meilleurScore de type entier, récupère le meilleur score 
+    int multiplicateur; //!< multiplicateur de type entier, sert à modifier la vitesse d'incrémentation du score 
 
 public:
 

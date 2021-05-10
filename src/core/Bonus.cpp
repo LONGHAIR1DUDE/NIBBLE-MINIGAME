@@ -21,7 +21,7 @@ void Bonus::changeTailleSerpent(Serpent &serp, Terrain &ter) // fonction qui cha
 {
     if (action == 0) // si l'entier qui correspond à une action vaut 0
     { 
-        for (int i = 0; i < 5; i++) 
+        for (int i = 0; i < 5; i++) // boucle for qui allonge le serpent 
         {
             serp.setMouv(false);
             serp.allongeCorps(ter);
@@ -29,19 +29,19 @@ void Bonus::changeTailleSerpent(Serpent &serp, Terrain &ter) // fonction qui cha
     }
     else // sinon
     {
-        for (int i = 0; i < serp.getTailleSerpent(); i++)
+        for (int i = 0; i < serp.getTailleSerpent(); i++) // boucle for qui rétrécie le serpent
         {
             serp.retrecirCorps();
         }
     }
 }
 
-void Bonus::inverseMouvement(Serpent &serp)
+void Bonus::inverseMouvement(Serpent &serp) // inverse le mouvement du serpent 
 {
     serp.setMouv(true);
 }
 
-void Bonus::actionBonus(Serpent &serp, Terrain &ter)
+void Bonus::actionBonus(Serpent &serp, Terrain &ter) // gère l'action de chaque bonus
 {
     if (action == 0)
     {
@@ -61,27 +61,27 @@ void Bonus::actionBonus(Serpent &serp, Terrain &ter)
     }
 }
 
-Point Bonus::getPos()
+Point Bonus::getPos() // accesseur sur la position du bonus
 {
     return position;
 }
 
-int Bonus::getX()
+int Bonus::getX() // accesseur sur la position en x du bonus
 {
     return position.x;
 }
 
-int Bonus::getY()
+int Bonus::getY() // accesseur sur la position en y du bonus
 {
     return position.y;
 }
 
-int Bonus::getAction()
+int Bonus::getAction() // accesseur sur l'action du bonus
 {
     return action;
 }
 
-void Bonus::setBonus(int i, int x, int y)
+void Bonus::setBonus(int i, int x, int y) // mutateur sur le bonus
 {
     action = i;
     position.x = x;

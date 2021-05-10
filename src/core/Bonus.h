@@ -12,8 +12,8 @@ using namespace std;
 class Bonus
 {
 private:
-    int action;
-    Point position;
+    int action; //!< action du bonus de type entier 
+    Point position; //!< position du bonus de type point
 
     /**
      * @brief change la taille du serpent en fonction de l'action 
