@@ -102,4 +102,5 @@ $ ./bin/nibble_txt
 - `s`: Aller en bas.
 - `d`: Aller à droite. 
 
-- `l`: Quitter le jeu (sous txt et sdl).
+- `l`: Quitter le jeu (txt).
+- `echap`: Quitter le jeu (sdl).
