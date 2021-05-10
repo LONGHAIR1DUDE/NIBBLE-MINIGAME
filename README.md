@@ -75,9 +75,15 @@ $ ./bin/nibble_txt
 
 - Exécutable qui lance l'application en mode graphique:
 
-```bash
-$ ./bin/nibble_sdl2
-```
+    - résolution 1280x720:
+    ```bash
+    $ ./bin/nibble_sdl2 0
+    ```
+
+    - résolution 960x540:
+    ```bash
+    $ ./bin/nibble_sdl2 1
+    ```
 ## Les touches
 
 - `z`: Aller en haut.
