@@ -4,11 +4,17 @@ Le thème du projet est le jeu d'arcade Nibble avec des fonctionnalités ainsi q
 
 lien vers le cahier des charges du projet: https://tomuss.univ-lyon1.fr/=ST-1052892-7Rehr9YcUSGnmdcOozwg-cas.univ-lyon1.fr/2021/Printemps/UE-INF2015L/upload_get/7_15/0_33/UE-INF2015L_DepotCahierDesCharges_nibble_p1803192_p1907354_p1801934.pdf
 
+# Développeurs
+
+ALLOUANI Issam p1803192 - HERBINNIERE PAUL p1801934 - GRILLON Théo p1907354
+
 # Exemple 
-- Fruits bonus/malus 
-- Portails qui téléporte le serpent d'un point A vers un point B
-- Murs qui change de position au passage du serpent sur un interrupteur 
-- etc...
+- Fruits bonus/malus.
+- Portails qui téléporte le serpent d'un point A vers un point B.
+- Murs qui change de position au passage du serpent sur un interrupteur. 
+- Le joueur peut récupérer des pièces et des bonus en passant dessus.
+- Un score ainsi que le meilleur score du joueur est affiché en haut de la fenêtre.
+- Un menu permet de lancer le jeu.
 
 ## Organisation du code
 
