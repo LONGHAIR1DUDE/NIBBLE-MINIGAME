@@ -167,10 +167,10 @@ sdlJeu::sdlJeu(char * size,const string &filename) : jeu(filename)
     im_CorpsSerpent.chargeFichier("data/snake-tex.png", renderer);
     im_QueueSerpent.chargeFichier("data/tail.png", renderer);
     im_Piece.chargeFichier("data/food.png", renderer);
-    im_Bonus.chargeFichier("data/fruit1.png", renderer);
+    im_Bonus.chargeFichier("data/fruit2.png", renderer);
     im_Mur.chargeFichier("data/nibble-map.png", renderer);
     im_Cle.chargeFichier("data/cle.png", renderer);
-    im_Portail.chargeFichier("data/portail.png", renderer);
+    im_Portail.chargeFichier("data/portail1.png", renderer);
     im_Interrupteur.chargeFichier("data/interrupteurEteint.png", renderer);
     
     // FONTS
@@ -443,8 +443,8 @@ void sdlJeu::sdlBoucle()
         jeu.actionPortail();
         jeu.placementAleatoireBonus();
         jeu.actionInterrupteur(etat);
-
-        
+            if(etat)im_Interrupteur.chargeFichier("data/interrupteurEteint.png", renderer);
+            if(!etat)im_Interrupteur.chargeFichier("data/interrupteurAllumé.png", renderer);
        
 		// tant qu'il y a des evenements � traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
