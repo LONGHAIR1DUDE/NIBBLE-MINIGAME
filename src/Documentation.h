@@ -13,12 +13,35 @@ Dépendances:
 
 \section Pour éxecuter 
 
+Ce placer à la racine du projet:
 \n $ cd .../nibble_p1803192_p1907354_p1801934
+
+Executer le Makefile:
+\n $ make
+
+Executable pour afficher un niveau dans le terminal:
+\n $ ./bin/afficher 
+
+Executable pour afficher le résultat des tests de régression:
+\n $ ./bin/test
+
+Lancer le jeu en mode texte:
+\n $ ./bin/nibble_txt
+
+Lancer le jeu en mode graphique (1280x720):
+\n $ ./bin/nibble_sdl2 0
+
+Lancer le jeu en mode graphique (960x540):
+\n $ ./bin/nibble_sdl2 1
 
 \section Pour générer la documentation de code
 
 \n Dépendance : Doxygen http://www.stack.nl/~dimitri/doxygen/ 
-\n $ cd ...module-image/doc
-\n Puis ouvrir ...module-image/doc/html/index.html avec firefox
+
+Créer la documentation avec doxygen:
+\n $ doxygen Doxyfile
+
+Ouvrir la documentation doxygen:
+\n $ firefox doc/html/index.html
 
 */

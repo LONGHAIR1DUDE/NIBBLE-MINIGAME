@@ -4,7 +4,7 @@
 
 /**
  * \class Terrain
- * \brief Classe qui permet l'affichae texte du jeu dans le terminal'
+ * \brief Classe qui permet l'affichae texte du jeu dans le terminal
  */
 class TxtFenetre
 {

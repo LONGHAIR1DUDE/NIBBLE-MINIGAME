@@ -74,8 +74,8 @@ $(EXE4): $(OBJSDL2)
 ./obj/mainSdl2.o: $(SDL2)/mainSdl2.cpp $(SDL2)/SdlJeu.h
 	$(CC) $(FLAGS) -c $< -o $@
 
-docu: doc/nibble.doxy
-	cd doc ; doxygen nibble.doxy
+docu: Doxyfile
+	doxygen Doxyfile
 
 clean: 
 	rm -rf ./obj/* ./bin/*
