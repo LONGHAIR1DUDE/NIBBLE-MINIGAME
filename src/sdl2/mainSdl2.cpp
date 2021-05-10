@@ -3,8 +3,8 @@
 
 int main(int argc, char **argv)
 {
-	Jeu jeu("./data/niveau3.txt");
-	sdlJeu sj(argv[1]);
+	
+	sdlJeu sj(argv[1],"./data/niveau2.txt");
 	
 	sj.sdlBoucle();
 	

@@ -99,8 +99,9 @@ SDL_Texture *Image::getTexture() const { return texture; }
 
 void Image::setSurface(SDL_Surface *surf) { surface = surf; }
 
-sdlJeu::sdlJeu(char * size) : jeu("./data/niveau2.txt")
-{
+sdlJeu::sdlJeu(char * size,const string &filename) : jeu(filename)
+{   
+    
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -171,7 +172,7 @@ sdlJeu::sdlJeu(char * size) : jeu("./data/niveau2.txt")
     im_Cle.chargeFichier("data/cle.png", renderer);
     im_Portail.chargeFichier("data/portail.png", renderer);
     im_Interrupteur.chargeFichier("data/interrupteurEteint.png", renderer);
-    im_GameOver.chargeFichier("data/game-over.jpg", renderer);
+    
     // FONTS
     font = TTF_OpenFont("data/crackman.ttf", 50);
     if (font == NULL)
@@ -193,8 +194,18 @@ sdlJeu::sdlJeu(char * size) : jeu("./data/niveau2.txt")
             SDL_Quit(); 
             exit(1);
 	}
-	font_color.r = 50;font_color.g = 50;font_color.b = 255;
-	font_im.setSurface(TTF_RenderText_Solid(font,"Nibble",font_color));
+        player = TTF_OpenFont("data/ghostclan.ttf", 70);
+    if (player == NULL)
+        player = TTF_OpenFont("../data/ghostclan.ttf", 70);
+    if (player == NULL)
+        player = TTF_OpenFont("../data/ghostclan.ttf",70);
+    if (player == NULL) {
+            cout << "Failed to load pdark.ttf! SDL_TTF Error: " << TTF_GetError() << endl; 
+            SDL_Quit(); 
+            exit(1);
+	}
+	Title_color.r = 220;Title_color.g = 20;Title_color.b = 60;
+	font_im.setSurface(TTF_RenderText_Solid(font,"Nibble",Title_color));
 	font_im.chargeSurface(renderer);
 
     // SONS
@@ -209,6 +220,27 @@ sdlJeu::sdlJeu(char * size) : jeu("./data/niveau2.txt")
                 exit(1);
         }
     }
+    r_score.x = screen_width/2-screen_width/20;
+    r_score.y=0;
+    r_score.w = screen_width/10;
+    r_score.h= TAILLE_SPRITE_Y;
+    r_score_border.y=screen_height/200;
+    r_score_border.x = screen_width/2-screen_width/20 + r_score_border.y;
+    r_score_border.w = screen_width/10 - 2*r_score_border.y;
+    r_score_border.h= TAILLE_SPRITE_Y- 2*r_score_border.y;
+
+    r_best_score.x = r_score.x + r_score.w +screen_width/200;
+    r_best_score.y=r_score.y;
+    r_best_score.w = r_score.w ;
+    r_best_score.h= r_score.h;
+    r_best_score_border.y=r_score_border.y;
+    r_best_score_border.x = r_best_score.x + r_score_border.y;
+    r_best_score_border.w = r_score_border.w;
+    r_best_score_border.h= r_score_border.h;
+    r_game_over.x=0;
+    r_game_over.y=0;
+    r_game_over.w=screen_width;
+    r_game_over.h=screen_height;
 }
 
 sdlJeu::~sdlJeu()
@@ -225,9 +257,9 @@ sdlJeu::~sdlJeu()
 void sdlJeu::sdlAff()
 {
     //Remplir l'�cran de blanc
-    SDL_SetRenderDrawColor(renderer, 0, 240, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 204, 255);
     SDL_RenderClear(renderer);
-
+    
     int x, y;
     const Terrain &ter = jeu.getTerrain();
     const Serpent &serp = jeu.getSerpent();
@@ -236,9 +268,23 @@ void sdlJeu::sdlAff()
     int score = jeu.getScore();
             std::string s = std::to_string(score);
               char const *pchar = s.c_str();
-              	font_color.r = 115;font_color.g = 0;font_color.b = 255;
+              if(score < 200){font_color.r = 119;font_color.g = 136;font_color.b = 135;}
+              	else if(score < 500){font_color.r = 16;font_color.g = 77;font_color.b = 72;}
+                  else if(score < 1500){font_color.r = 41;font_color.g = 153;font_color.b = 0;}
+                  else if(score < 2500){font_color.r = 255;font_color.g = 126;font_color.b = 0;}
+                  else if(score < 3500){font_color.r = 204;font_color.g = 55;font_color.b = 35;}
+                  else if(score < 7500){font_color.r = 236;font_color.g = 25;font_color.b = 231;}
+                  else if(score > 7500){font_color.r = 31;font_color.g = 25;font_color.b = 236;}
 	score_im.setSurface(TTF_RenderText_Solid(pdark,pchar,font_color));
 	score_im.chargeSurface(renderer);
+    int bestscore = jeu.stockerMeilleurScore();
+    std::string sc = std::to_string(bestscore);
+    best_col.r =102;best_col.g=0;best_col.b =51;
+    std::string be = "Best :";
+    std::string combo = be.append(sc);
+    char const *b = combo.c_str();
+    best_score_im.setSurface(TTF_RenderText_Solid(pdark,b,best_col));
+    best_score_im.chargeSurface(renderer);
     // Afficher les sprites des murs et des pieces
     for (x = 0; x < ter.getDimX(); ++x)
         for (y = 0; y < ter.getDimY(); ++y)
@@ -287,6 +333,14 @@ void sdlJeu::sdlAff()
     im_Portail.dessiner(renderer, p.getPortail1().x * TAILLE_SPRITE, p.getPortail1().y * TAILLE_SPRITE_Y, TAILLE_SPRITE, TAILLE_SPRITE_Y);
     im_Portail.dessiner(renderer, p.getPortail2().x * TAILLE_SPRITE, p.getPortail2().y * TAILLE_SPRITE_Y, TAILLE_SPRITE, TAILLE_SPRITE_Y);
     // Ecrire un titre par dessus
+     SDL_SetRenderDrawColor( renderer, 0, 0, 153, 0 );
+    SDL_RenderFillRect( renderer, &r_score );
+         SDL_SetRenderDrawColor( renderer,153, 255, 153,0 );
+    SDL_RenderFillRect( renderer, &r_score_border );
+         SDL_SetRenderDrawColor( renderer, 139, 0, 0, 0 );
+    SDL_RenderFillRect( renderer, &r_best_score );
+         SDL_SetRenderDrawColor( renderer,20, 219, 180,0 );
+    SDL_RenderFillRect( renderer, &r_best_score_border );
     SDL_Rect positionTitre;
     positionTitre.x = screen_width/2 - screen_width/30;
     positionTitre.y = 7*screen_height/8;
@@ -294,37 +348,77 @@ void sdlJeu::sdlAff()
     positionTitre.h = screen_height/15;
     SDL_RenderCopy(renderer, font_im.getTexture(), NULL, &positionTitre);
         SDL_Rect posTitre;
-    posTitre.x = screen_width/2 - screen_width/44;
-    posTitre.y = screen_height/8;
-    posTitre.w = screen_width/22;
-    posTitre.h = screen_height/19;
+    posTitre.x = screen_width/2 - screen_width/54;
+    posTitre.y = 0;
+    posTitre.w = screen_width/27;
+    posTitre.h = TAILLE_SPRITE_Y;
     SDL_RenderCopy(renderer, score_im.getTexture(), NULL, &posTitre);
+    SDL_Rect posBest;
+    posBest.x = r_best_score_border.x ;
+    posBest.y = 0;
+    posBest.w = r_best_score_border.w;
+    posBest.h = r_score.h;
+    SDL_RenderCopy(renderer, best_score_im.getTexture(), NULL, &posBest);
+
+       
 }
 void sdlJeu::sdlGameOver()
 {  
-    
+        
+    SDL_SetRenderDrawColor(renderer, 204, 255, 255, 2);
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
+    SDL_RenderFillRect( renderer, &r_game_over ); 
       int score = jeu.getScore();
             std::string s = std::to_string(score);
-              char const *pchar = s.c_str();
-              	font_color.r = 0;font_color.g = 140;font_color.b = 0;
-	score_im.setSurface(TTF_RenderText_Solid(pdark,pchar,font_color));
-	score_im.chargeSurface(renderer);
-    im_GameOver.dessiner(renderer,0,0,screen_width,screen_height);
-   	SDL_Rect posTitre;
-    posTitre.x = screen_width/2 - screen_width/20;
-    posTitre.y = screen_height/7;
-    posTitre.w = screen_width/10;
-    posTitre.h = screen_height/10;
-    SDL_RenderCopy(renderer, score_im.getTexture(), NULL, &posTitre);
+            std::string a = "Your Score : ";
+            std::string r = a.append(s);
+              char const *pchar = r.c_str();
+              	font_color.r = 251;font_color.g = 0;font_color.b = 255;
+	score_up_im.setSurface(TTF_RenderText_Solid(pdark,pchar,font_color));
+	score_up_im.chargeSurface(renderer);
+    //im_GameOver.dessiner(renderer,0,0,screen_width,screen_height);
+    game_color.r = 43;game_color.g = 91;game_color.b = 196;
+    im_GameOver.setSurface(TTF_RenderText_Solid(player,"Game Over",game_color));
+    im_GameOver.chargeSurface(renderer);
+    
+    SDL_Rect posGame;
+    posGame.x = screen_width/2 - screen_width/8;
+    posGame.y = screen_height/7;
+    posGame.w = screen_width/4;
+    posGame.h = screen_height/5;
+    SDL_RenderCopy(renderer, im_GameOver.getTexture(), NULL, &posGame);
 
-    score_up_im.setSurface(TTF_RenderText_Solid(pdark,"Your Score :",font_color));
-    score_up_im.chargeSurface(renderer);
-       	SDL_Rect posScore;
-    posScore.x = screen_width/2 - screen_width/5;
-    posScore.y = screen_height/7;
-    posScore.w = screen_width/8;
+        
+    SDL_Rect posScore;
+    posScore.x = screen_width/4 - screen_width/10;
+    posScore.y = screen_height/3;
+    posScore.w = screen_width/5;
     posScore.h = screen_height/10;
     SDL_RenderCopy(renderer, score_up_im.getTexture(), NULL, &posScore);
+
+
+    int bestscore = jeu.stockerMeilleurScore();
+    std::string sc = std::to_string(bestscore);
+    best_col.r =102;best_col.g=0;best_col.b =51;
+    std::string be = "Best score : ";
+    std::string combo = be.append(sc);
+    char const *b = combo.c_str();
+    over_best_im.setSurface(TTF_RenderText_Solid(pdark,b,font_color));
+    over_best_im.chargeSurface(renderer);
+            
+    
+    SDL_Rect posBest_over;
+    posBest_over.x = 3*screen_width/4 - screen_width/10;
+    posBest_over.y = screen_height/3;
+    posBest_over.w = screen_width/5;
+    posBest_over.h = screen_height/10;
+    SDL_RenderCopy(renderer, over_best_im.getTexture(), NULL, &posBest_over);
+
+
+
+
+
 }
 void sdlJeu::sdlBoucle()
 {
@@ -401,8 +495,8 @@ void sdlJeu::sdlBoucle()
                     }
                     break;
                 case SDL_SCANCODE_ESCAPE:
-                case SDLK_l:
-                    quit = true;
+                case SDLK_ESCAPE:
+                quit = true;
                     break;
                 default:
                     break;
@@ -437,7 +531,7 @@ quit = false;
                 switch (events.key.keysym.sym)
                 {
                 case SDL_SCANCODE_ESCAPE:
-                case SDLK_l:
+                case SDLK_ESCAPE:
                     quit = true;
                     break;
 				
