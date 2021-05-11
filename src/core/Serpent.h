@@ -87,7 +87,7 @@ public:
         }
      *@endcode
     */
-    void gauche(const Terrain &t);
+    bool gauche(const Terrain &t);
 
     /**
      *@brief procédure qui permet au serpent d'aller à droite 
@@ -125,7 +125,7 @@ public:
         }
      *@endcode
     */
-    void droite(const Terrain &t);
+    bool droite(const Terrain &t);
 
     /**
      *@brief procédure qui permet au serpent d'aller en haut
@@ -163,7 +163,7 @@ public:
         }
      *@endcode
     */
-    void haut(const Terrain &t);
+    bool haut(const Terrain &t);
 
     /**
      *@brief procédure qui permet au serpent d'aller en bas
@@ -201,7 +201,7 @@ public:
         }
      *@endcode
     */
-    void bas(const Terrain &t);
+    bool bas(const Terrain &t);
 
     /**
      * @brief procédure qui allonge le serpent 

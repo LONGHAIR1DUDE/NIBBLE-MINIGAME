@@ -42,7 +42,7 @@ Serpent::Serpent(int tailleSerp, int posX, int posY, Terrain &t, bool mouvement 
     }
 }
 
-void Serpent::gauche(const Terrain &t) // gestion du déplacement du serpent vers la gauche 
+bool Serpent::gauche(const Terrain &t) // gestion du déplacement du serpent vers la gauche 
 {
     Point temp1, temp2;
     int tailleSerp = corps.size(); // on récupère la taille du serpent 
@@ -70,10 +70,12 @@ void Serpent::gauche(const Terrain &t) // gestion du déplacement du serpent ver
                 }
             }
         }
+        else return false;
     }
+    return true;
 }
 
-void Serpent::droite(const Terrain &t) // gestion du déplacement du serpent vers la droite 
+bool Serpent::droite(const Terrain &t) // gestion du déplacement du serpent vers la droite 
 {
     Point temp1, temp2;
     int tailleSerp = corps.size(); // on récupère la taille du serpent 
@@ -101,10 +103,12 @@ void Serpent::droite(const Terrain &t) // gestion du déplacement du serpent ver
                 }
             }
         }
+        else return false;
     }
+    return true;
 }
 
-void Serpent::haut(const Terrain &t) // gestion du déplacement du serpent en haut 
+bool Serpent::haut(const Terrain &t) // gestion du déplacement du serpent en haut 
 {
     Point temp1, temp2;
     int tailleSerp = corps.size(); // on récupère la taille du serpent 
@@ -132,10 +136,12 @@ void Serpent::haut(const Terrain &t) // gestion du déplacement du serpent en ha
                 }
             }
         }
+        else return false;
     }
+    return true;
 }
 
-void Serpent::bas(const Terrain &t) // gestion du déplacement du serpent en bas
+bool Serpent::bas(const Terrain &t) // gestion du déplacement du serpent en bas
 {
     Point temp1, temp2;
     int tailleSerp = corps.size(); // on récupère la taille du serpent 
@@ -163,7 +169,9 @@ void Serpent::bas(const Terrain &t) // gestion du déplacement du serpent en bas
                 }
             }
         }
+        else return false;
     }
+    return true;
 }
 
 void Serpent::allongeCorps(const Terrain &t) // allonge le corps du serpent 

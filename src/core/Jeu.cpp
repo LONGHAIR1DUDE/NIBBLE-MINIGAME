@@ -195,34 +195,36 @@ bool Jeu::SerpentBouge() // gère le déplacement du serpent
     Point dir = serpent.getDirection();
     int x = serpent.getTete().x; // récupère les coordonnées en x de la tête du serpent
     int y = serpent.getTete().y; // récupère les coordonnées en y de la tête du serpent
+    bool mur = true;
 
     for (int i = 1; i < serpent.getTailleSerpent(); i++) // boucle sur le serpent
     {
-        if ((serpent.getCorps(i).x == x) && (serpent.getCorps(i).y == y)) // si le serpent entre en collision avec lui même
+        if (((serpent.getCorps(i).x == x) && (serpent.getCorps(i).y == y))) // si le serpent entre en collision avec lui même
             return false;
     }
 
     // gestion des déplacements en fonction de la valeur de l'attribue dir 
     if (dir.x == -1) 
     {
-        serpent.gauche(terrain);
+        mur = serpent.gauche(terrain);
     }
 
     if (dir.x == 1)
     {
-        serpent.droite(terrain);
+        mur = serpent.droite(terrain);
     }
 
     if (dir.y == -1)
     {
-        serpent.haut(terrain);
+        mur = serpent.haut(terrain);
     }
 
     if (dir.y == 1)
     {
-        serpent.bas(terrain);
+        mur = serpent.bas(terrain);
     }
 
+    if (!mur) return false;
     return true;
 }
 
